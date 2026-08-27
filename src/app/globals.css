@@ -1,26 +1,308 @@
 @import "tailwindcss";
 
 :root {
+  /* Brand gradient stops — identical in both themes */
+  --brand-1: #910870;
+  --brand-2: #520577;
+  --brand-3: #24081e;
+
+  /* The full three-stop ramp, reusable anywhere */
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--brand-1) 0%,
+    var(--brand-2) 50%,
+    var(--brand-3) 100%
+  );
+}
+
+/*
+ * Theme tokens. Dark is the default; `data-theme` on <html> switches them.
+ * Every surface/text colour below must be defined in BOTH blocks.
+ */
+:root,
+:root[data-theme="dark"] {
+  --background: #07090f;
+  --foreground: #f5f7fb;
+  --surface: #10141b;
+  --surface-2: #171b24;
+  --surface-3: #1d2430;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --muted: #a1a1aa;
+  --page-gradient: radial-gradient(
+      circle at top,
+      rgba(145, 8, 112, 0.18),
+      transparent 30%
+    ),
+    linear-gradient(180deg, #05070d 0%, #07090f 100%);
+}
+
+:root[data-theme="light"] {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0b0d12;
+  --surface: #f4f5f7;
+  --surface-2: #eceef1;
+  --surface-3: #e4e7eb;
+  --hairline: rgba(11, 13, 18, 0.12);
+  --muted: #55585f;
+  --page-gradient: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Theme-aware surfaces */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-hairline: var(--hairline);
+  --color-muted: var(--muted);
+
+  /* Brand accent — stops from the design's gradient */
+  --color-brand: var(--brand-1);
+  --color-brand-mid: var(--brand-2);
+  --color-brand-deep: var(--brand-3);
+  /* Lifted magenta for hover/among dark surfaces */
+  --color-brand-light: #b81a8f;
+
+  --font-display: var(--font-chivo);
+  --font-sans: var(--font-inter);
+  --font-signature: var(--font-great-vibes);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background: var(--page-gradient);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(145, 8, 112, 0.55);
+  color: white;
+}
+
+/* Shared brand gradient fill for CTAs */
+.btn-brand {
+  background: var(--brand-gradient);
+  box-shadow: 0 12px 30px rgba(145, 8, 112, 0.28);
+}
+
+.btn-brand:hover {
+  filter: brightness(1.04);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-display {
+  font-family: var(--font-chivo), var(--font-inter), sans-serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.section-title {
+  font-size: clamp(2rem, 2vw + 1rem, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.soft-panel {
+  background: linear-gradient(180deg, rgba(20, 26, 35, 0.92), rgba(13, 17, 24, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+p,
+span,
+a,
+li,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-weight: 500;
+}
+
+/* Marquee: track holds two copies, so -50% is one seamless cycle */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Waveform bars pulse while a mix is "playing" */
+@keyframes wave-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+  }
+  50% {
+    transform: scaleY(1.35);
+  }
+}
+
+.wave-bar {
+  animation: wave-pulse 900ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-bar {
+    animation: none;
+  }
+}
+
+/*
+ * Scroll reveal. Elements start shifted/transparent and settle once the
+ * IntersectionObserver in <Reveal> adds .is-visible. Staggering is done with an
+ * inline --reveal-delay so a group can cascade.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Form fields lift slightly on focus */
+.field-motion {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.field-motion:focus {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .field-motion,
+  .field-motion:focus {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Horizontal scrollers: keep swipe behaviour, hide the scrollbar chrome */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Handwritten signature — team & DJ names. Script faces sit small on the
+   em box, so bump the size and give descenders room. */
+.font-signature {
+  font-family: var(--font-great-vibes), "Brush Script MT", cursive;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  padding-bottom: 0.08em;
+}
+
+/*
+ * Full-viewport hero. The navbar is sticky and 4rem tall, so the hero fills
+ * what's left of the screen below it. Uses svh/dvh so mobile browser chrome
+ * (address bar collapsing) doesn't cause the hero to jump or overflow, with
+ * a vh fallback for older engines.
+ */
+.hero-screen {
+  min-height: calc(100vh - 4rem);
+  min-height: calc(100svh - 4rem);
+  display: flex;
+  align-items: center;
+}
+
+/* Very short/landscape screens: let tall hero content breathe instead of
+   squashing it into an unreadable strip. */
+@media (max-height: 34rem) {
+  .hero-screen {
+    min-height: auto;
+  }
+}
+
+/* AboutHero stacks an image block above an overlapping stats strip, so it
+   needs a column axis rather than the default centred row. */
+.hero-screen-stack {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+/*
+ * Fluid type. Sizes interpolate smoothly with the viewport instead of
+ * jumping at breakpoints, so headings stay in proportion at any screen
+ * size — including the in-between widths (tablets, split windows, large
+ * phones) that fixed breakpoint steps handle badly.
+ *
+ * Each clamp is min / preferred / max: the min holds on small phones, the
+ * max caps growth on wide monitors, and the vw term scales between them.
+ */
+
+/* Page hero H1 — 24px on a 360px phone up to 34px at 1280px+. */
+.fluid-hero {
+  font-size: clamp(1.5rem, 1.15rem + 1.55vw, 2.125rem);
+  line-height: 1.2;
+}
+
+/* Slightly smaller hero variant (DJ profile). */
+.fluid-hero-sm {
+  font-size: clamp(1.4375rem, 1.15rem + 1.27vw, 2rem);
+  line-height: 1.15;
+}
+
+/* Larger hero variant (Join Us). */
+.fluid-hero-lg {
+  font-size: clamp(1.5625rem, 1.2rem + 1.6vw, 2.1875rem);
+  line-height: 1.15;
+}
+
+/* Section H2 — 20px small, 30px at desktop. */
+.fluid-h2 {
+  font-size: clamp(1.25rem, 1.02rem + 1.02vw, 1.875rem);
+  line-height: 1.2;
+}
+
+/* Body copy that previously stepped text-sm -> sm:text-base. */
+.fluid-body {
+  font-size: clamp(0.875rem, 0.83rem + 0.2vw, 1rem);
 }
