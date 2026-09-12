@@ -4,7 +4,7 @@ import { djs } from "@/lib/home-data";
 
 export default function MeetTheDjs() {
   return (
-    <section id="about" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+    <section id="djs" className="scroll-mt-20 py-12 lg:py-16 bg-black">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,2fr)] lg:gap-12">
           <div>

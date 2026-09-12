@@ -1,4 +1,4 @@
-﻿export const IMG = "/images/home";
+export const IMG = "/images/home";
 
 export type NavLink = { href: string; label: string };
 
@@ -7,7 +7,7 @@ export const navLinks: NavLink[] = [
   { href: "/events", label: "Events" },
   { href: "/last-minute-dj", label: "Last Minute DJ" },
   { href: "/past-gigs", label: "Past Gigs" },
-  { href: "/past-gigs", label: "Resources" },
+  { href: "/#djs", label: "List of DJs" },
   { href: "/areas-we-cover", label: "Areas We Cover" },
   { href: "/contact", label: "Contact" },
 ];
