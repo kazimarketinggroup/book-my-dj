@@ -6,11 +6,11 @@ export default function JoinHero() {
   const [back, front] = joinHero.images;
 
   return (
-    <section className="scroll-mt-20">
-      <div className="mx-auto grid w-full max-w-[1600px] items-center gap-10 px-5 py-10 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-14 2xl:px-16">
-        {/* Copy */}
+    <section className="scroll-mt-20 py-10 sm:py-14 lg:py-16 bg-black text-white">
+      <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-16 lg:px-16">
+        {/* Left Copy */}
         <div>
-          <h1 className="max-w-lg font-display fluid-hero-lg font-semibold text-foreground">
+          <h1 className="max-w-[620px] font-display text-[36px] sm:text-[44px] lg:text-[50px] font-normal leading-[1.18] lg:leading-[58px] text-white">
             {joinHero.title.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -18,64 +18,63 @@ export default function JoinHero() {
             ))}
           </h1>
 
-          <p className="mt-5 max-w-md fluid-body leading-relaxed text-muted">
+          <p className="mt-6 max-w-[540px] font-sans text-[16px] sm:text-[18px] leading-[26px] text-zinc-300">
             {joinHero.blurb}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href={joinHero.primaryCta.href}
-              className="btn-brand rounded-lg px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0"
+              className="inline-flex h-[40px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#24081E] via-[#520577] to-[#910870] px-7 font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02]"
             >
               {joinHero.primaryCta.label}
             </Link>
             <Link
               href={joinHero.secondaryCta.href}
-              className="rounded-lg border border-hairline px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-2"
+              className="inline-flex h-[40px] items-center justify-center rounded-[5px] border border-white/60 bg-transparent px-7 font-display text-[16px] font-medium text-white transition-colors hover:bg-white/10"
             >
               {joinHero.secondaryCta.label}
             </Link>
           </div>
 
-          <dl className="mt-10 grid grid-cols-3 gap-4 sm:max-w-lg sm:gap-6">
+          <dl className="mt-10 sm:mt-12 flex flex-wrap items-start gap-8 sm:gap-14">
             {joinStats.map((stat) => (
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
                 <dd>
-                  <span className="block font-display text-lg font-semibold text-foreground sm:text-xl">
+                  <span className="block font-display text-[22px] sm:text-[24px] font-normal text-white">
                     {stat.value}
                   </span>
-                  <span className="mt-1 block text-xs text-muted">{stat.label}</span>
+                  <span className="mt-1 block font-sans text-[13px] sm:text-[14px] text-zinc-400">
+                    {stat.label}
+                  </span>
                 </dd>
               </div>
             ))}
           </dl>
         </div>
 
-        {/*
-          Two overlapping shots. On lg the back sits top-left and the front
-          drops lower-right over it; offsets + heights are kept inside the
-          container height so neither card clips at the section edge.
-          Below lg they fall back to a plain 2-up.
-        */}
-        <div className="grid grid-cols-2 gap-4 lg:relative lg:block lg:h-88">
-          <div className="relative aspect-4/5 overflow-hidden rounded-2xl border border-hairline lg:absolute lg:top-0 lg:left-0 lg:aspect-auto lg:h-64 lg:w-[58%]">
+        {/* Right Two overlapping shots */}
+        <div className="relative h-[360px] sm:h-[420px] lg:h-[460px] w-full max-w-[540px] lg:ml-auto">
+          {/* Back left shot */}
+          <div className="absolute top-0 left-0 w-[55%] h-[82%] rounded-[15px] overflow-hidden border border-white/10 shadow-2xl">
             <Image
               src={back.src}
               alt={back.alt}
               fill
               priority
-              sizes="(max-width: 1024px) 45vw, 30vw"
+              sizes="(max-width: 1024px) 50vw, 300px"
               className="object-cover"
             />
           </div>
-          <div className="relative aspect-4/5 overflow-hidden rounded-2xl border border-hairline lg:absolute lg:top-18 lg:right-0 lg:aspect-auto lg:h-64 lg:w-[40%]">
+          {/* Front right shot */}
+          <div className="absolute bottom-0 right-0 w-[53%] h-[85%] rounded-[15px] overflow-hidden border border-white/10 shadow-2xl z-10">
             <Image
               src={front.src}
               alt={front.alt}
               fill
               priority
-              sizes="(max-width: 1024px) 45vw, 22vw"
+              sizes="(max-width: 1024px) 50vw, 300px"
               className="object-cover"
             />
           </div>

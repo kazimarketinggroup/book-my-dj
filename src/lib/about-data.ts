@@ -72,8 +72,8 @@ export const team: TeamMember[] = [
     main: `${ABOUT_IMG}/Rectangle 18.png`,
     mainAlt: "Luke Luiz behind the decks",
     gallery: [
-      { src: `${ABOUT_IMG}/Group 171.png`, alt: "Luke Luiz mixing at a club night" },
       { src: `${ABOUT_IMG}/Rectangle 17 (1).png`, alt: "Luke Luiz playing an afternoon set" },
+      { src: `${ABOUT_IMG}/Group 171.png`, alt: "Luke Luiz mixing at a club night" },
       { src: `${ABOUT_IMG}/Group 173.png`, alt: "Luke Luiz at the booth" },
     ],
   },

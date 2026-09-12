@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 
 export default function JoinUsPage() {
   return (
-    <>
+    <main className="min-h-screen bg-black text-white">
       <JoinHero />
       <WhyJoin />
       <HowItWorks />
       <LookingFor />
       <ApplySection />
-    </>
+    </main>
   );
 }

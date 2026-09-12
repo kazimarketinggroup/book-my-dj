@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -72,23 +72,25 @@ export default function EventsWeCover() {
   };
 
   return (
-    <section id="events" className="scroll-mt-20">
-      <div className="mx-auto w-full max-w-[1600px] py-10 lg:py-14">
-        <div className="px-5 sm:px-8 lg:px-12 2xl:px-16">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <h2 className="font-display fluid-h2 font-semibold text-foreground">
-              Events We Cover
-            </h2>
+    <section id="events" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+      <div className="mx-auto w-full max-w-[1440px]">
+        <div className="px-6 sm:px-10 lg:px-16">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
+                Events We Cover
+              </h2>
+              <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-[#9C9C9C]">
+                Wherever the event, whatever the brief, we&apos;ve got a DJ for it.
+              </p>
+            </div>
             <Link
               href="/events"
-              className="rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-light"
+              className="flex h-[41px] items-center justify-center rounded-[6.5px] bg-gradient-to-r from-[#24081e] via-[#520577] to-[#910870] px-6 font-display text-[15px] font-medium text-white shadow-lg transition-opacity hover:opacity-90"
             >
               See All Events
             </Link>
           </div>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted">
-            Wherever the event, whatever the brief, we&apos;ve got a DJ for it.
-          </p>
         </div>
 
         <ul
@@ -97,44 +99,44 @@ export default function EventsWeCover() {
           onMouseLeave={() => (paused.current = false)}
           onFocusCapture={() => (paused.current = true)}
           onBlurCapture={() => (paused.current = false)}
-          className="no-scrollbar mt-8 flex gap-4 scroll-pl-5 overflow-x-auto px-5 pb-2 sm:scroll-pl-8 sm:px-8 lg:scroll-pl-12 lg:px-12 2xl:scroll-pl-16 2xl:px-16"
+          className="no-scrollbar mt-10 flex gap-6 scroll-pl-6 overflow-x-auto px-6 pb-4 sm:scroll-pl-10 sm:px-10 lg:scroll-pl-16 lg:px-16"
         >
-          {eventCategories.map((event) => (
+          {eventCategories.map((event, i) => (
             <li
               key={event.title}
-              className="group relative w-[72%] shrink-0 transition-[width] duration-500 ease-out hover:w-[82%] sm:w-[46%] sm:hover:w-[52%] md:w-[36%] md:hover:w-[42%] lg:w-[27%] lg:hover:w-[32%] xl:w-[21%] xl:hover:w-[26%] 2xl:w-[17%] 2xl:hover:w-[22%]"
+              className={`shrink-0 transition-all duration-300 ${
+                i === 0
+                  ? "w-[340px] sm:w-[420px] lg:w-[452px]"
+                  : "w-[260px] sm:w-[280px] lg:w-[294px]"
+              }`}
             >
-              {/*
-                Text sits over the image. The whole block slides up on hover to
-                make room for the button, which fades in from below.
-              */}
-              <article className="relative h-90 overflow-hidden rounded-2xl border border-hairline sm:h-100 lg:h-105">
+              <article className="group relative h-[452px] w-full overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-2xl">
                 <Image
                   src={event.image}
                   alt={event.alt}
                   fill
-                  sizes="(max-width: 640px) 72vw, (max-width: 1024px) 40vw, 22vw"
-                  className="object-cover"
+                  sizes="(max-width: 640px) 300px, 452px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                {/* Gradient from Figma: linear-gradient(0deg, #000000 70.67%, rgba(0, 0, 0, 0) 100%) */}
                 <div
                   aria-hidden
-                  className="absolute inset-0 bg-linear-to-t from-black via-black/55 to-transparent"
+                  className="absolute inset-x-0 bottom-0 h-[300px] bg-gradient-to-t from-black via-black/80 to-transparent"
                 />
 
-                <div className="absolute inset-x-0 bottom-0 p-4">
-                  <h3 className="font-display text-base font-semibold text-white sm:text-lg">
+                <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                  <h3 className="font-display text-[22px] sm:text-[25px] font-medium leading-[35px] text-white">
                     {event.title}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-zinc-300 sm:text-sm">
+                  <p className="mt-2 font-sans text-[15px] sm:text-[18px] leading-[26px] text-white/90">
                     {event.blurb}
                   </p>
 
                   <Link
                     href={event.href}
-                    tabIndex={-1}
-                    className="btn-brand mt-3 inline-block translate-y-3 rounded-md px-6 py-2.5 text-xs font-semibold text-white opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                    className="mt-5 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#24081E] via-[#520577] to-[#910870] font-display text-[16px] font-medium text-white shadow-lg transition-all hover:brightness-110"
                   >
-                    Get Quote
+                    Book My DJ
                   </Link>
                 </div>
               </article>
@@ -142,8 +144,8 @@ export default function EventsWeCover() {
           ))}
         </ul>
 
-        {/* Pagination dots */}
-        <div className="mt-6 flex justify-center gap-2">
+        {/* Pagination indicator matching Figma Group 71 Tablist */}
+        <div className="mt-8 flex justify-center items-center gap-2">
           {Array.from({ length: PAGES }, (_, i) => (
             <button
               key={i}
@@ -151,10 +153,10 @@ export default function EventsWeCover() {
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
               aria-current={active === i}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`rounded-full transition-all duration-300 ${
                 active === i
-                  ? "w-6 bg-foreground"
-                  : "w-1.5 bg-foreground/30 hover:bg-foreground/50"
+                  ? "h-2 w-8 bg-white"
+                  : "h-2 w-2 bg-white/40 hover:bg-white/60"
               }`}
             />
           ))}

@@ -5,30 +5,38 @@ export default function ApplySection() {
   return (
     <section
       id="apply"
-      className="mx-auto w-full max-w-[1600px] scroll-mt-20 px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16"
+      className="scroll-mt-20 py-12 lg:py-16 bg-black text-white"
     >
-      <div className="grid items-center gap-8 rounded-2xl border border-hairline bg-surface p-5 sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8">
-        <div>
-          <h2 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
-            {applySection.title}
-          </h2>
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <div className="rounded-[20px] border border-white/10 bg-[#141414] p-8 sm:p-12 lg:p-14 shadow-2xl">
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
+            {/* Left Copy */}
+            <div className="lg:pt-2">
+              <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-tight text-white">
+                {applySection.title}
+              </h2>
 
-          <p className="mt-5 max-w-xs fluid-body leading-relaxed text-muted">
-            {applySection.blurb}
-          </p>
-          <p className="mt-5 max-w-xs fluid-body leading-relaxed text-muted">
-            {applySection.emailNote}
-          </p>
+              <p className="mt-6 max-w-sm font-sans text-[15px] sm:text-[16px] leading-[26px] text-zinc-300">
+                {applySection.blurb}
+              </p>
+              <p className="mt-6 max-w-sm font-sans text-[14px] sm:text-[15px] leading-[24px] text-zinc-400">
+                {applySection.emailNote}
+              </p>
 
-          <a
-            href={`mailto:${applySection.email}`}
-            className="mt-5 inline-block text-sm text-foreground underline-offset-4 transition-colors hover:text-brand-light hover:underline"
-          >
-            {applySection.email}
-          </a>
+              <div className="mt-6">
+                <a
+                  href={`mailto:${applySection.email}`}
+                  className="font-sans text-[16px] text-white hover:underline transition-colors"
+                >
+                  {applySection.email}
+                </a>
+              </div>
+            </div>
+
+            {/* Right Form Card */}
+            <ApplyForm />
+          </div>
         </div>
-
-        <ApplyForm />
       </div>
     </section>
   );

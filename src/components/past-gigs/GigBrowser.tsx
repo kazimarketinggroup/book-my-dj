@@ -24,7 +24,7 @@ export default function GigBrowser() {
 
   // Keep the selection valid when filters shrink the list.
   const activeIndex = selected < results.length ? selected : 0;
-  const featured = results[activeIndex];
+  const featured = results[activeIndex] || pastGigs[0];
 
   const changeFilter = (next: GigCategory) => {
     setCategory(next);
@@ -32,46 +32,50 @@ export default function GigBrowser() {
   };
 
   return (
-    <section id="past-gigs" className="scroll-mt-20">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <h2 className="font-display fluid-h2 font-semibold text-foreground">
+    <section id="past-gigs" className="scroll-mt-20 bg-black py-10 lg:py-16 text-white">
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        {/* Header: Title + Search Pill */}
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[50px] text-white">
             Past Gigs
           </h2>
 
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-full sm:w-[400px]">
             <label htmlFor="gig-search" className="sr-only">
               Search past gigs
             </label>
-            <input
-              id="gig-search"
-              type="search"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setSelected(0);
-              }}
-              placeholder="Search"
-              className="h-10 w-full rounded-full border border-hairline bg-surface pr-4 pl-10 text-sm text-foreground placeholder:text-muted outline-none transition-colors focus:border-brand-light focus:ring-1 focus:ring-brand-light"
-            />
-            <svg
-              aria-hidden
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" strokeLinecap="round" />
-            </svg>
+            <div className="flex h-[44px] w-full items-center rounded-full border border-white/50 bg-transparent px-4 gap-3 transition-all focus-within:border-white focus-within:ring-1 focus-within:ring-white">
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                className="h-5 w-5 shrink-0 text-white/50"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.5-3.5" strokeLinecap="round" />
+              </svg>
+              <input
+                id="gig-search"
+                type="search"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setSelected(0);
+                }}
+                placeholder="Search"
+                className="w-full bg-transparent font-sans text-[15px] text-white placeholder:text-white/50 outline-none"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,1.5fr)_minmax(0,1.2fr)]">
-          {/* Category filters */}
-          <nav aria-label="Gig categories" className="min-w-0 lg:self-start">
-            <ul className="no-scrollbar flex gap-2 overflow-x-auto pb-2 lg:block lg:space-y-4 lg:overflow-visible lg:border-l lg:border-hairline lg:pb-0">
+        {/* 3-Part Layout matching Figma Group 189 */}
+        <div className="mt-8 sm:mt-10 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 xl:gap-8">
+          {/* 1. Left Category Nav */}
+          <nav aria-label="Gig categories" className="w-full lg:w-[150px] shrink-0">
+            <ul className="flex gap-2 overflow-x-auto pb-2 no-scrollbar lg:block lg:space-y-6 lg:overflow-visible lg:pb-0">
               {gigCategories.map((c) => {
                 const on = c === category;
                 return (
@@ -80,10 +84,10 @@ export default function GigBrowser() {
                       type="button"
                       onClick={() => changeFilter(c)}
                       aria-current={on}
-                      className={`shrink-0 rounded-full border px-4 py-1.5 text-sm whitespace-nowrap transition-colors lg:-ml-px lg:block lg:w-full lg:rounded-none lg:border-0 lg:border-l-2 lg:px-4 lg:py-1 lg:text-left ${
+                      className={`whitespace-nowrap font-sans text-[17px] leading-[30px] transition-colors text-left block w-full ${
                         on
-                          ? "border-brand-light bg-surface text-foreground lg:bg-transparent"
-                          : "border-hairline text-muted hover:text-foreground lg:border-transparent"
+                          ? "font-medium text-white"
+                          : "font-normal text-white/80 hover:text-white"
                       }`}
                     >
                       {c}
@@ -94,82 +98,87 @@ export default function GigBrowser() {
             </ul>
           </nav>
 
-          {featured ? (
-            <>
-              {/*
-                Featured gig. Fixed height on desktop so it doesn't stretch to
-                match however many results the filter returns.
-              */}
-              <article
-                aria-live="polite"
-                className="overflow-hidden rounded-2xl border border-hairline bg-surface p-4 sm:p-5 lg:h-71"
-              >
-                <div className="grid h-full gap-4 sm:grid-cols-[1.05fr_1fr] sm:items-center">
-                  <div className="order-2 text-left sm:order-1">
-                    <h3 className="font-display text-lg font-semibold text-foreground">
-                      {featured.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted">
-                      {featured.detail}
-                    </p>
-                  </div>
-                  <div className="relative order-1 aspect-3/4 w-full overflow-hidden rounded-xl sm:order-2 sm:h-full">
-                    <Image
-                      key={featured.image}
-                      src={featured.image}
-                      alt={featured.alt}
-                      fill
-                      sizes="(max-width: 640px) 90vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-              </article>
+          {/* Vertical Divider Line (Figma Line 3: 472px) */}
+          <div
+            aria-hidden
+            className="hidden lg:block w-[1px] h-[472px] bg-white/20 shrink-0"
+          />
 
-              {/* Selectable list — scrolls if the filter returns a lot */}
-              <ul className="no-scrollbar flex flex-col gap-3 lg:h-71 lg:overflow-y-auto">
-                {results.map((gig, i) => {
-                  const on = i === activeIndex;
-                  return (
-                    <li key={gig.title}>
-                      <button
-                        type="button"
-                        onClick={() => setSelected(i)}
-                        aria-pressed={on}
-                        className={`flex w-full items-center gap-3 rounded-2xl border bg-surface p-2.5 text-left transition-colors ${
-                          on
-                            ? "border-[#d483ff]/60 shadow-[0_0_0_1px_rgba(212,131,255,0.18)]"
-                            : "border-hairline hover:border-foreground/25"
-                        }`}
-                      >
-                        <div className="relative aspect-square w-16 shrink-0 overflow-hidden rounded-lg">
-                          <Image
-                            src={gig.image}
-                            alt={gig.alt}
-                            fill
-                            sizes="64px"
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="font-display text-[15px] font-semibold text-foreground">
-                            {gig.title}
-                          </h3>
-                          <p className="mt-1 text-sm leading-relaxed text-muted">
-                            {gig.blurb}
-                          </p>
-                        </div>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </>
+          {/* 2. Middle Featured Active Gig Card (Figma Group 187: 606px x 518px) */}
+          {featured ? (
+            <article
+              aria-live="polite"
+              className="flex-1 w-full lg:max-w-[606px] h-auto lg:h-[518px] overflow-hidden rounded-[14.5px] bg-[#161616] p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+            >
+              {/* Text Left: 262px */}
+              <div className="flex-1 min-w-0 text-left sm:max-w-[270px]">
+                <h3 className="font-sans text-[22px] sm:text-[24px] font-normal leading-[30px] text-white">
+                  {featured.title}
+                </h3>
+                <p className="mt-5 font-sans text-[15px] sm:text-[16px] leading-[26px] text-zinc-300">
+                  {featured.detail}
+                </p>
+              </div>
+
+              {/* Tall Portrait Image Right (Figma Rectangle 13: 268px x 481px) */}
+              <div className="relative aspect-[268/481] w-full sm:w-[268px] sm:h-[481px] shrink-0 overflow-hidden rounded-[14.5px]">
+                <Image
+                  key={featured.image}
+                  src={featured.image}
+                  alt={featured.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 90vw, 268px"
+                  className="object-cover"
+                />
+              </div>
+            </article>
           ) : (
-            <p className="text-sm text-muted lg:col-span-2">
-              No gigs match that search. Try a different term or category.
+            <p className="text-base text-zinc-400 py-12 text-center flex-1">
+              No gigs match that search.
             </p>
           )}
+
+          {/* 3. Right Selectable Gig List (Figma Group 62: 439px x 516.8px) */}
+          <ul className="w-full lg:w-[439px] shrink-0 flex flex-col gap-[10px]">
+            {results.slice(0, 3).map((gig, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <li key={gig.title}>
+                  <button
+                    type="button"
+                    onClick={() => setSelected(i)}
+                    aria-pressed={isActive}
+                    className={`w-full h-[165.6px] rounded-[15px] bg-[#161616] p-3.5 sm:p-4 text-left transition-all flex items-center gap-4.5 ${
+                      isActive
+                        ? "border border-[#910870] shadow-lg shadow-purple-950/20"
+                        : "border border-transparent hover:bg-[#1c1c1c]"
+                    }`}
+                  >
+                    {/* Thumbnail (Figma Rectangle 15: 158px x 142px) */}
+                    <div className="relative w-[140px] sm:w-[158px] h-[130px] sm:h-[142px] shrink-0 overflow-hidden rounded-[15px]">
+                      <Image
+                        src={gig.image}
+                        alt={gig.alt}
+                        fill
+                        sizes="158px"
+                        className="object-cover"
+                      />
+                    </div>
+                    {/* Content (Figma: 229px x 93px) */}
+                    <div className="min-w-0 flex-1 text-left">
+                      <h4 className="font-sans text-[20px] sm:text-[23px] font-normal leading-[28px] text-white line-clamp-2">
+                        {gig.title}
+                      </h4>
+                      <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-[22px] text-zinc-400 line-clamp-2">
+                        {gig.blurb}
+                      </p>
+                    </div>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>

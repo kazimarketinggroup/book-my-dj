@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -9,41 +9,49 @@ export default function PastGigs() {
   const featured = gigs[active];
 
   return (
-    <section id="past-gigs" className="scroll-mt-20">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16">
-        <h2 className="font-display fluid-h2 font-semibold text-foreground">
+    <section id="past-gigs" className="scroll-mt-20 py-10 lg:py-16 bg-black">
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
           Our Past Gigs
         </h2>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-[1.1fr_1.3fr] lg:gap-5">
-          {/* Featured panel - reflects the selected gig */}
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {/* Featured panel (Rectangle 14 in Figma: 625px x 527px, #121212, rounded 15px) */}
           <article
             aria-live="polite"
-            className="h-full overflow-hidden rounded-[22px] border border-hairline bg-surface p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-4"
+            className="flex flex-col justify-between overflow-hidden rounded-[15px] bg-[#121212] p-6 shadow-xl sm:flex-row sm:items-center sm:gap-6"
           >
-            <div className="grid h-full gap-4 sm:grid-cols-[1.15fr_1fr] sm:items-stretch">
-              <div className="order-2 text-left sm:order-1 sm:self-center">
-                <h3 className="font-display text-[15px] font-semibold text-foreground sm:text-[18px]">
-                  {featured.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted sm:text-[15px]">
-                  {featured.detail}
-                </p>
-              </div>
-              <div className="relative order-1 aspect-[4/5] w-full overflow-hidden rounded-[18px] sm:order-2 sm:aspect-auto sm:h-full sm:min-h-80">
-                <Image
-                  key={featured.image}
-                  src={featured.image}
-                  alt={featured.alt}
-                  fill
-                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw"
-                  className="object-cover"
-                />
+            <div className="flex-1 text-left">
+              <h3 className="font-sans text-[20px] sm:text-[24px] font-normal leading-[30px] text-white">
+                {featured.title}
+              </h3>
+              <p className="mt-4 font-sans text-[14px] sm:text-[16px] leading-[26px] text-zinc-300">
+                {featured.detail}
+              </p>
+            </div>
+            
+            {/* Featured Image with Play Button (Rectangle 13 & Polygon 2) */}
+            <div className="relative mt-4 aspect-[289/494] w-full max-w-[260px] shrink-0 overflow-hidden rounded-[15px] sm:mt-0 sm:h-[450px]">
+              <Image
+                key={featured.image}
+                src={featured.image}
+                alt={featured.alt}
+                fill
+                sizes="(max-width: 640px) 90vw, 300px"
+                className="object-cover"
+              />
+              {/* Polygon 2 Play Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-black/50 backdrop-blur-xs transition-transform hover:scale-110">
+                  <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6 translate-x-0.5">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
               </div>
             </div>
           </article>
 
-          {/* Selectable gig list */}
+          {/* Selectable gig list (Group 57, 58, 59 in Figma: #121212, rounded 15px) */}
           <div className="flex flex-col gap-4">
             {gigs.map((gig, i) => {
               const isActive = i === active;
@@ -53,26 +61,27 @@ export default function PastGigs() {
                   type="button"
                   onClick={() => setActive(i)}
                   aria-pressed={isActive}
-                  className={`flex w-full items-center gap-4 rounded-[20px] border p-3 text-left transition-colors sm:p-4 ${
+                  className={`flex w-full items-center gap-5 rounded-[15px] bg-[#121212] p-4 text-left transition-all ${
                     isActive
-                      ? "border-[#d483ff]/50 bg-surface shadow-[0_0_0_1px_rgba(212,131,255,0.18)]"
-                      : "border-hairline bg-surface hover:border-foreground/25"
+                      ? "ring-1 ring-[#910870] shadow-lg shadow-purple-950/30"
+                      : "hover:bg-[#181818]"
                   }`}
                 >
-                  <div className="relative aspect-square w-22 shrink-0 overflow-hidden rounded-[14px] sm:w-24">
+                  {/* Thumbnail: Rectangle 15 in Figma: 158px x 142px */}
+                  <div className="relative h-[110px] w-[120px] sm:h-[130px] sm:w-[145px] shrink-0 overflow-hidden rounded-[15px]">
                     <Image
                       src={gig.image}
                       alt={gig.alt}
                       fill
-                      sizes="96px"
+                      sizes="150px"
                       className="object-cover"
                     />
                   </div>
                   <div className="min-w-0 flex-1 text-left">
-                    <h3 className="font-display text-[15px] font-semibold text-foreground sm:text-[18px]">
+                    <h3 className="font-sans text-[18px] sm:text-[22px] font-normal leading-tight text-white">
                       {gig.title}
                     </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted">
+                    <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-snug text-zinc-400">
                       {gig.blurb}
                     </p>
                   </div>

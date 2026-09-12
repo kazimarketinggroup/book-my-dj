@@ -4,100 +4,129 @@ import { team } from "@/lib/about-data";
 
 export default function TeamSection() {
   return (
-    <section id="team" className="scroll-mt-20">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16">
-        <h2 className="font-display fluid-h2 font-semibold text-foreground">
+    <section id="team" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
           The Team Behind The Decks
         </h2>
 
-        <div className="mt-8 space-y-10 lg:space-y-12">
+        <div className="mt-10 space-y-12 sm:space-y-16">
           {team.map((member, idx) => (
             <div
               key={member.name}
-              className="grid gap-6 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,2fr)] lg:gap-10"
+              className="grid gap-8 lg:grid-cols-[280px_1fr] lg:gap-10 xl:gap-14 items-center"
             >
-              {/* Name + bio */}
-              <div>
-                <p className="flex flex-wrap items-baseline gap-x-2">
-                  <span className="font-signature text-4xl text-foreground sm:text-5xl">
-                    {member.signature}
-                  </span>
-                  <span className="text-[11px] text-muted">{member.handle}</span>
-                </p>
-                <p className="mt-1 text-xs text-muted">{member.role}</p>
-                <p className="mt-4 max-w-60 text-sm leading-relaxed text-muted">
-                  {member.bio}
-                </p>
+              {/* Left Column: Name, Handle, Role, Bio & Read More */}
+              <div className="flex flex-col justify-between max-w-[280px]">
+                <div>
+                  <div className="flex flex-wrap items-baseline gap-x-2.5">
+                    <span className="font-signature text-[50px] sm:text-[58px] lg:text-[64px] leading-none text-white">
+                      {member.signature}
+                    </span>
+                    <span className="font-sans text-[13px] sm:text-[14px] text-[#ACA9B3]">
+                      {member.handle}
+                    </span>
+                  </div>
+                  <p className="mt-1.5 font-sans text-[14px] sm:text-[15px] font-normal text-[#ACA9B3]">
+                    {member.role}
+                  </p>
+                  <p className="mt-4 font-sans text-[14px] sm:text-[15px] leading-[25px] text-[#ACA9B3]">
+                    {member.bio}
+                  </p>
+                </div>
                 <Link
                   href={member.href}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-light transition-colors hover:text-brand"
+                  className="mt-6 inline-flex items-center gap-1.5 font-sans text-[16px] font-normal bg-gradient-to-r from-[#910870] to-[#520577] bg-clip-text text-transparent transition-opacity hover:opacity-80"
                 >
-                  Read More <span aria-hidden>&rarr;</span>
+                  <span>Read More</span>
+                  <span className="text-[#910870]" aria-hidden>&rarr;</span>
                 </Link>
               </div>
 
-              {/*
-                Collage on a fixed 4-col / 2-row grid so nothing wraps:
-                  main portrait  cols 1-2 (both rows)
-                  shot 0         col 3  row 1     shot 1  col 4 (both rows)
-                  shot 2         col 3  row 2
-                The second member mirrors it left-to-right.
-              */}
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:grid-rows-2 sm:gap-4 sm:h-80 lg:h-95">
-                <figure
-                  className={`relative col-span-2 aspect-4/3 overflow-hidden rounded-2xl border border-hairline sm:aspect-auto sm:row-span-2 ${
-                    idx % 2 === 1 ? "sm:col-start-3" : "sm:col-start-1"
-                  }`}
-                >
+              {/* Right Column: 3-column Photo Collage (No text overlay) */}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-[457fr_213fr_213fr] sm:gap-4 sm:h-[300px] lg:h-[331px]">
+                {/* Column 1: Main Large Card */}
+                <div className="relative col-span-2 aspect-[457/331] w-full overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl sm:col-span-1 sm:aspect-auto sm:h-full">
                   <Image
                     src={member.main}
                     alt={member.mainAlt}
                     fill
-                    sizes="(max-width: 640px) 92vw, 42vw"
+                    sizes="(max-width: 640px) 100vw, 460px"
                     className="object-cover"
                   />
-                  <div
-                    aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-black/85 to-transparent"
-                  />
-                  <figcaption className="absolute inset-x-0 bottom-0 p-4">
-                    <p className="font-display text-base font-semibold text-white">
-                      {member.name}
-                    </p>
-                    <p className="text-xs text-zinc-300">{member.role}</p>
-                  </figcaption>
-                </figure>
+                </div>
 
-                {member.gallery.map((shot, i) => {
-                  // Column/row for each supporting shot, mirrored for member 2.
-                  const left = idx % 2 === 1;
-                  const place =
-                    i === 0
-                      ? left
-                        ? "sm:col-start-1 sm:row-start-1"
-                        : "sm:col-start-3 sm:row-start-1"
-                      : i === 1
-                        ? left
-                          ? "sm:col-start-2 sm:row-span-2 sm:row-start-1"
-                          : "sm:col-start-4 sm:row-span-2 sm:row-start-1"
-                        : left
-                          ? "sm:col-start-1 sm:row-start-2"
-                          : "sm:col-start-3 sm:row-start-2";
-                  return (
-                    <figure
-                      key={shot.src}
-                      className={`relative aspect-4/3 overflow-hidden rounded-2xl border border-hairline sm:aspect-auto ${place}`}
-                    >
+                {/* Column 2 (Middle) */}
+                {idx === 0 ? (
+                  /* Don: 2 stacked cards (Group 168 top, Group 169 bottom) */
+                  <div className="col-span-1 flex flex-col gap-3 sm:gap-4 h-full">
+                    <div className="relative flex-1 w-full aspect-[212/154] sm:aspect-auto overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl">
                       <Image
-                        src={shot.src}
-                        alt={shot.alt}
+                        src={member.gallery[0].src}
+                        alt={member.gallery[0].alt}
                         fill
-                        sizes="(max-width: 640px) 45vw, 20vw"
+                        sizes="(max-width: 640px) 50vw, 215px"
                         className="object-cover"
                       />
-                    </figure>
-                  );
-                })}
+                    </div>
+                    <div className="relative flex-1 w-full aspect-[212/154] sm:aspect-auto overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl">
+                      <Image
+                        src={member.gallery[1].src}
+                        alt={member.gallery[1].alt}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 215px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  /* Luke: 1 tall portrait card (Rectangle 17 (1).png) */
+                  <div className="relative col-span-1 aspect-[214/331] sm:aspect-auto w-full h-full overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl">
+                    <Image
+                      src={member.gallery[0].src}
+                      alt={member.gallery[0].alt}
+                      fill
+                      sizes="(max-width: 640px) 50vw, 215px"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+
+                {/* Column 3 (Right) */}
+                {idx === 0 ? (
+                  /* Don: 1 tall portrait card (Group 170.png - mixing outdoors in vest) */
+                  <div className="relative col-span-1 aspect-[212/331] sm:aspect-auto w-full h-full overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl">
+                    <Image
+                      src={member.gallery[2].src}
+                      alt={member.gallery[2].alt}
+                      fill
+                      sizes="(max-width: 640px) 50vw, 215px"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  /* Luke: 2 stacked cards (Group 171 top, Group 173 bottom) */
+                  <div className="col-span-1 flex flex-col gap-3 sm:gap-4 h-full">
+                    <div className="relative flex-1 w-full aspect-[214/154] sm:aspect-auto overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl">
+                      <Image
+                        src={member.gallery[1].src}
+                        alt={member.gallery[1].alt}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 215px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative flex-1 w-full aspect-[214/154] sm:aspect-auto overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-xl">
+                      <Image
+                        src={member.gallery[2].src}
+                        alt={member.gallery[2].alt}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 215px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}

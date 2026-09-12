@@ -1,5 +1,4 @@
 import Hero from "@/components/home/Hero";
-import EventMarquee from "@/components/home/EventMarquee";
 import BookingBar from "@/components/home/BookingBar";
 import PastGigs from "@/components/home/PastGigs";
 import MeetTheDjs from "@/components/home/MeetTheDjs";
@@ -11,7 +10,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <EventMarquee />
       <BookingBar />
       <PastGigs />
       <MeetTheDjs />

@@ -1,40 +1,33 @@
-import Reveal from "@/components/ui/Reveal";
 import { joinSteps } from "@/lib/join-data";
-
-/** Brand tint strengthens as you move down the list. */
-const tints = [
-  "from-brand/22 to-transparent",
-  "from-brand/16 to-transparent",
-  "from-brand/12 to-transparent",
-  "from-brand/26 to-transparent",
-];
 
 export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="mx-auto w-full max-w-[1600px] scroll-mt-20 px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16"
+      className="scroll-mt-20 py-12 lg:py-16 bg-black text-white"
     >
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)] lg:gap-12">
-        <h2 className="font-display fluid-h2 font-semibold text-foreground">
-          How it works
-        </h2>
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.8fr] lg:gap-16 items-start">
+          <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-tight text-white">
+            How it works
+          </h2>
 
-        <ol className="space-y-4">
-          {joinSteps.map((step, i) => (
-            <Reveal
-              as="li"
-              key={step.title}
-              delay={i * 80}
-              className={`rounded-2xl border border-hairline bg-linear-to-l ${tints[i % tints.length]} p-4 sm:p-5`}
-            >
-              <h3 className="font-display text-sm font-semibold text-foreground">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{step.blurb}</p>
-            </Reveal>
-          ))}
-        </ol>
+          <ol className="space-y-3.5">
+            {joinSteps.map((step) => (
+              <li
+                key={step.title}
+                className="rounded-[15px] border border-white/10 bg-gradient-to-r from-[rgba(82,5,119,0.15)] via-[#151515] to-[#151515] px-6 py-4.5 sm:px-7 sm:py-5 transition-all hover:border-white/20"
+              >
+                <h3 className="font-sans text-[17px] sm:text-[18px] font-medium text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-1 font-sans text-[13px] sm:text-[14px] leading-[22px] text-zinc-400">
+                  {step.blurb}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

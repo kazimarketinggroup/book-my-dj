@@ -20,43 +20,57 @@ export default function FaqAccordion({
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id={id} className="scroll-mt-20">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)] lg:gap-16">
-          <h2 className="font-display fluid-h2 font-semibold text-foreground">
+    <section id={id} className="scroll-mt-20 py-12 lg:py-20 bg-black">
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <div className="grid gap-10 lg:grid-cols-[400px_1fr] lg:gap-16 items-start">
+          <h2 className="font-display text-[30px] sm:text-[36px] lg:text-[40px] font-normal leading-tight sm:leading-[50px] text-white">
             {heading}
           </h2>
 
-          <ul>
+          <ul className="divide-y divide-white/20 border-t border-b border-white/20">
             {items.map((item, i) => {
               const isOpen = open === i;
               return (
-                <li key={item.q} className="border-b border-hairline">
+                <li key={item.q} className="py-2">
                   <h3>
                     <button
                       type="button"
                       onClick={() => setOpen(isOpen ? null : i)}
                       aria-expanded={isOpen}
                       aria-controls={`${id}-panel-${i}`}
-                      className="flex w-full items-center gap-4 py-4 text-left"
+                      className="flex w-full items-center gap-5 py-4 text-left transition-colors"
                     >
+                      {/* Square toggle button from Figma: 28px x 28px, rounded 6px */}
                       <span
                         aria-hidden
-                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-sm text-xs ${
+                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] transition-colors ${
                           isOpen
-                            ? "bg-foreground text-background"
-                            : "text-brand-light"
+                            ? "bg-white text-black"
+                            : "bg-[rgba(91,91,91,0.5)] text-white/60 hover:text-white"
                         }`}
                       >
-                        {isOpen ? "–" : "+"}
+                        {isOpen ? (
+                          <svg width="12" height="2" viewBox="0 0 12 2" fill="currentColor">
+                            <rect width="12" height="2" rx="1" />
+                          </svg>
+                        ) : (
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path
+                              d="M6 1v10M1 6h10"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        )}
                       </span>
-                      <span className="text-sm font-medium text-foreground sm:text-[15px]">
+                      <span className="font-sans text-[16px] sm:text-[18px] font-normal leading-[26px] text-white">
                         {item.q}
                       </span>
                     </button>
                   </h3>
 
-                  {/* grid-rows trick animates height without a fixed pixel value */}
+                  {/* grid-rows animates height cleanly */}
                   <div
                     id={`${id}-panel-${i}`}
                     role="region"
@@ -65,7 +79,7 @@ export default function FaqAccordion({
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pb-5 pl-9 text-sm leading-relaxed text-muted">
+                      <p className="pb-6 pl-12 font-sans text-[15px] sm:text-[17px] leading-[28px] text-white/90">
                         {item.a}
                       </p>
                     </div>

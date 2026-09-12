@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -60,12 +60,12 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
   };
 
   return (
-    <section id="resources" className="scroll-mt-20">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16">
-        <h2 className="font-display fluid-h2 font-semibold text-foreground">
+    <section id="resources" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
           Latest Sets &amp; Mixes
         </h2>
-        <p className="mt-3 text-sm text-muted">
+        <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-[#9C9C9C]">
           Hear the sound before you book it.
         </p>
 
@@ -89,32 +89,35 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                     select(i);
                   }
                 }}
-                className={`flex cursor-pointer flex-col gap-4 rounded-[20px] border bg-surface p-3 shadow-[0_10px_24px_rgba(0,0,0,0.14)] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-brand-light sm:p-4 lg:flex-row lg:items-center lg:gap-6 ${
+                className={`flex cursor-pointer flex-col gap-4 rounded-[15px] bg-[#121212] p-4 transition-all outline-none sm:p-5 lg:flex-row lg:items-center lg:gap-6 ${
                   isActive
-                    ? "border-[#d483ff]/50 shadow-[0_0_0_1px_rgba(212,131,255,0.18)]"
-                    : "border-hairline hover:border-foreground/25"
+                    ? "ring-1 ring-[#910870] shadow-lg shadow-purple-950/30"
+                    : "hover:bg-[#181818]"
                 }`}
               >
-                <div className="flex min-w-0 flex-1 items-center gap-4">
-                  <div className="relative aspect-square w-14 shrink-0 overflow-hidden rounded-lg sm:w-16">
+                <div className="flex min-w-0 flex-1 items-center gap-5">
+                  {/* Thumbnail: Rectangle 25 in Figma: 110px x 108px, rounded 15px */}
+                  <div className="relative h-[80px] w-[80px] sm:h-[108px] sm:w-[110px] shrink-0 overflow-hidden rounded-[15px]">
                     <Image
                       src={mix.cover}
                       alt={mix.alt}
                       fill
-                      sizes="64px"
+                      sizes="110px"
                       className="object-cover"
                     />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs text-muted">{mix.artist}</p>
-                    <h3 className="mt-1 truncate fluid-body font-medium text-foreground">
+                    <p className="font-display text-[16px] sm:text-[18px] font-normal text-white">
+                      {mix.artist}
+                    </p>
+                    <h3 className="mt-1 font-display text-[16px] sm:text-[20px] font-normal text-white truncate">
                       {mix.title}
                     </h3>
                   </div>
                 </div>
 
-                {/* Player */}
-                <div className="flex items-center gap-3 rounded-lg bg-surface-3 px-3 py-2.5 lg:w-[34%] lg:shrink-0 2xl:w-[30%]">
+                {/* Player Capsule (Figma: 405px x 64px, rounded 10px, gradient) */}
+                <div className="flex h-[64px] items-center gap-4 rounded-[10px] bg-gradient-to-r from-[rgba(36,8,30,0.2)] via-[rgba(82,5,119,0.2)] to-[rgba(145,8,112,0.2)] px-4 sm:px-5 lg:w-[405px] lg:shrink-0">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -123,18 +126,14 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                     }}
                     aria-label={`${isPlaying ? "Pause" : "Play"} ${mix.title}`}
                     aria-pressed={isPlaying}
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors ${
-                      isPlaying
-                        ? "btn-brand text-white"
-                        : "bg-foreground/10 text-foreground hover:bg-foreground/20"
-                    }`}
+                    className="flex h-7 w-7 shrink-0 items-center justify-center text-white transition-transform hover:scale-110 active:scale-95"
                   >
                     {isPlaying ? (
                       <svg
                         aria-hidden
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="h-3.5 w-3.5"
+                        className="h-5 w-5 fill-white"
                       >
                         <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
                       </svg>
@@ -143,7 +142,7 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                         aria-hidden
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="h-3.5 w-3.5"
+                        className="h-5 w-5 fill-white"
                       >
                         <path d="M8 5v14l11-7z" />
                       </svg>
@@ -151,13 +150,13 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                   </button>
 
                   <Waveform
-                    className="h-6 min-w-0 flex-1 text-zinc-500"
-                    bars={40}
+                    className="h-6 min-w-0 flex-1 text-white/80"
+                    bars={36}
                     playing={isPlaying}
                     progress={progress}
                   />
 
-                  <span className="shrink-0 text-xs text-muted tabular-nums">
+                  <span className="shrink-0 font-sans text-[16px] font-normal text-white tabular-nums">
                     {isPlaying ? clock(elapsed) : mix.duration}
                   </span>
                 </div>

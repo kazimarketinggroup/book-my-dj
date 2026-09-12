@@ -18,7 +18,7 @@ export default function LastMinuteDjPage() {
     <>
       <LastMinuteHero />
       <RosterPanel />
-      <BookingBar />
+      <BookingBar buttonVariant="white" />
       <Testimonial />
       <FaqAccordion
         id="lm-faq"

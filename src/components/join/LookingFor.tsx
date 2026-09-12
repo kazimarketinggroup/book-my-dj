@@ -5,53 +5,65 @@ export default function LookingFor() {
   const [crowd, portrait] = lookingFor.images;
 
   return (
-    <section className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14 2xl:px-16">
-      {/*
-        Desktop: heading+crowd | criteria | portrait across the top, with the
-        footnote running under the first two columns while the portrait keeps
-        spanning both rows. Mobile just stacks in source order.
-      */}
-      <div className="grid gap-6 overflow-hidden rounded-2xl border border-hairline bg-surface p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)] lg:grid-rows-[auto_auto] lg:gap-x-0 lg:gap-y-8 lg:p-0">
-        <div className="lg:col-start-1 lg:row-start-1 lg:border-r lg:border-hairline lg:p-6">
-          <h2 className="max-w-50 font-display fluid-h2 font-semibold text-foreground">
-            {lookingFor.title}
-          </h2>
-          <div className="relative mt-6 aspect-16/10 overflow-hidden rounded-xl">
-            <Image
-              src={crowd.src}
-              alt={crowd.alt}
-              fill
-              sizes="(max-width: 1024px) 90vw, 26vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
+    <section className="scroll-mt-20 py-12 lg:py-16 bg-black text-white">
+      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+        <div className="rounded-[15px] border border-white/10 bg-[#141414] p-6 sm:p-8 lg:p-10 shadow-2xl">
+          {/* Top 3-part layout */}
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr_1.05fr] items-stretch">
+            {/* Column 1 - Heading + Crowd Photo */}
+            <div className="flex flex-col justify-between">
+              <h2 className="font-display text-[30px] sm:text-[36px] lg:text-[40px] font-normal leading-[1.2] text-white">
+                Who we&apos;re looking
+                <br />
+                for
+              </h2>
 
-        <ul className="space-y-3 lg:col-start-2 lg:row-start-1 lg:self-center lg:p-6">
-          {lookingFor.criteria.map((item) => (
-            <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted">
-              <span
-                aria-hidden
-                className="mt-1.75 h-1.5 w-1.5 shrink-0 rounded-full bg-muted"
+              <div className="relative mt-6 aspect-[375/210] w-full overflow-hidden rounded-[15px] border border-white/10 shadow-lg">
+                <Image
+                  src={crowd.src}
+                  alt={crowd.alt}
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 360px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Column 2 - Criteria Bullet Points */}
+            <div className="flex flex-col justify-center">
+              <ul className="space-y-4">
+                {lookingFor.criteria.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 font-sans text-[15px] sm:text-[16px] leading-[24px] text-zinc-300"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3 - Tall DJ Mixing Photo */}
+            <div className="relative aspect-[375/480] w-full overflow-hidden rounded-[15px] border border-white/10 shadow-lg sm:aspect-auto sm:h-full min-h-[380px] lg:min-h-[460px]">
+              <Image
+                src={portrait.src}
+                alt={portrait.alt}
+                fill
+                sizes="(max-width: 1024px) 90vw, 360px"
+                className="object-cover"
               />
-              {item}
-            </li>
-          ))}
-        </ul>
+            </div>
+          </div>
 
-        <div className="relative min-h-70 overflow-hidden rounded-xl lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:m-4 lg:min-h-0">
-          <Image
-            src={portrait.src}
-            alt={portrait.alt}
-            fill
-            sizes="(max-width: 1024px) 90vw, 28vw"
-            className="object-cover"
-          />
+          {/* Bottom Footnote */}
+          <p className="mt-8 pt-6 border-t border-white/10 font-sans text-[15px] sm:text-[17px] leading-[26px] text-white/90">
+            {lookingFor.footnote}
+          </p>
         </div>
-
-        <p className="text-base leading-relaxed text-foreground sm:text-lg lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:px-8 lg:pb-8">
-          {lookingFor.footnote}
-        </p>
       </div>
     </section>
   );

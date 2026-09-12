@@ -1,45 +1,46 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { heroCards, IMG } from "@/lib/home-data";
 import Waveform from "@/components/ui/Waveform";
+import EventMarquee from "@/components/home/EventMarquee";
 
 /**
- * Exact layout & caption positioning matching Image 2:
- * - Card 0 (Top-Left): Horizontal/Landscape -> Caption inside top-left
- * - Card 1 (Top-Right): Vertical/Portrait -> Caption floating outside left
- * - Card 2 (Bottom-Left): Vertical/Portrait -> Caption floating outside left
- * - Card 3 (Bottom-Right): Horizontal/Landscape -> Caption inside bottom-left
+ * Exact layout & collage positioning matching Image 1:
+ * - Card 0 (Top-Left): Horizontal/Landscape -> Badge overlapping top edge
+ * - Card 1 (Top-Right): Vertical/Portrait -> Badge overlapping right edge
+ * - Card 2 (Bottom-Left): Vertical/Portrait -> Badge overlapping left edge
+ * - Card 3 (Bottom-Right): Horizontal/Landscape -> Badge on bottom-left
  */
 const cardStyles = [
   {
-    // Top-Left (Corporate Event DJ)
-    container: "lg:absolute lg:top-[6%] lg:left-[15%] lg:w-[38%]",
+    // Top-Left (Corporate Event DJ) - Landscape
+    container: "lg:absolute lg:top-[12%] lg:left-0 lg:w-[50%] z-20",
     aspect: "aspect-[16/10]",
-    caption: "top-2 left-2 max-w-[170px]",
+    caption: "top-2 left-2 lg:-top-3.5 lg:left-4",
   },
   {
-    // Top-Right (Every Occasion)
-    container: "lg:absolute lg:top-[8%] lg:right-[5%] lg:w-[28%]",
+    // Top-Right (Every Occasion) - Portrait
+    container: "lg:absolute lg:top-0 lg:right-0 lg:w-[42%] z-10",
     aspect: "aspect-[4/5]",
-    caption: "bottom-3 left-2 max-w-[160px] lg:bottom-auto lg:top-[40%] lg:-left-8",
+    caption: "bottom-2 right-2 lg:bottom-12 lg:-right-3",
   },
   {
-    // Bottom-Left (Pro Sound & Lighting)
-    container: "lg:absolute lg:bottom-[8%] lg:left-[12%] lg:w-[28%]",
+    // Bottom-Left (Pro Sound & Lighting) - Portrait
+    container: "lg:absolute lg:bottom-2 lg:left-[20%] lg:w-[42%] z-30",
     aspect: "aspect-[4/5]",
-    caption: "bottom-3 left-2 max-w-[170px] lg:-left-8",
+    caption: "bottom-2 left-2 lg:bottom-6 lg:-left-8",
   },
   {
-    // Bottom-Right (Last Minute Booking)
-    container: "lg:absolute lg:bottom-[6%] lg:right-[3%] lg:w-[38%]",
+    // Bottom-Right (Last Minute Booking) - Landscape
+    container: "lg:absolute lg:bottom-[7%] lg:right-0 lg:w-[50%] z-20",
     aspect: "aspect-[16/10]",
-    caption: "bottom-3 left-3 max-w-[170px]",
+    caption: "bottom-2 left-2 lg:bottom-3 lg:left-4",
   },
 ];
 
 export default function Hero() {
   return (
-    <section className="hero-screen relative isolate overflow-hidden bg-black text-white">
+    <section className="relative isolate flex min-h-[calc(100vh-5rem)] min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden bg-black text-white">
       {/* Background crowd shot */}
       <Image
         src={`${IMG}/11033 1.png`}
@@ -48,118 +49,190 @@ export default function Hero() {
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover object-center opacity-30 mix-blend-luminosity"
+        className="-z-10 object-cover object-center opacity-50"
       />
 
-      {/* Background Glows */}
+      {/* Center-top purple stage lighting glow */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_30%,rgba(145,8,112,0.28),transparent_70%)]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-black to-transparent"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_15%,rgba(168,14,130,0.45),transparent_65%)]"
       />
 
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-16">
-        <div className="grid items-center gap-6 lg:grid-cols-[1fr_1.1fr] lg:gap-4">
-          
-          {/* Left Text Column */}
-          <div className="max-w-xl">
-            {/* Audio Waveform Tag */}
-            <div className="inline-flex items-center gap-3 rounded-full border border-brand/35 bg-brand-deep/70 p-1.5 pr-4 backdrop-blur-md">
-              <button
-                type="button"
-                aria-label="Play sample"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition-transform hover:scale-105"
-              >
-                <svg
-                  aria-hidden
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="h-3.5 w-3.5 translate-x-0.5"
+      {/* Top gradient (Rectangle 18 in Figma: linear-gradient(0deg, #000000 0%, rgba(0,0,0,0) 100%) matrix(1,0,0,-1,0,0)) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[175px] bg-gradient-to-b from-black to-transparent"
+      />
+
+      {/* Left-side dark vignette for razor-sharp text readability */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/45 to-transparent"
+      />
+
+      {/* Bottom fade into marquee bar */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-36 bg-gradient-to-t from-black/80 to-transparent"
+      />
+
+      {/* Main Hero Content Area */}
+      <div className="flex flex-1 items-center py-6 lg:py-10">
+        <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+            
+            {/* Left Text Column (Group 88) */}
+            <div className="max-w-[675px]">
+              {/* Audio Waveform Tag (Figma: 281px x 64px, rounded 15px) */}
+              <div className="inline-flex h-[64px] w-auto sm:w-[281px] items-center gap-3.5 rounded-[15px] border border-white/15 bg-gradient-to-r from-[rgba(36,8,30,0.2)] via-[rgba(82,5,119,0.2)] to-[rgba(145,8,112,0.2)] px-4 shadow-xl backdrop-blur-md">
+                <button
+                  type="button"
+                  aria-label="Play sample"
+                  className="flex h-6 w-6 shrink-0 items-center justify-center text-white transition-transform hover:scale-110 active:scale-95"
                 >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-              <Waveform className="h-4 w-24 text-white/80 sm:w-28" bars={24} />
-              <span className="text-xs text-zinc-300 tabular-nums">0:16</span>
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-5 w-5 fill-white"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+                <Waveform className="h-6 w-28 text-white sm:w-32" bars={26} />
+                <span className="font-sans text-[16px] font-normal text-white tabular-nums">0:16</span>
+              </div>
+
+              {/* Headline (Figma: Chivo, 400, 50px, line-height 60px) */}
+              <h1 className="mt-7 font-display text-[36px] font-normal tracking-tight text-white sm:text-[44px] lg:text-[50px] leading-[60px]">
+                DJs For Every
+                <br />
+                Occasion, Nationwide
+              </h1>
+
+              {/* Sub-bullets (Figma: Inter, 400, 18px, line-height 25px) */}
+              <ul className="mt-6 space-y-3 font-sans text-[16px] sm:text-[18px] leading-[25px] text-white">
+                <li className="flex items-start gap-3">
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
+                  <span>From weddings to boardrooms, festivals to black-tie galas.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
+                  <span>
+                    Trusted by events managers and planners who can&apos;t afford a bad night.
+                  </span>
+                </li>
+              </ul>
+
+              {/* Action Buttons (Figma: Group 4, 171px x 40px, rounded 5px) */}
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/40 transition-all hover:brightness-110 active:scale-[0.98]"
+                >
+                  Book My DJ
+                </Link>
+                <Link
+                  href="/events"
+                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-white bg-transparent font-display text-[16px] font-medium text-white backdrop-blur transition-all hover:bg-white/10 active:scale-[0.98]"
+                >
+                  Our Events
+                </Link>
+              </div>
             </div>
 
-            {/* Headline */}
-            <h1 className="mt-6 fluid-hero font-normal tracking-tight text-white">
-              DJs For Every
-              <br />
-              Occasion, Nationwide
-            </h1>
-
-            {/* Sub-bullets */}
-            <ul className="mt-6 space-y-3 fluid-body text-zinc-300">
-              <li className="flex items-start gap-2.5">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-300" />
-                <span>From weddings to boardrooms, festivals to black-tie galas.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-300" />
-                <span>
-                  Trusted by events managers and planners who can&apos;t afford a bad night.
-                </span>
-              </li>
-            </ul>
-
-            {/* Buttons */}
-            <div className="mt-8 flex flex-wrap gap-3.5">
-              <Link
-                href="/contact"
-                className="btn-brand rounded-lg px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/40 transition-opacity hover:opacity-90"
-              >
-                Book My DJ
-              </Link>
-              <Link
-                href="/events"
-                className="rounded-lg border border-white/20 bg-white/5 px-7 py-3 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/10"
-              >
-                Our Events
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Floating Canvas Collage */}
-          <div className="grid grid-cols-2 gap-0 sm:gap-0 lg:relative lg:block lg:h-[360px] lg:w-[500px] lg:justify-self-end lg:gap-0 xl:h-[390px] xl:w-[520px]">
-            {heroCards.map((card, i) => {
-              const style = cardStyles[i] || cardStyles[0];
-              return (
-                <div key={card.title} className={style.container}>
-                  <figure className="relative rounded-2xl border border-white/10 bg-zinc-900/40 p-0 shadow-2xl backdrop-blur-xs">
-                    <div className={`relative w-full overflow-hidden rounded-[10px] ${style.aspect}`}>
-                      <Image
-                        src={card.src}
-                        alt={card.alt}
-                        fill
-                        sizes="(max-width: 1024px) 50vw, 30vw"
-                        className="object-cover"
-                      />
+            {/* Right Floating DJ Cards Collage (Exact Figma Coordinates & 3px Borders) */}
+            <div className="relative mx-auto w-full max-w-[550px] sm:h-[500px] lg:h-[500px] lg:w-[550px] lg:justify-self-end">
+              {/* Mobile fallback: grid */}
+              <div className="grid grid-cols-2 gap-3.5 sm:hidden">
+                {heroCards.map((card) => (
+                  <div key={card.title} className="relative overflow-hidden rounded-[16.6px] border-[2px] border-white/20">
+                    <div className="relative aspect-[4/3] w-full">
+                      <Image src={card.src} alt={card.alt} fill sizes="50vw" className="object-cover" />
                     </div>
+                    <div className="p-2 bg-[rgba(36,36,36,0.9)]">
+                      <p className="font-display text-[9px] font-semibold text-white">{card.title}</p>
+                      <p className="font-sans text-[8px] text-zinc-300">{card.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-                    {/* Dark Caption Pill */}
-                    <figcaption
-                      className={`absolute z-10 rounded-xl border border-white/10 bg-black/85 p-2.5 shadow-xl backdrop-blur-md ${style.caption}`}
-                    >
-                      <p className="text-[11px] font-semibold leading-tight text-white">
-                        {card.title}
-                      </p>
-                      <p className="mt-0.5 text-[9px] leading-snug text-zinc-400">
-                        {card.caption}
-                      </p>
-                    </figcaption>
-                  </figure>
+              {/* Desktop / Tablet Collage matching exact Figma bounds */}
+              <div className="hidden sm:block relative h-[500px] w-full">
+                {/* Card 4 (Top-Left): Rectangle 4 (Landscape, 265px x 155px) */}
+                <div className="absolute left-0 top-[22%] w-[48.4%] z-20">
+                  <div className="relative w-full aspect-[265/155] overflow-hidden rounded-[16.6px] border-[3px] border-white/20 shadow-2xl bg-zinc-950/60">
+                    <Image src={heroCards[0].src} alt={heroCards[0].alt} fill sizes="30vw" className="object-cover" />
+                  </div>
+                  {/* Badge: left +46px, -28px above top in Figma */}
+                  <div className="absolute -top-4 left-6 z-30 flex flex-col justify-center rounded-[6.25px] bg-[rgba(36,36,36,0.9)] px-3 py-1.5 shadow-xl backdrop-blur-md">
+                    <p className="font-display text-[8.88px] font-semibold leading-tight text-white whitespace-nowrap">
+                      {heroCards[0].title}
+                    </p>
+                    <p className="font-sans text-[7.88px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
+                      {heroCards[0].caption}
+                    </p>
+                  </div>
                 </div>
-              );
-            })}
-          </div>
 
+                {/* Card 1 (Top-Right): Rectangle 1 (Portrait, 151px x 220px) */}
+                <div className="absolute right-0 top-0 w-[27.6%] z-10">
+                  <div className="relative w-full aspect-[151/220] overflow-hidden rounded-[16.6px] border-[3px] border-white/20 shadow-2xl bg-zinc-950/60">
+                    <Image src={heroCards[1].src} alt={heroCards[1].alt} fill sizes="20vw" className="object-cover" />
+                  </div>
+                  {/* Badge: overlapping lower-right */}
+                  <div className="absolute bottom-6 -right-6 z-30 flex flex-col justify-center rounded-[6.25px] bg-[rgba(36,36,36,0.9)] px-3 py-1.5 shadow-xl backdrop-blur-md">
+                    <p className="font-display text-[8.88px] font-semibold leading-tight text-white whitespace-nowrap">
+                      {heroCards[1].title}
+                    </p>
+                    <p className="font-sans text-[7.63px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
+                      {heroCards[1].caption}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 2 (Bottom-Left): Rectangle 2 (Portrait, 151px x 220px) */}
+                <div className="absolute left-[20.8%] top-[56%] w-[27.6%] z-30">
+                  <div className="relative w-full aspect-[151/220] overflow-hidden rounded-[16.6px] border-[3px] border-white/20 shadow-2xl bg-zinc-950/60">
+                    <Image src={heroCards[2].src} alt={heroCards[2].alt} fill sizes="20vw" className="object-cover" />
+                  </div>
+                  {/* Badge: overlapping lower-left */}
+                  <div className="absolute bottom-6 -left-12 z-40 flex flex-col justify-center rounded-[6.25px] bg-[rgba(36,36,36,0.9)] px-3 py-1.5 shadow-xl backdrop-blur-md">
+                    <p className="font-display text-[8.88px] font-semibold leading-tight text-white whitespace-nowrap">
+                      {heroCards[2].title}
+                    </p>
+                    <p className="font-sans text-[7.8px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
+                      {heroCards[2].caption}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 3 (Bottom-Right): Rectangle 3 (Landscape, 265px x 155px) */}
+                <div className="absolute right-0 top-[47.5%] w-[48.4%] z-20">
+                  <div className="relative w-full aspect-[265/155] overflow-hidden rounded-[16.6px] border-[3px] border-white/20 shadow-2xl bg-zinc-950/60">
+                    <Image src={heroCards[3].src} alt={heroCards[3].alt} fill sizes="30vw" className="object-cover" />
+                  </div>
+                  {/* Badge: bottom */}
+                  <div className="absolute bottom-2 left-6 z-30 flex flex-col justify-center rounded-[6.25px] bg-[rgba(36,36,36,0.9)] px-3 py-1.5 shadow-xl backdrop-blur-md">
+                    <p className="font-display text-[8.88px] font-semibold leading-tight text-white whitespace-nowrap">
+                      {heroCards[3].title}
+                    </p>
+                    <p className="font-sans text-[7.88px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
+                      {heroCards[3].caption}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </div>
+
+      {/* Bottom Ticker Marquee Strip (Figma: 54px high, top 753px) */}
+      <EventMarquee />
     </section>
   );
 }
