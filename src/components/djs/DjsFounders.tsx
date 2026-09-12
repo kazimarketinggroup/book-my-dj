@@ -4,15 +4,15 @@ import { FOUNDERS } from "@/lib/djs-data";
 
 export default function DjsFounders() {
   return (
-    <section className="relative w-full bg-black py-12 lg:py-16">
+    <section className="relative w-full bg-background text-foreground py-12 lg:py-16 transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="grid items-center gap-8 lg:grid-cols-[301px_1fr] lg:gap-8 xl:gap-10">
           {/* Left Column: Heading & Blurb (vertically centered) */}
           <div>
-            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal leading-[1.2] sm:leading-[46px] text-white">
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal leading-[1.2] sm:leading-[46px] text-foreground">
               The founders
             </h2>
-            <p className="mt-2.5 sm:mt-3 font-sans text-[15px] sm:text-[18px] leading-[23px] sm:leading-[25px] text-[#9C9C9C] max-w-[301px]">
+            <p className="mt-2.5 sm:mt-3 font-sans text-[15px] sm:text-[18px] leading-[23px] sm:leading-[25px] text-muted max-w-[301px]">
               Handpicked talent, every genre covered, every event nailed.
             </p>
           </div>
@@ -23,7 +23,7 @@ export default function DjsFounders() {
               <Link
                 key={founder.name}
                 href={founder.href}
-                className="group relative block aspect-[457/331] w-full overflow-hidden rounded-[15px] border border-white/10 bg-[#14111A] shadow-2xl transition-transform duration-300 hover:border-white/20"
+                className="group relative block aspect-[457/331] w-full overflow-hidden rounded-[15px] border border-hairline bg-card shadow-2xl transition-transform duration-300 hover:border-brand-light/40"
               >
                 <Image
                   src={founder.image}

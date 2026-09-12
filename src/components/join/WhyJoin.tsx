@@ -2,9 +2,9 @@ import { benefits } from "@/lib/join-data";
 
 export default function WhyJoin() {
   return (
-    <section className="scroll-mt-20 py-12 lg:py-16 bg-black text-white">
+    <section className="scroll-mt-20 py-12 lg:py-16 bg-background text-foreground">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-tight text-white">
+        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-tight text-foreground">
           Why DJs stay with us
         </h2>
 
@@ -12,11 +12,11 @@ export default function WhyJoin() {
           {benefits.map((benefit) => (
             <li
               key={benefit.title}
-              className="rounded-[15px] border border-white/10 bg-[#141414] p-6 sm:p-7 transition-all hover:bg-[#181818] flex flex-col"
+              className="rounded-[15px] border border-hairline bg-surface-2 p-6 sm:p-7 transition-all hover:bg-surface-3 flex flex-col"
             >
               <span
                 aria-hidden
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-zinc-300"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface-3 text-foreground"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -31,10 +31,10 @@ export default function WhyJoin() {
                 </svg>
               </span>
 
-              <h3 className="mt-4 font-sans text-[18px] sm:text-[20px] font-medium text-white">
+              <h3 className="mt-4 font-sans text-[18px] sm:text-[20px] font-medium text-foreground">
                 {benefit.title}
               </h3>
-              <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-[22px] text-zinc-400">
+              <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-[22px] text-muted">
                 {benefit.blurb}
               </p>
             </li>

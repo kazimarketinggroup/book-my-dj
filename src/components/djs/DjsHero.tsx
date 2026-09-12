@@ -4,37 +4,37 @@ import { DJ_GENRES } from "@/lib/djs-data";
 
 export default function DjsHero() {
   return (
-    <section className="relative w-full overflow-hidden bg-black pt-28 pb-16 lg:pt-36 lg:pb-20">
+    <section className="relative w-full overflow-hidden bg-background text-foreground pt-28 pb-16 lg:pt-36 lg:pb-20 transition-colors duration-200">
       {/* Background DJ Hero Image */}
       <div className="absolute inset-0 h-[650px] sm:h-[775px] w-full pointer-events-none">
         <Image
           src="/images/djs/11033_1_187_99.jpg"
-          alt="Cyberpunk DJ illustration"
+          alt="DJ illustration"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-top opacity-50 mix-blend-screen"
+          className="object-cover object-top opacity-20 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen"
         />
         {/* Top gradient */}
-        <div className="absolute inset-x-0 top-0 h-[194px] bg-gradient-to-b from-black via-black/80 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-[194px] bg-gradient-to-b from-background via-background/80 to-transparent" />
         {/* Bottom gradient fade */}
-        <div className="absolute inset-x-0 bottom-0 h-[450px] bg-gradient-to-t from-black via-black/90 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[450px] bg-gradient-to-t from-background via-background/90 to-transparent" />
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="max-w-[620px]">
           {/* Signature Script Title */}
-          <p className="font-signature text-[45px] sm:text-[60px] md:text-[70px] leading-[1] text-white select-none">
+          <p className="font-signature text-[45px] sm:text-[60px] md:text-[70px] leading-[1] text-brand-light dark:text-white select-none">
             Our Djs
           </p>
 
           {/* Main Display Headline */}
-          <h1 className="mt-2 font-display text-[30px] sm:text-[42px] md:text-[50px] font-normal leading-[1.18] text-white">
+          <h1 className="mt-2 font-display text-[30px] sm:text-[42px] md:text-[50px] font-normal leading-[1.18] text-foreground">
             One roster, every sound you need
           </h1>
 
           {/* Subtitle Copy */}
-          <p className="mt-4 sm:mt-5 font-sans text-[15px] sm:text-[18px] leading-[26px] sm:leading-[30px] text-white/90">
+          <p className="mt-4 sm:mt-5 font-sans text-[15px] sm:text-[18px] leading-[26px] sm:leading-[30px] text-muted">
             From multi-genre party anthems to house, bashment, afrobeats and
             Punjabi we match the DJ to your crowd, your city and your brief.
           </p>
@@ -49,7 +49,7 @@ export default function DjsHero() {
             </Link>
             <Link
               href="/events"
-              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-white font-display text-[16px] font-medium text-white transition-colors hover:bg-white/10 active:scale-[0.98]"
+              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-hairline bg-surface font-display text-[16px] font-medium text-foreground transition-colors hover:bg-surface-2 active:scale-[0.98]"
             >
               Our Events
             </Link>
@@ -61,7 +61,7 @@ export default function DjsHero() {
           {DJ_GENRES.map((genre) => (
             <span
               key={genre}
-              className="inline-flex items-center rounded-full border border-[rgba(42,39,49,0.7)] bg-[#211D27] px-3 sm:px-[14px] py-1.5 sm:py-[7px] font-sans text-[13px] sm:text-[16px] leading-[16px] text-[#F9F8FB] transition-colors hover:border-white/30 hover:bg-[#2b2633]"
+              className="inline-flex items-center rounded-full border border-hairline bg-surface px-3 sm:px-[14px] py-1.5 sm:py-[7px] font-sans text-[13px] sm:text-[16px] leading-[16px] text-foreground transition-colors hover:border-brand-light/40 hover:bg-surface-2"
             >
               {genre}
             </span>

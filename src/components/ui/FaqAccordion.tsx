@@ -20,14 +20,14 @@ export default function FaqAccordion({
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id={id} className="scroll-mt-20 py-12 lg:py-20 bg-black">
+    <section id={id} className="scroll-mt-20 py-12 lg:py-20 bg-background">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="grid gap-10 lg:grid-cols-[400px_1fr] lg:gap-16 items-start">
-          <h2 className="font-display text-[30px] sm:text-[36px] lg:text-[40px] font-normal leading-tight sm:leading-[50px] text-white">
+          <h2 className="font-display text-[30px] sm:text-[36px] lg:text-[40px] font-normal leading-tight sm:leading-[50px] text-foreground">
             {heading}
           </h2>
 
-          <ul className="divide-y divide-white/20 border-t border-b border-white/20">
+          <ul className="divide-y divide-hairline border-t border-b border-hairline">
             {items.map((item, i) => {
               const isOpen = open === i;
               return (
@@ -40,13 +40,13 @@ export default function FaqAccordion({
                       aria-controls={`${id}-panel-${i}`}
                       className="flex w-full items-center gap-5 py-4 text-left transition-colors"
                     >
-                      {/* Square toggle button from Figma: 28px x 28px, rounded 6px */}
+                      {/* Square toggle button */}
                       <span
                         aria-hidden
                         className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] transition-colors ${
                           isOpen
-                            ? "bg-white text-black"
-                            : "bg-[rgba(91,91,91,0.5)] text-white/60 hover:text-white"
+                            ? "bg-foreground text-background"
+                            : "bg-surface-3 text-muted hover:text-foreground"
                         }`}
                       >
                         {isOpen ? (
@@ -64,7 +64,7 @@ export default function FaqAccordion({
                           </svg>
                         )}
                       </span>
-                      <span className="font-sans text-[16px] sm:text-[18px] font-normal leading-[26px] text-white">
+                      <span className="font-sans text-[16px] sm:text-[18px] font-normal leading-[26px] text-foreground">
                         {item.q}
                       </span>
                     </button>
@@ -79,7 +79,7 @@ export default function FaqAccordion({
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pb-6 pl-12 font-sans text-[15px] sm:text-[17px] leading-[28px] text-white/90">
+                      <p className="pb-6 pl-12 font-sans text-[15px] sm:text-[17px] leading-[28px] text-muted">
                         {item.a}
                       </p>
                     </div>

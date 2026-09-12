@@ -24,27 +24,27 @@ function SocialMark({ label }: { label: string }) {
 
 export default function DjHero({ dj }: { dj: DjProfile }) {
   return (
-    <section className="hero-screen relative isolate overflow-hidden">
+    <section className="hero-screen relative isolate overflow-hidden bg-background text-foreground transition-colors duration-200">
       <Image
         src={dj.hero.image}
         alt={dj.hero.alt}
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover object-right-top"
+        className="-z-10 object-cover object-right-top opacity-60 dark:opacity-100"
       />
       {/* Left-weighted scrim so the copy stays readable over the photo */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-r from-black via-black/65 to-transparent"
+        className="absolute inset-0 -z-10 bg-linear-to-r from-background via-background/80 to-transparent dark:from-black dark:via-black/65 dark:to-transparent"
       />
 
       <div className="mx-auto w-full max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20 2xl:px-16">
-        <p className="font-signature text-4xl text-white sm:text-5xl">
+        <p className="font-signature text-4xl text-brand-light dark:text-white sm:text-5xl">
           {dj.signature}
         </p>
 
-        <h1 className="mt-4 max-w-lg font-display fluid-hero-sm font-semibold text-white">
+        <h1 className="mt-4 max-w-lg font-display fluid-hero-sm font-semibold text-foreground">
           {dj.headline.map((line) => (
             <span key={line} className="block">
               {line}
@@ -52,7 +52,7 @@ export default function DjHero({ dj }: { dj: DjProfile }) {
           ))}
         </h1>
 
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-zinc-300">
+        <p className="mt-5 max-w-md text-sm leading-relaxed text-muted">
           {dj.intro}
         </p>
 
@@ -65,23 +65,22 @@ export default function DjHero({ dj }: { dj: DjProfile }) {
           </Link>
           <Link
             href="/events"
-            className="rounded-lg border border-white/25 bg-white/5 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/10"
+            className="rounded-lg border border-hairline bg-surface px-6 py-2.5 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-surface-2"
           >
             Our Events
           </Link>
         </div>
 
-        <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-white">
+        <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-foreground/90">
           {dj.socials.map((s) => (
             <li key={s.label}>
               <a
                 href={s.href}
                 target="_blank"
-                rel="noopener noreferrer"
-                className="opacity-90 transition-opacity hover:opacity-100"
+                rel="noreferrer noopener"
+                className="inline-flex items-center text-foreground/80 transition-colors hover:text-foreground"
               >
                 <SocialMark label={s.label} />
-                <span className="sr-only">{dj.name} on {s.label}</span>
               </a>
             </li>
           ))}

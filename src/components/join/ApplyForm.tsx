@@ -4,16 +4,16 @@ import { useState } from "react";
 import { applySection } from "@/lib/join-data";
 
 const field =
-  "h-[44px] w-full rounded-lg border border-white/10 bg-[#1c1c1c] px-3.5 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors focus:border-white/30 focus:ring-1 focus:ring-white/30";
+  "h-[44px] w-full rounded-lg border border-hairline bg-surface-2 px-3.5 text-sm text-foreground placeholder:text-muted outline-none transition-colors focus:border-brand-light focus:ring-1 focus:ring-brand-light";
 
-const label = "block text-xs font-normal text-zinc-400";
+const label = "block text-xs font-normal text-muted";
 
 export default function ApplyForm() {
   const [sent, setSent] = useState(false);
 
   return (
-    <div className="rounded-[15px] border border-white/10 bg-[#121212] p-6 sm:p-8">
-      <h3 className="font-display text-[22px] sm:text-[24px] font-normal text-white">
+    <div className="rounded-[15px] border border-hairline bg-surface-2 p-6 sm:p-8">
+      <h3 className="font-display text-[22px] sm:text-[24px] font-normal text-foreground">
         {applySection.formHeading}
       </h3>
 
@@ -139,7 +139,7 @@ export default function ApplyForm() {
             name="about"
             rows={3}
             placeholder="Write here"
-            className="mt-1.5 w-full rounded-lg border border-white/10 bg-[#1c1c1c] px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 outline-none transition-colors focus:border-white/30 focus:ring-1 focus:ring-white/30"
+            className="mt-1.5 w-full rounded-lg border border-hairline bg-surface-2 px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted outline-none transition-colors focus:border-brand-light focus:ring-1 focus:ring-brand-light"
           />
         </div>
 
@@ -150,7 +150,7 @@ export default function ApplyForm() {
           >
             Send Application
           </button>
-          <p className="text-xs text-zinc-400">{applySection.disclaimer}</p>
+          <p className="text-xs text-muted">{applySection.disclaimer}</p>
         </div>
 
         {/* Confirmation status */}
@@ -163,7 +163,7 @@ export default function ApplyForm() {
         >
           <div className="overflow-hidden">
             <p
-              className={`flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm text-white transition-all duration-400 ${
+              className={`flex items-center gap-2 rounded-lg border border-hairline bg-surface-3 px-4 py-3 text-sm text-foreground transition-all duration-400 ${
                 sent ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
             >
@@ -175,7 +175,7 @@ export default function ApplyForm() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4 shrink-0 text-white"
+                className="h-4 w-4 shrink-0 text-brand-light"
               >
                 <path d="M20 6 9 17l-5-5" />
               </svg>

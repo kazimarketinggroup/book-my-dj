@@ -32,11 +32,11 @@ export default function GigBrowser() {
   };
 
   return (
-    <section id="past-gigs" className="scroll-mt-20 bg-black py-10 lg:py-16 text-white">
+    <section id="past-gigs" className="scroll-mt-20 bg-background py-10 lg:py-16 text-foreground">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         {/* Header: Title + Search Pill */}
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[50px] text-white">
+          <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[50px] text-foreground">
             Past Gigs
           </h2>
 
@@ -44,14 +44,14 @@ export default function GigBrowser() {
             <label htmlFor="gig-search" className="sr-only">
               Search past gigs
             </label>
-            <div className="flex h-[44px] w-full items-center rounded-full border border-white/50 bg-transparent px-4 gap-3 transition-all focus-within:border-white focus-within:ring-1 focus-within:ring-white">
+            <div className="flex h-[44px] w-full items-center rounded-full border border-hairline bg-surface-2 px-4 gap-3 transition-all focus-within:border-brand-light focus-within:ring-1 focus-within:ring-brand-light">
               <svg
                 aria-hidden
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
-                className="h-5 w-5 shrink-0 text-white/50"
+                className="h-5 w-5 shrink-0 text-muted"
               >
                 <circle cx="11" cy="11" r="7" />
                 <path d="M20 20l-3.5-3.5" strokeLinecap="round" />
@@ -65,7 +65,7 @@ export default function GigBrowser() {
                   setSelected(0);
                 }}
                 placeholder="Search"
-                className="w-full bg-transparent font-sans text-[15px] text-white placeholder:text-white/50 outline-none"
+                className="w-full bg-transparent font-sans text-[15px] text-foreground placeholder:text-muted outline-none"
               />
             </div>
           </div>
@@ -86,8 +86,8 @@ export default function GigBrowser() {
                       aria-current={on}
                       className={`whitespace-nowrap font-sans text-[17px] leading-[30px] transition-colors text-left block w-full ${
                         on
-                          ? "font-medium text-white"
-                          : "font-normal text-white/80 hover:text-white"
+                          ? "font-medium text-foreground"
+                          : "font-normal text-muted hover:text-foreground"
                       }`}
                     >
                       {c}
@@ -98,29 +98,29 @@ export default function GigBrowser() {
             </ul>
           </nav>
 
-          {/* Vertical Divider Line (Figma Line 3: 472px) */}
+          {/* Vertical Divider Line */}
           <div
             aria-hidden
-            className="hidden lg:block w-[1px] h-[472px] bg-white/20 shrink-0"
+            className="hidden lg:block w-[1px] h-[472px] bg-hairline shrink-0"
           />
 
-          {/* 2. Middle Featured Active Gig Card (Figma Group 187: 606px x 518px) */}
+          {/* 2. Middle Featured Active Gig Card */}
           {featured ? (
             <article
               aria-live="polite"
-              className="flex-1 w-full lg:max-w-[606px] h-auto lg:h-[518px] overflow-hidden rounded-[14.5px] bg-[#161616] p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+              className="flex-1 w-full lg:max-w-[606px] h-auto lg:h-[518px] overflow-hidden rounded-[14.5px] border border-hairline bg-surface p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm"
             >
-              {/* Text Left: 262px */}
+              {/* Text Left */}
               <div className="flex-1 min-w-0 text-left sm:max-w-[270px]">
-                <h3 className="font-sans text-[22px] sm:text-[24px] font-normal leading-[30px] text-white">
+                <h3 className="font-sans text-[22px] sm:text-[24px] font-normal leading-[30px] text-foreground">
                   {featured.title}
                 </h3>
-                <p className="mt-5 font-sans text-[15px] sm:text-[16px] leading-[26px] text-zinc-300">
+                <p className="mt-5 font-sans text-[15px] sm:text-[16px] leading-[26px] text-muted">
                   {featured.detail}
                 </p>
               </div>
 
-              {/* Tall Portrait Image Right (Figma Rectangle 13: 268px x 481px) */}
+              {/* Tall Portrait Image Right */}
               <div className="relative aspect-[268/481] w-full sm:w-[268px] sm:h-[481px] shrink-0 overflow-hidden rounded-[14.5px]">
                 <Image
                   key={featured.image}
@@ -134,12 +134,12 @@ export default function GigBrowser() {
               </div>
             </article>
           ) : (
-            <p className="text-base text-zinc-400 py-12 text-center flex-1">
+            <p className="text-base text-muted py-12 text-center flex-1">
               No gigs match that search.
             </p>
           )}
 
-          {/* 3. Right Selectable Gig List (Figma Group 62: 439px x 516.8px) */}
+          {/* 3. Right Selectable Gig List */}
           <ul className="w-full lg:w-[439px] shrink-0 flex flex-col gap-[10px]">
             {results.slice(0, 3).map((gig, i) => {
               const isActive = i === activeIndex;
@@ -149,13 +149,13 @@ export default function GigBrowser() {
                     type="button"
                     onClick={() => setSelected(i)}
                     aria-pressed={isActive}
-                    className={`w-full h-[165.6px] rounded-[15px] bg-[#161616] p-3.5 sm:p-4 text-left transition-all flex items-center gap-4.5 ${
+                    className={`w-full h-[165.6px] rounded-[15px] p-3.5 sm:p-4 text-left transition-all flex items-center gap-4.5 ${
                       isActive
-                        ? "border border-[#910870] shadow-lg shadow-purple-950/20"
-                        : "border border-transparent hover:bg-[#1c1c1c]"
+                        ? "border border-[#910870] bg-surface-2 shadow-md"
+                        : "border border-hairline bg-surface-2 hover:bg-surface-3"
                     }`}
                   >
-                    {/* Thumbnail (Figma Rectangle 15: 158px x 142px) */}
+                    {/* Thumbnail */}
                     <div className="relative w-[140px] sm:w-[158px] h-[130px] sm:h-[142px] shrink-0 overflow-hidden rounded-[15px]">
                       <Image
                         src={gig.image}
@@ -165,12 +165,12 @@ export default function GigBrowser() {
                         className="object-cover"
                       />
                     </div>
-                    {/* Content (Figma: 229px x 93px) */}
+                    {/* Content */}
                     <div className="min-w-0 flex-1 text-left">
-                      <h4 className="font-sans text-[20px] sm:text-[23px] font-normal leading-[28px] text-white line-clamp-2">
+                      <h4 className="font-sans text-[20px] sm:text-[23px] font-normal leading-[28px] text-foreground line-clamp-2">
                         {gig.title}
                       </h4>
-                      <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-[22px] text-zinc-400 line-clamp-2">
+                      <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-[22px] text-muted line-clamp-2">
                         {gig.blurb}
                       </p>
                     </div>

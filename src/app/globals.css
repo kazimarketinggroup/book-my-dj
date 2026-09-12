@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   /* Brand gradient stops — identical in both themes */
   --brand-1: #910870;
@@ -28,6 +30,8 @@
   --surface-3: #1d2430;
   --hairline: rgba(255, 255, 255, 0.08);
   --muted: #a1a1aa;
+  --card-bg: #14111a;
+  --card-border: rgba(255, 255, 255, 0.1);
   --page-gradient: radial-gradient(
       circle at top,
       rgba(145, 8, 112, 0.18),
@@ -38,13 +42,15 @@
 
 :root[data-theme="light"] {
   --background: #ffffff;
-  --foreground: #0b0d12;
-  --surface: #f4f5f7;
-  --surface-2: #eceef1;
-  --surface-3: #e4e7eb;
-  --hairline: rgba(11, 13, 18, 0.12);
-  --muted: #55585f;
-  --page-gradient: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+  --foreground: #0b0d14;
+  --surface: #f8f9fc;
+  --surface-2: #ffffff;
+  --surface-3: #f1f3f9;
+  --hairline: rgba(15, 23, 42, 0.08);
+  --muted: #64748b;
+  --card-bg: #ffffff;
+  --card-border: rgba(15, 23, 42, 0.08);
+  --page-gradient: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
 }
 
 @theme inline {
@@ -55,6 +61,8 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
   --color-hairline: var(--hairline);
   --color-muted: var(--muted);
 
@@ -121,9 +129,9 @@ h6,
 }
 
 .soft-panel {
-  background: linear-gradient(180deg, rgba(20, 26, 35, 0.92), rgba(13, 17, 24, 0.92));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 p,

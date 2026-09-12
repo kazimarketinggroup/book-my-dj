@@ -60,12 +60,12 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
   };
 
   return (
-    <section id="resources" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+    <section id="resources" className="scroll-mt-20 py-12 lg:py-16 bg-background transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
+        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-foreground">
           Latest Sets &amp; Mixes
         </h2>
-        <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-[#9C9C9C]">
+        <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-muted">
           Hear the sound before you book it.
         </p>
 
@@ -89,10 +89,10 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                     select(i);
                   }
                 }}
-                className={`flex cursor-pointer flex-col gap-4 rounded-[15px] bg-[#121212] p-4 transition-all outline-none sm:p-5 lg:flex-row lg:items-center lg:gap-6 ${
+                className={`flex cursor-pointer flex-col gap-4 rounded-[15px] border border-hairline bg-surface-2 p-4 transition-all outline-none sm:p-5 lg:flex-row lg:items-center lg:gap-6 shadow-sm hover:shadow-md ${
                   isActive
-                    ? "ring-1 ring-[#910870] shadow-lg shadow-purple-950/30"
-                    : "hover:bg-[#181818]"
+                    ? "ring-2 ring-brand shadow-lg shadow-brand/20"
+                    : "hover:bg-surface"
                 }`}
               >
                 <div className="flex min-w-0 flex-1 items-center gap-5">
@@ -107,17 +107,17 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                     />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-display text-[16px] sm:text-[18px] font-normal text-white">
+                    <p className="font-display text-[16px] sm:text-[18px] font-normal text-muted">
                       {mix.artist}
                     </p>
-                    <h3 className="mt-1 font-display text-[16px] sm:text-[20px] font-normal text-white truncate">
+                    <h3 className="mt-1 font-display text-[16px] sm:text-[20px] font-medium text-foreground truncate">
                       {mix.title}
                     </h3>
                   </div>
                 </div>
 
                 {/* Player Capsule (Figma: 405px x 64px, rounded 10px, gradient) */}
-                <div className="flex h-[64px] items-center gap-4 rounded-[10px] bg-gradient-to-r from-[rgba(36,8,30,0.2)] via-[rgba(82,5,119,0.2)] to-[rgba(145,8,112,0.2)] px-4 sm:px-5 lg:w-[405px] lg:shrink-0">
+                <div className="flex h-[64px] items-center gap-4 rounded-[10px] border border-hairline bg-surface/80 px-4 sm:px-5 lg:w-[405px] lg:shrink-0 shadow-inner">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -126,14 +126,14 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                     }}
                     aria-label={`${isPlaying ? "Pause" : "Play"} ${mix.title}`}
                     aria-pressed={isPlaying}
-                    className="flex h-7 w-7 shrink-0 items-center justify-center text-white transition-transform hover:scale-110 active:scale-95"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center text-foreground transition-transform hover:scale-110 active:scale-95"
                   >
                     {isPlaying ? (
                       <svg
                         aria-hidden
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="h-5 w-5 fill-white"
+                        className="h-5 w-5 fill-current"
                       >
                         <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
                       </svg>
@@ -142,7 +142,7 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                         aria-hidden
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="h-5 w-5 fill-white"
+                        className="h-5 w-5 fill-current"
                       >
                         <path d="M8 5v14l11-7z" />
                       </svg>
@@ -150,13 +150,13 @@ export default function LatestMixes({ mixes = defaultMixes }: { mixes?: Mix[] } 
                   </button>
 
                   <Waveform
-                    className="h-6 min-w-0 flex-1 text-white/80"
+                    className="h-6 min-w-0 flex-1 text-brand dark:text-brand-light"
                     bars={36}
                     playing={isPlaying}
                     progress={progress}
                   />
 
-                  <span className="shrink-0 font-sans text-[16px] font-normal text-white tabular-nums">
+                  <span className="shrink-0 font-sans text-[16px] font-normal text-foreground tabular-nums">
                     {isPlaying ? clock(elapsed) : mix.duration}
                   </span>
                 </div>

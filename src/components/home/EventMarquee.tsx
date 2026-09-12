@@ -22,7 +22,7 @@ function Diamond() {
  */
 export default function EventMarquee() {
   return (
-    <div className="relative flex h-[54px] w-full items-center overflow-hidden border-y border-[rgba(42,39,49,0.7)] bg-black/50 backdrop-blur-xs">
+    <div className="relative flex h-[54px] w-full items-center overflow-hidden border-y border-hairline bg-surface/50 backdrop-blur-xs">
       <div className="flex w-max animate-[marquee_38s_linear_infinite] motion-reduce:animate-none">
         {[0, 1].map((copy) => (
           <div
@@ -32,7 +32,7 @@ export default function EventMarquee() {
           >
             {items.map((label) => (
               <div key={label} className="flex shrink-0 items-center">
-                <span className="text-[14px] font-normal tracking-[3.92px] whitespace-nowrap text-[#ACA9B3] uppercase">
+                <span className="text-[14px] font-normal tracking-[3.92px] whitespace-nowrap text-muted uppercase">
                   {label}
                 </span>
                 <Diamond />

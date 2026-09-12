@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function DjsPage() {
   return (
-    <div className="flex flex-col bg-black text-white">
+    <div className="flex flex-col bg-background text-foreground transition-colors duration-200">
       <DjsHero />
       <DjsFounders />
       <DjsRosterGrid />

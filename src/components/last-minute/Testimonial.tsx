@@ -2,13 +2,13 @@ import { testimonial } from "@/lib/last-minute-data";
 
 export default function Testimonial() {
   return (
-    <section className="scroll-mt-20 py-12 lg:py-16 bg-black">
+    <section className="scroll-mt-20 py-12 lg:py-16 bg-background">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <figure className="relative isolate mx-auto max-w-[1291px] overflow-hidden rounded-[20px] border border-white/10 bg-black px-6 py-14 text-center sm:px-12 lg:py-20 shadow-2xl">
-          {/* Faint concentric vinyl rings as in the Figma design */}
+        <figure className="relative isolate mx-auto max-w-[1291px] overflow-hidden rounded-[20px] border border-hairline bg-surface px-6 py-14 text-center sm:px-12 lg:py-20 shadow-sm text-foreground">
+          {/* Faint concentric vinyl rings */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 [background-image:repeating-radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.07)_0_1px,transparent_1px_16px)]"
+            className="pointer-events-none absolute inset-0 -z-10 [background-image:repeating-radial-gradient(circle_at_50%_45%,currentColor_0_1px,transparent_1px_16px)] opacity-[0.06]"
           />
 
           {/* Elegant quotation mark icon */}
@@ -17,7 +17,7 @@ export default function Testimonial() {
               viewBox="0 0 58 46"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-auto sm:h-12 text-white"
+              className="h-10 w-auto sm:h-12 text-brand-light"
               aria-hidden="true"
             >
               <path
@@ -28,16 +28,16 @@ export default function Testimonial() {
           </div>
 
           <blockquote className="mx-auto mt-8 max-w-[890px]">
-            <p className="font-display text-[22px] sm:text-[26px] lg:text-[30px] font-normal leading-[34px] sm:leading-[42px] lg:leading-[45px] text-white">
+            <p className="font-display text-[22px] sm:text-[26px] lg:text-[30px] font-normal leading-[34px] sm:leading-[42px] lg:leading-[45px] text-foreground">
               &ldquo;{testimonial.quote}&rdquo;
             </p>
           </blockquote>
 
           <figcaption className="mt-8">
-            <span className="block font-display text-[18px] sm:text-[20px] font-normal text-white">
+            <span className="block font-display text-[18px] sm:text-[20px] font-normal text-foreground">
               {testimonial.name}
             </span>
-            <span className="mt-1 block font-display text-[15px] sm:text-[16px] text-[#ACA9B3]">
+            <span className="mt-1 block font-display text-[15px] sm:text-[16px] text-muted">
               {testimonial.meta}
             </span>
           </figcaption>

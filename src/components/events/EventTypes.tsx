@@ -73,7 +73,7 @@ export default function EventTypes() {
   }, [stacking]);
 
   return (
-    <section id="event-types" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+    <section id="event-types" className="scroll-mt-20 py-12 lg:py-16 bg-background text-foreground transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <ul className={stacking ? "" : "space-y-6"}>
           {eventRows.map((row, i) => {
@@ -99,9 +99,9 @@ export default function EventTypes() {
               >
                 <article
                   data-active={isActive || undefined}
-                  className="group relative isolate overflow-hidden rounded-[20px] border border-white/10 bg-[rgba(36,36,36,0.5)] shadow-2xl backdrop-blur-md transition-all duration-300"
+                  className="group relative isolate overflow-hidden rounded-[20px] border border-hairline bg-surface/90 shadow-xl backdrop-blur-md transition-all duration-300"
                 >
-                  {/* Photo backdrop - crowd silhouette from Figma */}
+                  {/* Photo backdrop */}
                   <Image
                     src={`${EVENTS_IMG}/3d-music-related-scene 1.png`}
                     alt=""
@@ -109,29 +109,29 @@ export default function EventTypes() {
                     fill
                     priority={i === 0}
                     sizes="(max-width: 1440px) 100vw, 1440px"
-                    className="-z-10 object-cover object-center opacity-30 mix-blend-luminosity"
+                    className="-z-10 object-cover object-center opacity-15 dark:opacity-30 mix-blend-luminosity"
                   />
                   <div
                     aria-hidden
-                    className="absolute inset-0 -z-10 bg-gradient-to-r from-black/90 via-black/75 to-black/85"
+                    className="absolute inset-0 -z-10 bg-gradient-to-r from-background/95 via-background/80 to-background/90 dark:from-black/90 dark:via-black/75 dark:to-black/85"
                   />
 
                   <div className="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12 lg:p-12 items-center">
                     {/* Left: icon, number, title, Book My DJ button */}
                     <div>
-                      <div className="text-white">
+                      <div className="text-foreground">
                         <EventIcon name={row.icon} />
                       </div>
-                      <p className="mt-6 font-mono text-[13px] sm:text-[14px] text-zinc-400">
+                      <p className="mt-6 font-mono text-[13px] sm:text-[14px] text-muted">
                         {row.no}
                       </p>
-                      <h3 className="mt-2 font-display text-[28px] sm:text-[34px] lg:text-[38px] font-normal leading-tight text-white">
+                      <h3 className="mt-2 font-display text-[28px] sm:text-[34px] lg:text-[38px] font-normal leading-tight text-foreground">
                         {row.title}
                       </h3>
 
                       <Link
                         href="/contact"
-                        className="mt-8 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-[#E5E5E5] font-display text-[16px] font-medium text-black transition-colors hover:bg-white shadow-md"
+                        className="mt-8 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] btn-brand font-display text-[16px] font-medium text-white transition-opacity hover:opacity-90 shadow-lg shadow-purple-950/20"
                       >
                         Book My DJ
                       </Link>
@@ -139,17 +139,17 @@ export default function EventTypes() {
 
                     {/* Right: headline, blurb, Learn More link */}
                     <div>
-                      <h4 className="font-sans text-[18px] sm:text-[20px] lg:text-[22px] font-normal leading-[28px] sm:leading-[32px] text-white">
+                      <h4 className="font-sans text-[18px] sm:text-[20px] lg:text-[22px] font-normal leading-[28px] sm:leading-[32px] text-foreground">
                         {row.headline}
                       </h4>
 
-                      <p className="mt-4 font-sans text-[15px] sm:text-[16px] leading-[26px] text-[#ACA9B3] max-w-[500px]">
+                      <p className="mt-4 font-sans text-[15px] sm:text-[16px] leading-[26px] text-muted max-w-[500px]">
                         {row.blurb}
                       </p>
 
                       <Link
                         href={row.href}
-                        className="mt-6 inline-flex items-center gap-1.5 font-sans text-[15px] sm:text-[16px] font-normal text-white transition-opacity hover:opacity-80"
+                        className="mt-6 inline-flex items-center gap-1.5 font-sans text-[15px] sm:text-[16px] font-normal text-foreground transition-opacity hover:opacity-80"
                       >
                         <span>Learn More</span>
                         <span aria-hidden>&rarr;</span>

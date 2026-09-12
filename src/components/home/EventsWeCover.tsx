@@ -72,15 +72,15 @@ export default function EventsWeCover() {
   };
 
   return (
-    <section id="events" className="scroll-mt-20 py-12 lg:py-16 bg-black">
+    <section id="events" className="scroll-mt-20 py-12 lg:py-16 bg-background transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px]">
         <div className="px-6 sm:px-10 lg:px-16">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
+              <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-foreground">
                 Events We Cover
               </h2>
-              <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-[#9C9C9C]">
+              <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-muted">
                 Wherever the event, whatever the brief, we&apos;ve got a DJ for it.
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function EventsWeCover() {
                   : "w-[260px] sm:w-[280px] lg:w-[294px]"
               }`}
             >
-              <article className="group relative h-[452px] w-full overflow-hidden rounded-[15px] border border-white/10 bg-[#121212] shadow-2xl">
+              <article className="group relative h-[452px] w-full overflow-hidden rounded-[15px] border border-hairline bg-card shadow-2xl">
                 <Image
                   src={event.image}
                   alt={event.alt}
@@ -155,8 +155,8 @@ export default function EventsWeCover() {
               aria-current={active === i}
               className={`rounded-full transition-all duration-300 ${
                 active === i
-                  ? "h-2 w-8 bg-white"
-                  : "h-2 w-2 bg-white/40 hover:bg-white/60"
+                  ? "h-2 w-8 bg-foreground"
+                  : "h-2 w-2 bg-foreground/30 hover:bg-foreground/50"
               }`}
             />
           ))}

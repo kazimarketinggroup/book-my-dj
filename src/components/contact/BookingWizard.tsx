@@ -49,7 +49,7 @@ export default function BookingWizard() {
   const firstName = name.trim().split(/\s+/)[0] || "there";
 
   return (
-    <div className="flex min-h-125 flex-col rounded-[28px] border border-white/12 bg-black/60 p-6 shadow-[0_24px_70px_rgba(0,0,0,0.55)] sm:min-h-161 sm:p-8">
+    <div className="flex min-h-125 flex-col rounded-[28px] border border-hairline bg-surface/80 p-6 shadow-xl backdrop-blur-md sm:min-h-161 sm:p-8">
       {/* Postcode intro */}
       {step === 0 && (
         <div className="flex flex-1 flex-col items-center pt-10 text-center sm:pt-16">

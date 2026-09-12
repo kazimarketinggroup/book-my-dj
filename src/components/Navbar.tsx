@@ -9,14 +9,14 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-black/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-hairline bg-background/85 backdrop-blur-md transition-colors duration-200">
       <nav
         aria-label="Main"
         className="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between gap-4 px-6 sm:px-10 lg:px-16"
       >
         <Link
           href="/"
-          className="font-display text-[25px] font-semibold leading-[30px] tracking-tight text-white"
+          className="font-display text-[25px] font-semibold leading-[30px] tracking-tight text-foreground"
         >
           Book My DJ
         </Link>
@@ -27,7 +27,7 @@ export default function Navbar() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="font-display text-[16px] font-normal leading-[19px] text-white/90 transition-colors hover:text-white"
+                className="font-display text-[16px] font-normal leading-[19px] text-foreground/80 transition-colors hover:text-foreground"
               >
                 {link.label}
               </Link>
@@ -35,16 +35,17 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="hidden items-center gap-5 lg:flex">
+          <ThemeToggle />
           <Link
             href="/join-us"
-            className="font-display text-[16px] font-semibold leading-[19px] text-white transition-colors hover:text-white/80"
+            className="font-display text-[16px] font-semibold leading-[19px] text-foreground/90 transition-colors hover:text-foreground"
           >
             Join Us
           </Link>
           <Link
             href="/contact"
-            className="flex h-10 w-[137px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#520577] via-[#24081E] to-[#910870] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/40 transition-opacity hover:opacity-90"
+            className="flex h-10 w-[137px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#520577] via-[#24081E] to-[#910870] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/20 transition-opacity hover:opacity-90"
           >
             Book My DJ
           </Link>

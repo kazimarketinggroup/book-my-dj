@@ -4,15 +4,15 @@ import { FULL_ROSTER, type RosterDj } from "@/lib/djs-data";
 
 export default function DjsRosterGrid() {
   return (
-    <section className="relative w-full bg-black py-12 lg:py-16">
+    <section className="relative w-full bg-background text-foreground py-12 lg:py-16 transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 pb-8 sm:pb-10">
           <div>
-            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal tracking-[-0.6px] text-[#F9F8FB]">
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal tracking-[-0.6px] text-foreground">
               The full roster
             </h2>
-            <p className="mt-1.5 sm:mt-2 font-sans text-[15px] sm:text-[18px] text-[#ACA9B3]">
+            <p className="mt-1.5 sm:mt-2 font-sans text-[15px] sm:text-[18px] text-muted">
               15 resident and touring DJs covering London, the Midlands and the
               North.
             </p>
@@ -39,9 +39,9 @@ export default function DjsRosterGrid() {
 
 function DjCard({ dj }: { dj: RosterDj }) {
   return (
-    <article className="group flex flex-col justify-between overflow-hidden rounded-[15px] border border-white/5 bg-[#14111A] shadow-xl transition-all duration-300 hover:border-white/20 hover:shadow-2xl">
+    <article className="group flex flex-col justify-between overflow-hidden rounded-[15px] border border-hairline bg-surface-2 shadow-sm transition-all duration-300 hover:border-brand/40 hover:shadow-xl">
       {/* Top Media / Placeholder Container */}
-      <div className="relative h-[216px] w-full overflow-hidden bg-[#14111A]">
+      <div className="relative h-[216px] w-full overflow-hidden bg-surface">
         {dj.image ? (
           <>
             <Image
@@ -58,12 +58,12 @@ function DjCard({ dj }: { dj: RosterDj }) {
             />
           </>
         ) : (
-          /* Placeholder state from Figma */
-          <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#1C1923] to-[#0E0C12] p-4">
+          /* Placeholder state */
+          <div className="flex h-full w-full flex-col items-center justify-center bg-surface-3 p-4">
             {/* Center Circle with Icon */}
-            <div className="relative flex h-[41px] w-[41px] items-center justify-center rounded-full bg-[#FBFBFB] shadow-[0px_13px_32px_-11px_rgba(254,57,108,0.75)]">
+            <div className="relative flex h-[41px] w-[41px] items-center justify-center rounded-full bg-surface-2 shadow-[0px_13px_32px_-11px_rgba(254,57,108,0.75)]">
               <svg
-                className="h-[18px] w-[18px] text-black"
+                className="h-[18px] w-[18px] text-foreground"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -76,7 +76,7 @@ function DjCard({ dj }: { dj: RosterDj }) {
               </svg>
             </div>
             {/* Uppercase Placeholder Caption */}
-            <p className="mt-3 font-sans text-[8px] uppercase tracking-[1.76px] text-[#ACA9B3] text-center">
+            <p className="mt-3 font-sans text-[8px] uppercase tracking-[1.76px] text-muted text-center">
               {dj.placeholderLabel || `Photo — ${dj.name}`}
             </p>
           </div>
@@ -87,14 +87,14 @@ function DjCard({ dj }: { dj: RosterDj }) {
       <div className="flex flex-1 flex-col justify-between p-[15px]">
         <div>
           {/* Name */}
-          <h3 className="font-sans text-[16px] font-medium leading-[20px] text-[#F9F8FB]">
+          <h3 className="font-sans text-[16px] font-medium leading-[20px] text-foreground">
             {dj.name}
           </h3>
 
           {/* Location with Pin */}
-          <div className="mt-1 flex items-center gap-1 text-[#ACA9B3]">
+          <div className="mt-1 flex items-center gap-1 text-muted">
             <svg
-              className="h-[10px] w-[10px] shrink-0 text-[#ACA9B3]"
+              className="h-[10px] w-[10px] shrink-0 text-muted"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -115,7 +115,7 @@ function DjCard({ dj }: { dj: RosterDj }) {
             {dj.genres.map((g) => (
               <span
                 key={g}
-                className="inline-flex items-center rounded-full border border-black/70 bg-black px-2 py-[2.5px] font-sans text-[8px] leading-[12px] text-[#F9F8FB]"
+                className="inline-flex items-center rounded-full border border-hairline bg-surface px-2 py-[2.5px] font-sans text-[8px] leading-[12px] text-foreground"
               >
                 {g}
               </span>
@@ -127,7 +127,7 @@ function DjCard({ dj }: { dj: RosterDj }) {
         <div className="mt-4 pt-1">
           <Link
             href={dj.href || "/contact"}
-            className="group/btn inline-flex items-center gap-1 font-sans text-[10px] text-white transition-opacity hover:opacity-80"
+            className="group/btn inline-flex items-center gap-1 font-sans text-[10px] text-foreground transition-opacity hover:opacity-80"
           >
             <span>View profile</span>
             <svg

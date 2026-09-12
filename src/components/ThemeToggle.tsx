@@ -67,7 +67,7 @@ export default function ThemeToggle({
       suppressHydrationWarning
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-      className={`inline-flex h-9 w-9 items-center justify-center rounded-md border border-hairline text-foreground transition-colors hover:bg-surface-2 ${className}`}
+      className={`relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-surface/80 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-brand/40 hover:bg-surface-2 hover:scale-105 active:scale-95 ${className}`}
     >
       {theme === "dark" ? (
         <svg

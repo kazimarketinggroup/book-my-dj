@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PastGigsPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-background text-foreground">
       <PastGigsIntro />
       <GigBrowser />
       <LatestMixes />

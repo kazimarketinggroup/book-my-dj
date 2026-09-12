@@ -9,28 +9,28 @@ export default function PastGigs() {
   const featured = gigs[active];
 
   return (
-    <section id="past-gigs" className="scroll-mt-20 py-10 lg:py-16 bg-black">
+    <section id="past-gigs" className="scroll-mt-20 py-10 lg:py-16 bg-background transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
+        <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-foreground">
           Our Past Gigs
         </h2>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
-          {/* Featured panel (Rectangle 14 in Figma: 625px x 527px, #121212, rounded 15px) */}
+          {/* Featured panel */}
           <article
             aria-live="polite"
-            className="flex flex-col justify-between overflow-hidden rounded-[15px] bg-[#121212] p-6 shadow-xl sm:flex-row sm:items-center sm:gap-6"
+            className="flex flex-col justify-between overflow-hidden rounded-[15px] border border-hairline bg-surface-2 p-6 shadow-xl sm:flex-row sm:items-center sm:gap-6"
           >
             <div className="flex-1 text-left">
-              <h3 className="font-sans text-[20px] sm:text-[24px] font-normal leading-[30px] text-white">
+              <h3 className="font-sans text-[20px] sm:text-[24px] font-normal leading-[30px] text-foreground">
                 {featured.title}
               </h3>
-              <p className="mt-4 font-sans text-[14px] sm:text-[16px] leading-[26px] text-zinc-300">
+              <p className="mt-4 font-sans text-[14px] sm:text-[16px] leading-[26px] text-muted">
                 {featured.detail}
               </p>
             </div>
             
-            {/* Featured Image with Play Button (Rectangle 13 & Polygon 2) */}
+            {/* Featured Image with Play Button */}
             <div className="relative mt-4 aspect-[289/494] w-full max-w-[260px] shrink-0 overflow-hidden rounded-[15px] sm:mt-0 sm:h-[450px]">
               <Image
                 key={featured.image}
@@ -51,7 +51,7 @@ export default function PastGigs() {
             </div>
           </article>
 
-          {/* Selectable gig list (Group 57, 58, 59 in Figma: #121212, rounded 15px) */}
+          {/* Selectable gig list */}
           <div className="flex flex-col gap-4">
             {gigs.map((gig, i) => {
               const isActive = i === active;
@@ -61,10 +61,10 @@ export default function PastGigs() {
                   type="button"
                   onClick={() => setActive(i)}
                   aria-pressed={isActive}
-                  className={`flex w-full items-center gap-5 rounded-[15px] bg-[#121212] p-4 text-left transition-all ${
+                  className={`flex w-full items-center gap-5 rounded-[15px] border border-hairline bg-surface-2 p-4 text-left shadow-sm transition-all ${
                     isActive
-                      ? "ring-1 ring-[#910870] shadow-lg shadow-purple-950/30"
-                      : "hover:bg-[#181818]"
+                      ? "ring-2 ring-brand shadow-lg shadow-brand/20"
+                      : "hover:bg-surface"
                   }`}
                 >
                   {/* Thumbnail: Rectangle 15 in Figma: 158px x 142px */}
@@ -78,10 +78,10 @@ export default function PastGigs() {
                     />
                   </div>
                   <div className="min-w-0 flex-1 text-left">
-                    <h3 className="font-sans text-[18px] sm:text-[22px] font-normal leading-tight text-white">
+                    <h3 className="font-sans text-[18px] sm:text-[22px] font-medium leading-tight text-foreground">
                       {gig.title}
                     </h3>
-                    <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-snug text-zinc-400">
+                    <p className="mt-2 font-sans text-[14px] sm:text-[15px] leading-snug text-muted">
                       {gig.blurb}
                     </p>
                   </div>
