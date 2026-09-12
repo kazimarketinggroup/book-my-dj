@@ -6,19 +6,19 @@ export default function DjsFounders() {
   return (
     <section className="relative w-full bg-black py-12 lg:py-16">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <div className="grid items-start gap-8 lg:grid-cols-[320px_1fr] lg:gap-12 xl:gap-16">
-          {/* Left Column: Heading & Blurb */}
-          <div className="pt-1 sm:pt-2">
+        <div className="grid items-center gap-8 lg:grid-cols-[301px_1fr] lg:gap-8 xl:gap-10">
+          {/* Left Column: Heading & Blurb (vertically centered) */}
+          <div>
             <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal leading-[1.2] sm:leading-[46px] text-white">
               The founders
             </h2>
-            <p className="mt-2.5 sm:mt-3 font-sans text-[15px] sm:text-[18px] leading-[23px] sm:leading-[25px] text-[#9C9C9C]">
+            <p className="mt-2.5 sm:mt-3 font-sans text-[15px] sm:text-[18px] leading-[23px] sm:leading-[25px] text-[#9C9C9C] max-w-[301px]">
               Handpicked talent, every genre covered, every event nailed.
             </p>
           </div>
 
           {/* Right Column: Two Founder Cards */}
-          <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 max-w-[942px]">
             {FOUNDERS.map((founder) => (
               <Link
                 key={founder.name}
@@ -30,7 +30,7 @@ export default function DjsFounders() {
                   alt={founder.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 457px"
-                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {/* Bottom gradient from Figma: linear-gradient(360deg, #000000 0%, rgba(0, 0, 0, 0) 100%) */}

@@ -28,14 +28,14 @@ export const FOUNDERS = [
   {
     name: "Don",
     role: "Co Founder",
-    image: "/images/djs/Rectangle_17_188_1463.jpg",
+    image: "/images/djs/Rectangle_17_188_1463.png",
     alt: "Don - Co Founder",
     href: "/djs/don",
   },
   {
     name: "Luke Smith",
     role: "Co Founder",
-    image: "/images/djs/Rectangle_18_188_1464.jpg",
+    image: "/images/djs/Rectangle_18_188_1464.png",
     alt: "Luke Smith - Co Founder",
     href: "/djs/luke",
   },
