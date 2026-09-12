@@ -40,16 +40,16 @@ export default function DjsHero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
+          <div className="mt-8 flex items-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex h-[40px] w-full sm:w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Book My DJ
             </Link>
             <Link
               href="/events"
-              className="inline-flex h-[40px] w-full sm:w-[171px] items-center justify-center rounded-[5px] border border-white font-display text-[16px] font-medium text-white transition-colors hover:bg-white/10 active:scale-[0.98]"
+              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-white font-display text-[16px] font-medium text-white transition-colors hover:bg-white/10 active:scale-[0.98]"
             >
               Our Events
             </Link>

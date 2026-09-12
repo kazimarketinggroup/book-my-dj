@@ -125,16 +125,16 @@ export default function Hero() {
               </ul>
 
               {/* Action Buttons (Figma: Group 4, 171px x 40px, rounded 5px) */}
-              <div className="mt-7 sm:mt-8 flex flex-col xs:flex-row items-stretch xs:items-center gap-3.5 sm:gap-4">
+              <div className="mt-8 flex items-center gap-4">
                 <Link
                   href="/contact"
-                  className="flex h-[40px] w-full xs:w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/40 transition-all hover:brightness-110 active:scale-[0.98]"
+                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/40 transition-all hover:brightness-110 active:scale-[0.98]"
                 >
                   Book My DJ
                 </Link>
                 <Link
                   href="/events"
-                  className="flex h-[40px] w-full xs:w-[171px] items-center justify-center rounded-[5px] border border-white bg-transparent font-display text-[16px] font-medium text-white backdrop-blur transition-all hover:bg-white/10 active:scale-[0.98]"
+                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-white bg-transparent font-display text-[16px] font-medium text-white backdrop-blur transition-all hover:bg-white/10 active:scale-[0.98]"
                 >
                   Our Events
                 </Link>
