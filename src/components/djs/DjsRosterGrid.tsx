@@ -7,12 +7,12 @@ export default function DjsRosterGrid() {
     <section className="relative w-full bg-black py-12 lg:py-16">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         {/* Section Header */}
-        <div className="flex flex-wrap items-end justify-between gap-6 pb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 pb-8 sm:pb-10">
           <div>
-            <h2 className="font-display text-[32px] sm:text-[40px] font-normal tracking-[-0.6px] text-[#F9F8FB]">
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal tracking-[-0.6px] text-[#F9F8FB]">
               The full roster
             </h2>
-            <p className="mt-2 font-sans text-[16px] sm:text-[18px] text-[#ACA9B3]">
+            <p className="mt-1.5 sm:mt-2 font-sans text-[15px] sm:text-[18px] text-[#ACA9B3]">
               15 resident and touring DJs covering London, the Midlands and the
               North.
             </p>
@@ -20,14 +20,14 @@ export default function DjsRosterGrid() {
 
           <Link
             href="/contact"
-            className="inline-flex h-[40px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] px-6 font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex h-[40px] w-full sm:w-auto items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] px-6 font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Book My DJ
           </Link>
         </div>
 
-        {/* 15 DJ Cards Grid (4 columns on desktop) */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {/* 15 DJ Cards Grid (4 columns on desktop, 2 on tablet, 1 on mobile) */}
+        <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-sm sm:max-w-none mx-auto">
           {FULL_ROSTER.map((dj) => (
             <DjCard key={dj.id} dj={dj} />
           ))}

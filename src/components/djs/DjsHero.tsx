@@ -24,32 +24,32 @@ export default function DjsHero() {
       <div className="relative mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="max-w-[620px]">
           {/* Signature Script Title */}
-          <p className="font-signature text-[50px] sm:text-[65px] md:text-[70px] leading-[1] text-white select-none">
+          <p className="font-signature text-[45px] sm:text-[60px] md:text-[70px] leading-[1] text-white select-none">
             Our Djs
           </p>
 
           {/* Main Display Headline */}
-          <h1 className="mt-2 font-display text-[36px] sm:text-[45px] md:text-[50px] font-normal leading-[1.15] text-white">
+          <h1 className="mt-2 font-display text-[30px] sm:text-[42px] md:text-[50px] font-normal leading-[1.18] text-white">
             One roster, every sound you need
           </h1>
 
           {/* Subtitle Copy */}
-          <p className="mt-5 font-sans text-[16px] sm:text-[18px] leading-[28px] sm:leading-[30px] text-white/90">
+          <p className="mt-4 sm:mt-5 font-sans text-[15px] sm:text-[18px] leading-[26px] sm:leading-[30px] text-white/90">
             From multi-genre party anthems to house, bashment, afrobeats and
             Punjabi we match the DJ to your crowd, your city and your brief.
           </p>
 
           {/* CTA Buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
             <Link
               href="/contact"
-              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex h-[40px] w-full sm:w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Book My DJ
             </Link>
             <Link
               href="/events"
-              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-white font-display text-[16px] font-medium text-white transition-colors hover:bg-white/10"
+              className="inline-flex h-[40px] w-full sm:w-[171px] items-center justify-center rounded-[5px] border border-white font-display text-[16px] font-medium text-white transition-colors hover:bg-white/10 active:scale-[0.98]"
             >
               Our Events
             </Link>
@@ -57,11 +57,11 @@ export default function DjsHero() {
         </div>
 
         {/* Genre Tags Cloud */}
-        <div className="mt-14 sm:mt-20 flex flex-wrap items-center gap-2.5 sm:gap-3 max-w-[1280px]">
+        <div className="mt-10 sm:mt-16 lg:mt-20 flex flex-wrap items-center gap-2 sm:gap-3 max-w-[1280px]">
           {DJ_GENRES.map((genre) => (
             <span
               key={genre}
-              className="inline-flex items-center rounded-full border border-[rgba(42,39,49,0.7)] bg-[#211D27] px-[14px] py-[7px] font-sans text-[14px] sm:text-[16px] leading-[16px] text-[#F9F8FB] transition-colors hover:border-white/30 hover:bg-[#2b2633]"
+              className="inline-flex items-center rounded-full border border-[rgba(42,39,49,0.7)] bg-[#211D27] px-3 sm:px-[14px] py-1.5 sm:py-[7px] font-sans text-[13px] sm:text-[16px] leading-[16px] text-[#F9F8FB] transition-colors hover:border-white/30 hover:bg-[#2b2633]"
             >
               {genre}
             </span>

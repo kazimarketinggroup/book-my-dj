@@ -8,17 +8,17 @@ export default function DjsFounders() {
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="grid items-start gap-8 lg:grid-cols-[320px_1fr] lg:gap-12 xl:gap-16">
           {/* Left Column: Heading & Blurb */}
-          <div className="pt-2">
-            <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[46px] text-white">
+          <div className="pt-1 sm:pt-2">
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[40px] font-normal leading-[1.2] sm:leading-[46px] text-white">
               The founders
             </h2>
-            <p className="mt-3 font-sans text-[16px] sm:text-[18px] leading-[25px] text-[#9C9C9C]">
+            <p className="mt-2.5 sm:mt-3 font-sans text-[15px] sm:text-[18px] leading-[23px] sm:leading-[25px] text-[#9C9C9C]">
               Handpicked talent, every genre covered, every event nailed.
             </p>
           </div>
 
           {/* Right Column: Two Founder Cards */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2">
             {FOUNDERS.map((founder) => (
               <Link
                 key={founder.name}
@@ -39,14 +39,14 @@ export default function DjsFounders() {
                   className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-black via-black/70 to-transparent"
                 />
 
-                <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
-                  <p className="font-sans text-[22px] sm:text-[25px] font-medium leading-[30px] text-white">
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 flex flex-col justify-end">
+                  <p className="font-sans text-[20px] sm:text-[25px] font-medium leading-[26px] sm:leading-[30px] text-white">
                     {founder.name}
                   </p>
-                  <p className="font-sans text-[15px] sm:text-[17px] font-normal text-white/80">
+                  <p className="font-sans text-[14px] sm:text-[17px] font-normal text-white/80">
                     {founder.role}
                   </p>
-                  <span className="mt-2 inline-flex items-center font-sans text-[15px] sm:text-[17px] text-white transition-transform duration-300 group-hover:translate-x-1">
+                  <span className="mt-1.5 sm:mt-2 inline-flex items-center font-sans text-[14px] sm:text-[17px] text-white transition-transform duration-300 group-hover:translate-x-1">
                     View Profile &rarr;
                   </span>
                 </div>
