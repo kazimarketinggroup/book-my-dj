@@ -66,7 +66,7 @@ export default function AboutHero() {
 
       {/* Stats Strip Box */}
       <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-[996px] rounded-[20px] border border-hairline bg-surface/80 px-6 py-6 shadow-xl backdrop-blur-md sm:px-10 sm:py-7">
+        <div className="mx-auto max-w-[996px] rounded-[20px] border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface/80 px-6 py-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl backdrop-blur-md sm:px-10 sm:py-7">
           <dl className="grid grid-cols-2 gap-y-6 sm:grid-cols-4 sm:gap-4 items-center">
             {stats.map((s) => (
               <div key={s.label} className="text-left px-2 sm:px-4">

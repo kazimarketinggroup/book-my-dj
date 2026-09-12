@@ -1,5 +1,5 @@
 const inputBase =
-  "h-[62.44px] w-full rounded-[10px] border border-hairline bg-surface-2 px-4 font-sans text-[16.6px] text-foreground placeholder:text-muted outline-none transition-colors focus:border-brand-light focus:ring-1 focus:ring-brand-light";
+  "h-[62.44px] w-full rounded-[10px] border border-slate-200 dark:border-hairline bg-slate-50 dark:bg-surface-2 px-4 font-sans text-[16.6px] text-foreground placeholder:text-muted outline-none transition-colors focus:border-brand-light focus:bg-white dark:focus:bg-surface-2 focus:ring-1 focus:ring-brand-light";
 
 export default function BookingBar({
   buttonVariant = "gradient",
@@ -9,7 +9,7 @@ export default function BookingBar({
   return (
     <section id="book" className="scroll-mt-20 py-8 lg:py-12 bg-background transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <div className="rounded-[20px] border border-hairline bg-surface/80 p-6 shadow-xl backdrop-blur-md lg:p-8">
+        <div className="rounded-[20px] border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface/80 p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl backdrop-blur-md lg:p-8">
           <h2 className="font-display text-[30px] font-normal leading-[25px] text-foreground">
             Book Now
           </h2>

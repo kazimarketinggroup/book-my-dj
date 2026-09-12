@@ -99,7 +99,7 @@ export default function EventTypes() {
               >
                 <article
                   data-active={isActive || undefined}
-                  className="group relative isolate overflow-hidden rounded-[20px] border border-hairline bg-surface/90 shadow-xl backdrop-blur-md transition-all duration-300"
+                  className="group relative isolate overflow-hidden rounded-[20px] border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface/90 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl backdrop-blur-md transition-all duration-300"
                 >
                   {/* Photo backdrop */}
                   <Image
