@@ -36,10 +36,10 @@ export default function TeamSection() {
                 </div>
                 <Link
                   href={member.href}
-                  className="mt-6 inline-flex items-center gap-1.5 font-sans text-[16px] font-normal bg-gradient-to-r from-[#910870] to-[#520577] bg-clip-text text-transparent transition-opacity hover:opacity-80"
+                  className="mt-6 inline-flex items-center gap-1.5 font-sans text-[16px] font-medium text-foreground transition-opacity hover:opacity-80"
                 >
                   <span>Read More</span>
-                  <span className="text-[#910870]" aria-hidden>&rarr;</span>
+                  <span aria-hidden>&rarr;</span>
                 </Link>
               </div>
 

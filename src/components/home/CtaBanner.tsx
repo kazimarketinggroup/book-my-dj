@@ -4,7 +4,7 @@ export default function CtaBanner() {
   return (
     <section id="contact" className="scroll-mt-20 py-12 lg:py-16 bg-background transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        <div className="relative overflow-hidden rounded-[20px] border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface/90 px-6 py-12 text-center shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl backdrop-blur-md sm:px-12 lg:py-16">
+        <div className="relative overflow-hidden rounded-[20px] border border-slate-200/90 bg-white px-6 py-12 text-center shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-12 lg:py-16">
           <h2 className="font-display text-[32px] sm:text-[40px] font-normal leading-[35px] text-foreground">
             Book Your DJ Today
           </h2>

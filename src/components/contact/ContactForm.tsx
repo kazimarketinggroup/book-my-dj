@@ -4,7 +4,7 @@ import { useState } from "react";
 import { consentOptions, eventTypeOptions } from "@/lib/contact-data";
 
 const field =
-  "field-motion h-11 w-full rounded-lg border border-slate-200 dark:border-hairline bg-slate-50 dark:bg-surface-3 px-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:bg-white dark:focus:bg-surface-3 focus:ring-1 focus:ring-brand-light";
+  "field-motion h-11 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:bg-white focus:ring-1 focus:ring-brand-light";
 
 const label = "block text-xs font-medium text-foreground";
 
@@ -12,7 +12,7 @@ export default function ContactForm() {
   const [sent, setSent] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface p-5 sm:p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)]">
       <h2 className="font-display fluid-h2 font-semibold text-foreground">
         Send Us Your Event Details
       </h2>
@@ -75,7 +75,7 @@ export default function ContactForm() {
               id="c-date"
               name="eventDate"
               type="date"
-              className={`${field} mt-2 scheme-dark`}
+              className={`${field} mt-2`}
             />
           </div>
           <div>
@@ -123,7 +123,7 @@ export default function ContactForm() {
             name="message"
             rows={5}
             placeholder="Write here"
-            className="field-motion mt-2 w-full rounded-lg border border-hairline bg-surface-3 px-3 py-2.5 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light"
+            className="field-motion mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:bg-white focus:ring-1 focus:ring-brand-light"
           />
         </div>
 
@@ -138,7 +138,7 @@ export default function ContactForm() {
                 type="checkbox"
                 name={opt.name}
                 required={opt.required}
-                className="mt-0.5 h-4 w-4 shrink-0 rounded-sm border border-hairline bg-surface-3 accent-brand"
+                className="mt-0.5 h-4 w-4 shrink-0 rounded-sm border border-slate-300 bg-white accent-brand"
               />
               <span>{opt.label}</span>
             </label>

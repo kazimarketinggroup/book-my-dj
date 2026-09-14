@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { gigCategories, pastGigs, type GigCategory } from "@/lib/past-gigs-data";
 
@@ -8,6 +8,9 @@ export default function GigBrowser() {
   const [category, setCategory] = useState<GigCategory>("All Gigs");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -26,9 +29,44 @@ export default function GigBrowser() {
   const activeIndex = selected < results.length ? selected : 0;
   const featured = results[activeIndex] || pastGigs[0];
 
+  // Pause and reset playback whenever active gig changes so it does NOT autoplay
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.pause();
+    video.currentTime = 0;
+    setIsPlaying(false);
+  }, [activeIndex, featured?.video]);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
+
   const changeFilter = (next: GigCategory) => {
     setCategory(next);
     setSelected(0);
+    setIsPlaying(false);
   };
 
   return (
@@ -44,7 +82,7 @@ export default function GigBrowser() {
             <label htmlFor="gig-search" className="sr-only">
               Search past gigs
             </label>
-            <div className="flex h-[44px] w-full items-center rounded-full border border-hairline bg-surface-2 px-4 gap-3 transition-all focus-within:border-brand-light focus-within:ring-1 focus-within:ring-brand-light">
+            <div className="flex h-[44px] w-full items-center rounded-full border border-hairline bg-surface-2 px-4 gap-3 transition-all focus-within:border-black focus-within:ring-1 focus-within:ring-black">
               <svg
                 aria-hidden
                 viewBox="0 0 24 24"
@@ -63,6 +101,7 @@ export default function GigBrowser() {
                 onChange={(e) => {
                   setQuery(e.target.value);
                   setSelected(0);
+                  setIsPlaying(false);
                 }}
                 placeholder="Search"
                 className="w-full bg-transparent font-sans text-[15px] text-foreground placeholder:text-muted outline-none"
@@ -84,7 +123,7 @@ export default function GigBrowser() {
                       type="button"
                       onClick={() => changeFilter(c)}
                       aria-current={on}
-                      className={`whitespace-nowrap font-sans text-[17px] leading-[30px] transition-colors text-left block w-full ${
+                      className={`whitespace-nowrap font-sans text-[17px] leading-[30px] transition-colors text-left block w-full cursor-pointer ${
                         on
                           ? "font-medium text-foreground"
                           : "font-normal text-muted hover:text-foreground"
@@ -120,17 +159,117 @@ export default function GigBrowser() {
                 </p>
               </div>
 
-              {/* Tall Portrait Image Right */}
-              <div className="relative aspect-[268/481] w-full sm:w-[268px] sm:h-[481px] shrink-0 overflow-hidden rounded-[14.5px]">
-                <Image
-                  key={featured.image}
-                  src={featured.image}
-                  alt={featured.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 90vw, 268px"
-                  className="object-cover"
-                />
+              {/* Tall Portrait Media Right */}
+              <div
+                role="button"
+                tabIndex={0}
+                aria-label={isPlaying ? "Pause video" : "Play video"}
+                onClick={togglePlay}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    togglePlay();
+                  }
+                }}
+                className="relative aspect-[268/481] w-full sm:w-[268px] sm:h-[481px] shrink-0 overflow-hidden rounded-[14.5px] bg-black group cursor-pointer shadow-lg select-none"
+              >
+                {featured.video ? (
+                  <video
+                    ref={videoRef}
+                    key={featured.video}
+                    src={featured.video}
+                    poster={featured.image}
+                    playsInline
+                    loop
+                    muted={isMuted}
+                    preload="metadata"
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    key={featured.image}
+                    src={featured.image}
+                    alt={featured.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 90vw, 268px"
+                    className="object-cover"
+                  />
+                )}
+
+                {/* Play Overlay when paused and video exists */}
+                {featured.video && !isPlaying && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-all">
+                    <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-black/70 border border-white/20 text-white backdrop-blur-xs transition-transform hover:scale-110 shadow-xl">
+                      <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6 translate-x-0.5">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+
+                {/* Floating Mute/Sound and Play controls */}
+                {featured.video && (
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-between opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        togglePlay();
+                      }}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/90 transition-colors"
+                      aria-label={isPlaying ? "Pause" : "Play"}
+                    >
+                      {isPlaying ? (
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                          <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4 fill-current translate-x-0.5" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={toggleMute}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/90 transition-colors"
+                      aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                    >
+                      {isMuted ? (
+                        <svg
+                          className="w-4 h-4"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                          <line x1="23" y1="9" x2="17" y2="15" />
+                          <line x1="17" y1="9" x2="23" y2="15" />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-4 h-4"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
             </article>
           ) : (
@@ -147,11 +286,14 @@ export default function GigBrowser() {
                 <li key={gig.title}>
                   <button
                     type="button"
-                    onClick={() => setSelected(i)}
+                    onClick={() => {
+                      setSelected(i);
+                      setIsPlaying(false);
+                    }}
                     aria-pressed={isActive}
-                    className={`w-full h-[165.6px] rounded-[15px] p-3.5 sm:p-4 text-left transition-all flex items-center gap-4.5 ${
+                    className={`w-full h-[165.6px] rounded-[15px] p-3.5 sm:p-4 text-left transition-all flex items-center gap-4.5 cursor-pointer ${
                       isActive
-                        ? "border border-[#910870] bg-surface-2 shadow-md"
+                        ? "border border-black ring-1 ring-black bg-surface-2 shadow-md"
                         : "border border-hairline bg-surface-2 hover:bg-surface-3"
                     }`}
                   >
@@ -164,6 +306,21 @@ export default function GigBrowser() {
                         sizes="158px"
                         className="object-cover"
                       />
+                      {isActive && (
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black shadow-md">
+                            {isPlaying ? (
+                              <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+                              </svg>
+                            ) : (
+                              <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 translate-x-0.5">
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
                     {/* Content */}
                     <div className="min-w-0 flex-1 text-left">

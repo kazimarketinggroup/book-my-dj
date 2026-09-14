@@ -1,30 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { DJ_GENRES } from "@/lib/djs-data";
 
 export default function DjsHero() {
   return (
     <section className="relative w-full overflow-hidden bg-background text-foreground pt-28 pb-16 lg:pt-36 lg:pb-20 transition-colors duration-200">
-      {/* Background DJ Hero Image */}
-      <div className="absolute inset-0 h-[650px] sm:h-[775px] w-full pointer-events-none">
-        <Image
-          src="/images/djs/11033_1_187_99.jpg"
-          alt="DJ illustration"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-top opacity-20 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen"
-        />
-        {/* Top gradient */}
-        <div className="absolute inset-x-0 top-0 h-[194px] bg-gradient-to-b from-background via-background/80 to-transparent" />
-        {/* Bottom gradient fade */}
-        <div className="absolute inset-x-0 bottom-0 h-[450px] bg-gradient-to-t from-background via-background/90 to-transparent" />
-      </div>
-
       <div className="relative mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="max-w-[620px]">
           {/* Signature Script Title */}
-          <p className="font-signature text-[45px] sm:text-[60px] md:text-[70px] leading-[1] text-brand-light dark:text-white select-none">
+          <p className="font-signature text-[45px] sm:text-[60px] md:text-[70px] leading-[1] text-foreground select-none">
             Our Djs
           </p>
 
@@ -43,7 +26,7 @@ export default function DjsHero() {
           <div className="mt-8 flex items-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-transform hover:bg-zinc-800 hover:scale-[1.02] active:scale-[0.98]"
             >
               Book My DJ
             </Link>

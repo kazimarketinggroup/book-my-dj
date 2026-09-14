@@ -20,7 +20,7 @@ export default function DjsRosterGrid() {
 
           <Link
             href="/contact"
-            className="inline-flex h-[40px] w-full sm:w-auto items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] px-6 font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex h-[40px] w-full sm:w-auto items-center justify-center rounded-[5px] bg-black px-6 font-display text-[16px] font-medium text-white shadow-md transition-transform hover:bg-zinc-800 hover:scale-[1.02] active:scale-[0.98]"
           >
             Book My DJ
           </Link>

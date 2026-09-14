@@ -25,7 +25,7 @@ export default function JoinHero() {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href={joinHero.primaryCta.href}
-              className="inline-flex h-[40px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#24081E] via-[#520577] to-[#910870] px-7 font-display text-[16px] font-medium text-white shadow-lg transition-transform hover:scale-[1.02]"
+              className="inline-flex h-[40px] items-center justify-center rounded-[5px] bg-black px-7 font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800 hover:scale-[1.02] active:scale-[0.98]"
             >
               {joinHero.primaryCta.label}
             </Link>

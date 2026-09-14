@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { heroCards, IMG } from "@/lib/home-data";
-import Waveform from "@/components/ui/Waveform";
+import { heroCards } from "@/lib/home-data";
 import EventMarquee from "@/components/home/EventMarquee";
 
 /**
@@ -26,9 +25,9 @@ const cardStyles = [
   },
   {
     // Bottom-Left (Pro Sound & Lighting) - Portrait
-    container: "lg:absolute lg:bottom-2 lg:left-[20%] lg:w-[42%] z-30",
+    container: "lg:absolute lg:bottom-0 lg:left-[5%] lg:w-[42%] z-30",
     aspect: "aspect-[4/5]",
-    caption: "bottom-2 left-2 lg:bottom-6 lg:-left-8",
+    caption: "bottom-2 left-2 lg:bottom-4 lg:-left-3",
   },
   {
     // Bottom-Right (Last Minute Booking) - Landscape
@@ -41,41 +40,6 @@ const cardStyles = [
 export default function Hero() {
   return (
     <section className="relative isolate flex min-h-[calc(100vh-5rem)] min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden bg-background text-foreground transition-colors duration-200">
-      {/* Background crowd shot */}
-      <Image
-        src={`${IMG}/11033 1.png`}
-        alt=""
-        aria-hidden
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover object-center opacity-30 dark:opacity-50"
-      />
-
-      {/* Center-top purple stage lighting glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_15%,rgba(168,14,130,0.25),transparent_65%)] dark:bg-[radial-gradient(ellipse_at_50%_15%,rgba(168,14,130,0.45),transparent_65%)]"
-      />
-
-      {/* Top gradient */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[175px] bg-gradient-to-b from-background to-transparent"
-      />
-
-      {/* Left-side vignette for razor-sharp text readability */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-background/95 via-background/60 to-transparent dark:from-black/85 dark:via-black/45 dark:to-transparent"
-      />
-
-      {/* Bottom fade into marquee bar */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-36 bg-gradient-to-t from-background/90 to-transparent dark:from-black/80 dark:to-transparent"
-      />
-
       {/* Main Hero Content Area */}
       <div className="flex flex-1 items-center py-6 lg:py-10">
         <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
@@ -83,28 +47,8 @@ export default function Hero() {
             
             {/* Left Text Column (Group 88) */}
             <div className="max-w-[675px]">
-              {/* Audio Waveform Tag (Figma: 281px x 64px, rounded 15px) */}
-              <div className="inline-flex h-[64px] w-auto sm:w-[281px] items-center gap-3.5 rounded-[15px] border border-hairline bg-surface/80 px-4 shadow-xl backdrop-blur-md">
-                <button
-                  type="button"
-                  aria-label="Play sample"
-                  className="flex h-6 w-6 shrink-0 items-center justify-center text-foreground transition-transform hover:scale-110 active:scale-95"
-                >
-                  <svg
-                    aria-hidden
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-5 w-5 fill-current"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </button>
-                <Waveform className="h-6 w-28 text-foreground sm:w-32" bars={26} />
-                <span className="font-sans text-[16px] font-normal text-foreground tabular-nums">0:16</span>
-              </div>
-
               {/* Headline */}
-              <h1 className="mt-6 sm:mt-7 font-display text-[30px] sm:text-[44px] lg:text-[50px] font-normal tracking-tight text-foreground leading-[1.18] sm:leading-[1.2] lg:leading-[60px]">
+              <h1 className="font-display text-[32px] sm:text-[44px] lg:text-[50px] font-normal tracking-tight text-foreground leading-[1.18] sm:leading-[1.2] lg:leading-[60px]">
                 DJs For Every{" "}
                 <br className="hidden sm:inline" />
                 Occasion, Nationwide
@@ -113,11 +57,11 @@ export default function Hero() {
               {/* Sub-bullets */}
               <ul className="mt-5 sm:mt-6 space-y-3 font-sans text-[15px] sm:text-[18px] leading-[23px] sm:leading-[25px] text-foreground/90">
                 <li className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-light dark:bg-white" />
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black" />
                   <span>From weddings to boardrooms, festivals to black-tie galas.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-light dark:bg-white" />
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black" />
                   <span>
                     Trusted by events managers and planners who can&apos;t afford a bad night.
                   </span>
@@ -128,7 +72,7 @@ export default function Hero() {
               <div className="mt-8 flex items-center gap-4">
                 <Link
                   href="/contact"
-                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/30 transition-all hover:brightness-110 active:scale-[0.98]"
+                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800 active:scale-[0.98]"
                 >
                   Book My DJ
                 </Link>

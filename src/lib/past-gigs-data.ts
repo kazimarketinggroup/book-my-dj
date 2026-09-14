@@ -12,6 +12,7 @@ export const pastGigsQuote = {
   quote:
     "We booked Book My Dj for our summer social not knowing what to expect, and they read the room perfectly — the dancefloor didn't clear until we shut the bar.",
   image: `${PG_IMG}/Group 81.png`,
+  video: "/videos/Reggional music festival.mp4",
   alt: "DJ playing to a packed crowd at a club night",
 };
 
@@ -33,6 +34,7 @@ export type PastGig = {
   blurb: string;
   detail: string;
   image: string;
+  video?: string;
   alt: string;
   category: Exclude<GigCategory, "All Gigs">;
 };
@@ -44,6 +46,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "500 guests, one brief, zero room for error, we built a set that moved effortlessly from mingling music to a packed dancefloor by 8pm and held it there until close.",
     image: `${IMG}/Rectangle 13.png`,
+    video: "/videos/Gym king pr event.mp4",
     alt: "DJ performing at the Gym King PR event",
     category: "PR Events",
   },
@@ -53,6 +56,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "A launch night where the music had to carry the brand without drowning the conversation. We built the room slowly, held the press through the speeches, and turned it into a party the moment the formalities ended.",
     image: `${IMG}/Rectangle 15.png`,
+    video: "/videos/pr product launch london.mp4",
     alt: "Two DJs playing at a London product launch",
     category: "PR Events",
   },
@@ -62,6 +66,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "Two stages, one weekend, and a crowd that never thinned out. Back-to-back sets timed around the headline acts, reading each room and keeping the energy up from first gates to final call.",
     image: `${IMG}/Rectangle 15 (1).png`,
+    video: "/videos/Reggional music festival.mp4",
     alt: "DJ playing a set at a regional music festival",
     category: "Music Festivals",
   },
@@ -71,6 +76,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "An all-day terrace opening that had to work in daylight and after dark. We eased through afternoon house, lifted the tempo as the sun dropped, and closed on a full floor.",
     image: `${IMG}/Rectangle 17.png`,
+    video: "/videos/Gym king pr event.mp4",
     alt: "DJ playing an outdoor terrace launch",
     category: "Live Events",
   },
@@ -80,6 +86,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "A milestone birthday where the playlist mattered as much as the venue. We worked from the family's own shortlist, bridged three decades of music, and kept every generation on the floor.",
     image: `${IMG}/Rectangle 18.png`,
+    video: "/videos/pr product launch london.mp4",
     alt: "DJ performing at a private birthday party",
     category: "Private Events",
   },
@@ -89,6 +96,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "Careful background music through a three-course dinner and awards, then a hard pivot into a dancefloor set the moment the last trophy was handed out.",
     image: `${IMG}/Rectangle 15.png`,
+    video: "/videos/pr product launch london.mp4",
     alt: "DJ set up at a black-tie awards gala",
     category: "Special Occasions",
   },
@@ -98,6 +106,7 @@ export const pastGigs: PastGig[] = [
     detail:
       "A rural booking with no in-house sound or lighting. We brought the complete rig, set it up around a tight stage area, and ran the night end to end.",
     image: `${IMG}/Rectangle 13.png`,
+    video: "/videos/Gym king pr event.mp4",
     alt: "Mobile disco rig set up in a village hall",
     category: "Mobile Disco",
   },

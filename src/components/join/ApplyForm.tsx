@@ -146,7 +146,7 @@ export default function ApplyForm() {
         <div className="flex flex-wrap items-center gap-4 pt-2">
           <button
             type="submit"
-            className="inline-flex h-[40px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#24081E] via-[#520577] to-[#910870] px-6 font-display text-[15px] font-medium text-white shadow-md transition-opacity hover:opacity-90"
+            className="inline-flex h-[40px] items-center justify-center rounded-[5px] bg-black px-6 font-display text-[15px] font-medium text-white shadow-md transition-colors hover:bg-zinc-800 cursor-pointer"
           >
             Send Application
           </button>

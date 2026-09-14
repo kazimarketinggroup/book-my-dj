@@ -1,46 +1,15 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 :root {
-  /* Brand gradient stops — identical in both themes */
-  --brand-1: #910870;
-  --brand-2: #520577;
-  --brand-3: #24081e;
+  /* Brand color tokens - clean simple black styling */
+  --brand-1: #000000;
+  --brand-2: #18181b;
+  --brand-3: #27272a;
 
-  /* The full three-stop ramp, reusable anywhere */
-  --brand-gradient: linear-gradient(
-    90deg,
-    var(--brand-1) 0%,
-    var(--brand-2) 50%,
-    var(--brand-3) 100%
-  );
-}
+  /* Solid black / dark token */
+  --brand-gradient: #000000;
 
-/*
- * Theme tokens. Dark is the default; `data-theme` on <html> switches them.
- * Every surface/text colour below must be defined in BOTH blocks.
- */
-:root,
-:root[data-theme="dark"] {
-  --background: #07090f;
-  --foreground: #f5f7fb;
-  --surface: #10141b;
-  --surface-2: #171b24;
-  --surface-3: #1d2430;
-  --hairline: rgba(255, 255, 255, 0.08);
-  --muted: #a1a1aa;
-  --card-bg: #14111a;
-  --card-border: rgba(255, 255, 255, 0.1);
-  --page-gradient: radial-gradient(
-      circle at top,
-      rgba(145, 8, 112, 0.18),
-      transparent 30%
-    ),
-    linear-gradient(180deg, #05070d 0%, #07090f 100%);
-}
-
-:root[data-theme="light"] {
+  /* Light theme tokens */
   --background: #ffffff;
   --foreground: #0b0d14;
   --surface: #f8f9fc;
@@ -50,7 +19,7 @@
   --muted: #64748b;
   --card-bg: #ffffff;
   --card-border: rgba(15, 23, 42, 0.08);
-  --page-gradient: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  --page-gradient: #ffffff;
 }
 
 @theme inline {
@@ -66,12 +35,11 @@
   --color-hairline: var(--hairline);
   --color-muted: var(--muted);
 
-  /* Brand accent — stops from the design's gradient */
+  /* Brand accent — clean simple black & neutral darks */
   --color-brand: var(--brand-1);
   --color-brand-mid: var(--brand-2);
   --color-brand-deep: var(--brand-3);
-  /* Lifted magenta for hover/among dark surfaces */
-  --color-brand-light: #b81a8f;
+  --color-brand-light: #18181b;
 
   --font-display: var(--font-chivo);
   --font-sans: var(--font-inter);
@@ -96,18 +64,23 @@ body {
 }
 
 ::selection {
-  background: rgba(145, 8, 112, 0.55);
+  background: rgba(0, 0, 0, 0.85);
   color: white;
 }
 
-/* Shared brand gradient fill for CTAs */
+/* Shared brand fill for CTAs — clean simple black */
 .btn-brand {
-  background: var(--brand-gradient);
-  box-shadow: 0 12px 30px rgba(145, 8, 112, 0.28);
+  background: #000000;
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
 }
 
 .btn-brand:hover {
-  filter: brightness(1.04);
+  background-color: #18181b;
+  color: #ffffff;
+  filter: none;
 }
 
 h1,

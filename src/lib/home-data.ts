@@ -55,6 +55,7 @@ export type Gig = {
   detail: string;
   image: string;
   alt: string;
+  video: string;
 };
 
 export const gigs: Gig[] = [
@@ -65,6 +66,7 @@ export const gigs: Gig[] = [
       "500 guests, one brief, zero room for error, we built a set that moved effortlessly from mingling music to a packed dancefloor by 8pm and held it there until close.",
     image: `${IMG}/Rectangle 13.png`,
     alt: "DJ performing at the Gym King PR event",
+    video: "/videos/Gym king pr event.mp4",
   },
   {
     title: "PR Product Launch, London",
@@ -73,6 +75,7 @@ export const gigs: Gig[] = [
       "A launch night where the music had to carry the brand without drowning the conversation. We built the room slowly, held the press through the speeches, and turned it into a party the moment the formalities ended.",
     image: `${IMG}/Rectangle 15.png`,
     alt: "Two DJs playing at a London product launch",
+    video: "/videos/pr product launch london.mp4",
   },
   {
     title: "Regional Music Festival, Leeds",
@@ -81,6 +84,7 @@ export const gigs: Gig[] = [
       "Two stages, one weekend, and a crowd that never thinned out. Back-to-back sets timed around the headline acts, reading each room and keeping the energy up from first gates to final call.",
     image: `${IMG}/Rectangle 15 (1).png`,
     alt: "DJ playing a set at a regional music festival",
+    video: "/videos/Reggional music festival.mp4",
   },
 ];
 
@@ -177,12 +181,17 @@ export const eventCategories: EventCategory[] = [
   },
 ];
 
+export const djSmileySoundCloudUrl = "https://soundcloud.com/d-jsmiley";
+
 export type Mix = {
   artist: string;
   title: string;
   duration: string;
   cover: string;
   alt: string;
+  soundCloudUrl?: string;
+  soundCloudTrackId?: string;
+  genre?: string;
 };
 
 export const mixes: Mix[] = [
@@ -192,20 +201,49 @@ export const mixes: Mix[] = [
     duration: "2:28:15",
     cover: `${IMG}/Rectangle 25.png`,
     alt: "Treehouse cocktail and champagne bar mix artwork",
+    soundCloudUrl: "https://soundcloud.com/d-jsmiley/tree-house-promo-mix-vocal-house-chilled-anthems-classics",
+    soundCloudTrackId: "882721030",
+    genre: "House",
+  },
+  {
+    artist: "DJ Smiley",
+    title: "SMILEY SERIES HOUSE",
+    duration: "55:08",
+    cover: `${IMG}/smiley-series-house.jpg`,
+    alt: "Smiley Series House mix artwork",
+    soundCloudUrl: "https://soundcloud.com/d-jsmiley/smiley-series-house",
+    soundCloudTrackId: "819234445",
+    genre: "House",
   },
   {
     artist: "DJ Smiley",
     title: "Reagge Mix Tribute To My Grandad 1926-2020",
-    duration: "2:28:15",
+    duration: "36:12",
     cover: `${IMG}/Rectangle 26.png`,
     alt: "Tribute mix artwork for Noel Smile",
+    soundCloudUrl: "https://soundcloud.com/d-jsmiley/reagge-mix-tribute-to-my-grandad-1926-2020",
+    soundCloudTrackId: "805295890",
+    genre: "Reggae",
   },
   {
     artist: "DJ Smiley",
-    title: "Local Summer Terrace Launch Mix by Resident - DJ Smiley",
-    duration: "2:28:15",
+    title: "LOCAL SUMMER TERRACE LAUNCH MIX by Resident - DJ Smiley",
+    duration: "45:34",
     cover: `${IMG}/Rectangle 27.png`,
     alt: "Summer terrace launch mix artwork",
+    soundCloudUrl: "https://soundcloud.com/d-jsmiley/local-summer-terrace-launch-mix-by-resident-dj-smiley",
+    soundCloudTrackId: "437917458",
+    genre: "House",
+  },
+  {
+    artist: "DJ Smiley",
+    title: "Local Promo Mix By Dj Smiley N Luke Luiz",
+    duration: "55:27",
+    cover: `${IMG}/smiley-n-luke.jpg`,
+    alt: "Local Promo Mix by DJ Smiley & Luke Luiz",
+    soundCloudUrl: "https://soundcloud.com/d-jsmiley/local-promo-mix-by-smiley-n-luke-luiz",
+    soundCloudTrackId: "517668039",
+    genre: "Open Format",
   },
 ];
 

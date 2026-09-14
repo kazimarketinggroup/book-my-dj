@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Audio waveform. Heights come from a fixed sine-based sequence so server and
  * client render identically (no hydration mismatch from Math.random).
@@ -10,20 +12,35 @@ export default function Waveform({
   className = "",
   playing = false,
   progress = 0,
+  onSeek,
 }: {
   bars?: number;
   className?: string;
   playing?: boolean;
   progress?: number;
+  onSeek?: (progress: number) => void;
 }) {
   const filledUpTo = Math.round(progress * bars);
 
+  const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    if (!onSeek) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (rect.width <= 0) return;
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    onSeek(ratio);
+  };
+
   return (
     <svg
-      aria-hidden
+      aria-label="Track waveform and seek bar"
+      role={onSeek ? "slider" : "img"}
+      aria-valuenow={Math.round(progress * 100)}
+      aria-valuemin={0}
+      aria-valuemax={100}
       viewBox={`0 0 ${bars * 3} 24`}
       preserveAspectRatio="none"
-      className={className}
+      onClick={handleClick}
+      className={`${className} ${onSeek ? "cursor-pointer select-none" : ""}`}
     >
       {Array.from({ length: bars }, (_, i) => {
         // Rounded: raw Math.sin output differs in the last float digit between

@@ -99,7 +99,7 @@ export default function EventTypes() {
               >
                 <article
                   data-active={isActive || undefined}
-                  className="group relative isolate overflow-hidden rounded-[20px] border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface/90 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl backdrop-blur-md transition-all duration-300"
+                  className="group relative isolate overflow-hidden rounded-[20px] border border-slate-200/90 bg-white shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] backdrop-blur-md transition-all duration-300"
                 >
                   {/* Photo backdrop */}
                   <Image
@@ -109,11 +109,11 @@ export default function EventTypes() {
                     fill
                     priority={i === 0}
                     sizes="(max-width: 1440px) 100vw, 1440px"
-                    className="-z-10 object-cover object-center opacity-15 dark:opacity-30 mix-blend-luminosity"
+                    className="-z-10 object-cover object-center opacity-15 mix-blend-luminosity"
                   />
                   <div
                     aria-hidden
-                    className="absolute inset-0 -z-10 bg-gradient-to-r from-background/95 via-background/80 to-background/90 dark:from-black/90 dark:via-black/75 dark:to-black/85"
+                    className="absolute inset-0 -z-10 bg-gradient-to-r from-background/95 via-background/80 to-background/90"
                   />
 
                   <div className="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12 lg:p-12 items-center">
@@ -131,7 +131,7 @@ export default function EventTypes() {
 
                       <Link
                         href="/contact"
-                        className="mt-8 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] btn-brand font-display text-[16px] font-medium text-white transition-opacity hover:opacity-90 shadow-lg shadow-purple-950/20"
+                        className="mt-8 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] btn-brand font-display text-[16px] font-medium text-white transition-opacity hover:opacity-90 shadow-md"
                       >
                         Book My DJ
                       </Link>

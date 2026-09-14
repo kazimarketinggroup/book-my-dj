@@ -1,38 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { aboutHero, stats } from "@/lib/about-data";
 
 export default function AboutHero() {
   return (
     <section className="relative isolate flex min-h-[calc(100vh-5rem)] flex-col justify-between overflow-hidden bg-background text-foreground transition-colors duration-200">
-      {/* Background DJ hands mixer shot */}
-      <Image
-        src={aboutHero.image}
-        alt={aboutHero.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover object-center opacity-25 dark:opacity-40 mix-blend-luminosity"
-      />
-
-      {/* Top gradient fade */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[175px] bg-gradient-to-b from-background to-transparent"
-      />
-
-      {/* Central ambient glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_25%,rgba(168,14,130,0.18),transparent_65%)] dark:bg-[radial-gradient(ellipse_at_50%_25%,rgba(168,14,130,0.4),transparent_65%)]"
-      />
-
-      {/* Bottom gradient fade */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[415px] bg-gradient-to-t from-background via-background/75 to-transparent"
-      />
-
       {/* Central Content Area */}
       <div className="flex flex-1 items-center py-12 lg:py-16">
         <div className="mx-auto w-full max-w-[1440px] px-6 text-center sm:px-10 lg:px-16">
@@ -50,7 +21,7 @@ export default function AboutHero() {
           <div className="mt-8 flex flex-wrap justify-center items-center gap-4">
             <Link
               href="/contact"
-              className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#910870] via-[#520577] to-[#24081E] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/40 transition-all hover:brightness-110 active:scale-[0.98]"
+              className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800 active:scale-[0.98]"
             >
               Book My DJ
             </Link>
@@ -66,7 +37,7 @@ export default function AboutHero() {
 
       {/* Stats Strip Box */}
       <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-[996px] rounded-[20px] border border-slate-200/90 dark:border-hairline bg-white dark:bg-surface/80 px-6 py-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-xl backdrop-blur-md sm:px-10 sm:py-7">
+        <div className="mx-auto max-w-[996px] rounded-[20px] border border-slate-200/90 bg-white px-6 py-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-10 sm:py-7">
           <dl className="grid grid-cols-2 gap-y-6 sm:grid-cols-4 sm:gap-4 items-center">
             {stats.map((s) => (
               <div key={s.label} className="text-left px-2 sm:px-4">

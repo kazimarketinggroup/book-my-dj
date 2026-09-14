@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { navLinks } from "@/lib/home-data";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -36,7 +35,6 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <ThemeToggle />
           <Link
             href="/join-us"
             className="font-display text-[16px] font-semibold leading-[19px] text-foreground/90 transition-colors hover:text-foreground"
@@ -45,15 +43,14 @@ export default function Navbar() {
           </Link>
           <Link
             href="/contact"
-            className="flex h-10 w-[137px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#520577] via-[#24081E] to-[#910870] font-display text-[16px] font-medium text-white shadow-lg shadow-purple-950/20 transition-opacity hover:opacity-90"
+            className="flex h-10 w-[137px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-colors hover:bg-zinc-800 active:scale-[0.98]"
           >
             Book My DJ
           </Link>
         </div>
 
-        {/* Mobile: theme toggle + hamburger */}
+        {/* Mobile: hamburger */}
         <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

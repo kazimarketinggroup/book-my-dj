@@ -86,7 +86,7 @@ export default function EventsWeCover() {
             </div>
             <Link
               href="/events"
-              className="flex h-[41px] items-center justify-center rounded-[6.5px] bg-gradient-to-r from-[#24081e] via-[#520577] to-[#910870] px-6 font-display text-[15px] font-medium text-white shadow-lg transition-opacity hover:opacity-90"
+              className="flex h-[41px] items-center justify-center rounded-[6.5px] bg-black px-6 font-display text-[15px] font-medium text-white shadow-md transition-colors hover:bg-zinc-800"
             >
               See All Events
             </Link>
@@ -134,7 +134,7 @@ export default function EventsWeCover() {
 
                   <Link
                     href={event.href}
-                    className="mt-5 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-gradient-to-r from-[#24081E] via-[#520577] to-[#910870] font-display text-[16px] font-medium text-white shadow-lg transition-all hover:brightness-110"
+                    className="mt-5 inline-flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800"
                   >
                     Book My DJ
                   </Link>

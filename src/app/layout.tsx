@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Chivo, Great_Vibes, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { themeInitScript } from "@/components/ThemeToggle";
 import "./globals.css";
 
 const chivo = Chivo({
@@ -37,15 +36,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${chivo.variable} ${inter.variable} ${greatVibes.variable} h-full antialiased`}
     >
-      <head>
-        <script
-          // Sets data-theme before first paint to avoid a flash of the wrong theme.
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
-        />
-      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <Navbar />
         <main className="flex-1">{children}</main>

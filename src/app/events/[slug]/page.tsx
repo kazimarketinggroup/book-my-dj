@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { eventRows, EVENTS_IMG } from "@/lib/events-data";
+import { eventRows } from "@/lib/events-data";
 import { detailSlugs } from "@/lib/event-detail-data";
 import EventIcon from "@/components/events/EventIcon";
 import CtaBanner from "@/components/home/CtaBanner";
@@ -47,29 +46,11 @@ export default async function EventDetailPage({
 
   return (
     <>
-      <section className="relative isolate overflow-hidden">
-        <Image
-          src={`${EVENTS_IMG}/hero.png`}
-          alt=""
-          aria-hidden
-          fill
-          priority
-          sizes="100vw"
-          className="-z-10 object-cover object-center"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-linear-to-r from-black/88 via-black/60 to-black/25"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-linear-to-t from-background to-transparent"
-        />
-
+      <section className="relative bg-background border-b border-hairline transition-colors duration-200">
         <div className="mx-auto w-full max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20 2xl:px-16">
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 text-xs font-medium text-zinc-300 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 text-xs font-medium text-muted transition-colors hover:text-foreground"
           >
             <svg
               aria-hidden
@@ -86,19 +67,19 @@ export default async function EventDetailPage({
             All Events
           </Link>
 
-          <span className="mt-8 block text-white">
+          <span className="mt-8 block text-foreground">
             <EventIcon name={row.icon} />
           </span>
-          <p className="mt-4 text-[11px] tracking-[0.2em] text-zinc-400">
+          <p className="mt-4 text-[11px] tracking-[0.2em] text-muted">
             {row.no}
           </p>
-          <h1 className="mt-2 max-w-2xl font-display fluid-hero font-semibold text-white">
+          <h1 className="mt-2 max-w-2xl font-display fluid-hero font-semibold text-foreground">
             {row.title}
           </h1>
-          <p className="mt-5 max-w-xl fluid-body leading-relaxed text-zinc-300">
+          <p className="mt-5 max-w-xl fluid-body leading-relaxed text-foreground/90">
             {row.headline}
           </p>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
             {row.blurb}
           </p>
 

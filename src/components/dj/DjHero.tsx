@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { DjProfile } from "@/lib/dj-data";
 
@@ -24,23 +23,9 @@ function SocialMark({ label }: { label: string }) {
 
 export default function DjHero({ dj }: { dj: DjProfile }) {
   return (
-    <section className="hero-screen relative isolate overflow-hidden bg-background text-foreground transition-colors duration-200">
-      <Image
-        src={dj.hero.image}
-        alt={dj.hero.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover object-right-top opacity-60 dark:opacity-100"
-      />
-      {/* Left-weighted scrim so the copy stays readable over the photo */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-r from-background via-background/80 to-transparent dark:from-black dark:via-black/65 dark:to-transparent"
-      />
-
+    <section className="hero-screen relative bg-background text-foreground transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20 2xl:px-16">
-        <p className="font-signature text-4xl text-brand-light dark:text-white sm:text-5xl">
+        <p className="font-signature text-4xl text-foreground sm:text-5xl">
           {dj.signature}
         </p>
 
@@ -59,7 +44,7 @@ export default function DjHero({ dj }: { dj: DjProfile }) {
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/contact"
-            className="btn-brand rounded-lg px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90"
+            className="btn-brand rounded-lg px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90 cursor-pointer"
           >
             Book My DJ
           </Link>

@@ -10,6 +10,9 @@ export type DjMix = {
   duration: string;
   cover: string;
   alt: string;
+  soundCloudUrl?: string;
+  soundCloudTrackId?: string;
+  genre?: string;
 };
 export type Credential = { title: string; items: string };
 export type Occasion = string;
@@ -85,7 +88,11 @@ export const djProfiles: DjProfile[] = [
     intro:
       "From Ibiza residencies to VIP parties and brand activations a set built for the crowd in front of him.",
     hero: { image: `${DON}/11033 1.png`, alt: "Don outside a Boujiee Brunch taxi" },
-    socials: SHARED_SOCIALS,
+    socials: [
+      { label: "SoundCloud", href: "https://soundcloud.com/d-jsmiley" },
+      { label: "Instagram", href: "https://instagram.com" },
+      { label: "Mixcloud", href: "https://mixcloud.com" },
+    ],
     about: {
       paragraphs: [
         "With over 14 years of experience, Don is an international multi-genre DJ dedicated to creating unforgettable experiences on the dancefloor. Whether it's a nightclub, festival, private event, brand activation, or exclusive VIP party, he brings the same energy: read the room, build the moment, deliver the night.",

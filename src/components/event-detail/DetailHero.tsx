@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import type { EventDetail } from "@/lib/event-detail-data";
 
 export default function DetailHero({ detail }: { detail: EventDetail }) {
@@ -9,27 +8,17 @@ export default function DetailHero({ detail }: { detail: EventDetail }) {
   const { hero, title } = detail;
 
   return (
-    <section className="hero-screen relative isolate overflow-hidden">
-      <Image
-        src={hero.image}
-        alt={hero.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover object-center"
-      />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-black/45" />
-
+    <section className="hero-screen relative bg-background text-foreground border-b border-hairline transition-colors duration-200">
       <div className="mx-auto w-full max-w-[1600px] px-5 py-14 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-20 2xl:px-16">
-        <h1 className="font-display fluid-hero font-semibold text-white">
+        <h1 className="font-display fluid-hero font-semibold text-foreground">
           {title}
         </h1>
 
-        <p className="mx-auto mt-4 max-w-xl fluid-body text-zinc-200">
+        <p className="mx-auto mt-4 max-w-xl fluid-body text-foreground/85">
           {hero.headline}
         </p>
 
-        <p className="mx-auto mt-3 max-w-lg text-xs leading-relaxed text-zinc-400 sm:text-sm">
+        <p className="mx-auto mt-3 max-w-lg text-xs leading-relaxed text-muted sm:text-sm">
           {hero.blurb[0]}
           <br className="hidden sm:block" /> {hero.blurb[1]}
         </p>
@@ -50,7 +39,7 @@ export default function DetailHero({ detail }: { detail: EventDetail }) {
               aria-hidden
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-zinc-400"
+              className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted"
             >
               <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
             </svg>
@@ -59,18 +48,18 @@ export default function DetailHero({ detail }: { detail: EventDetail }) {
               name="postcode"
               required
               placeholder="Your Postcode"
-              className="field-motion h-11 w-full rounded-lg border border-white/15 bg-black/50 pr-3 pl-9 text-sm text-white placeholder:text-zinc-400 outline-none backdrop-blur focus:border-brand-light focus:ring-1 focus:ring-brand-light"
+              className="field-motion h-11 w-full rounded-lg border border-hairline bg-surface-2 pr-3 pl-9 text-sm text-foreground placeholder:text-muted outline-none focus:border-black focus:ring-1 focus:ring-black"
             />
           </div>
           <button
             type="submit"
-            className="btn-brand h-11 shrink-0 rounded-lg px-6 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0"
+            className="btn-brand h-11 shrink-0 rounded-lg px-6 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0 cursor-pointer"
           >
             Book My DJ
           </button>
         </form>
 
-        <p className="mt-4 inline-flex items-center gap-2 text-xs text-zinc-300">
+        <p className="mt-4 inline-flex items-center gap-2 text-xs text-muted">
           <svg
             aria-hidden
             viewBox="0 0 24 24"

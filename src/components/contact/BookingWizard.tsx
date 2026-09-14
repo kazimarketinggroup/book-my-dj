@@ -12,7 +12,7 @@ import {
 } from "@/lib/contact-data";
 
 const field =
-  "field-motion h-10 w-full rounded-lg border border-slate-200 dark:border-hairline bg-slate-50 dark:bg-surface-3 px-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:bg-white dark:focus:bg-surface-3 focus:ring-1 focus:ring-brand-light";
+  "field-motion h-10 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:bg-white focus:ring-1 focus:ring-brand-light";
 
 const label = "block text-xs font-medium text-foreground";
 
@@ -49,7 +49,7 @@ export default function BookingWizard() {
   const firstName = name.trim().split(/\s+/)[0] || "there";
 
   return (
-    <div className="flex min-h-125 flex-col rounded-[28px] border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#11141c] p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] dark:shadow-[0_24px_70px_rgba(0,0,0,0.55)] sm:min-h-161 sm:p-8">
+    <div className="flex min-h-125 flex-col rounded-[28px] border border-slate-200/90 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] sm:min-h-161 sm:p-8">
       {/* Postcode intro */}
       {step === 0 && (
         <div className="flex flex-1 flex-col items-center pt-10 text-center sm:pt-16">
@@ -136,7 +136,7 @@ export default function BookingWizard() {
                   className={`flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-2.5 text-sm transition-colors ${
                     selected
                       ? "border-brand-light bg-brand/5 text-foreground font-semibold shadow-xs"
-                      : "border-slate-200 dark:border-hairline bg-slate-50/70 dark:bg-surface-3 text-foreground/80 dark:text-muted hover:border-brand-light/50 hover:bg-slate-100/70 dark:hover:bg-surface-2"
+                      : "border-slate-200 bg-slate-50/70 text-foreground/80 hover:border-brand-light/50 hover:bg-slate-100/70"
                   }`}
                 >
                   <input
@@ -173,7 +173,7 @@ export default function BookingWizard() {
                 type="date"
                 value={answers.date ?? ""}
                 onChange={(e) => choose("date", e.target.value)}
-                className={`${field} mt-1.5 dark:scheme-dark`}
+                className={`${field} mt-1.5`}
               />
             </div>
 
@@ -187,7 +187,7 @@ export default function BookingWizard() {
                   type="time"
                   value={answers.start ?? ""}
                   onChange={(e) => choose("start", e.target.value)}
-                  className={`${field} mt-1.5 dark:scheme-dark`}
+                  className={`${field} mt-1.5`}
                 />
               </div>
               <div>
@@ -275,7 +275,7 @@ export default function BookingWizard() {
                   id="w-message"
                   rows={2}
                   placeholder="Write here"
-                  className="field-motion mt-1.5 w-full rounded-lg border border-hairline bg-surface-3 px-3 py-2.5 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light"
+                  className="field-motion mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-foreground placeholder:text-muted outline-none focus:border-brand-light focus:bg-white focus:ring-1 focus:ring-brand-light"
                 />
               </div>
 
@@ -290,7 +290,7 @@ export default function BookingWizard() {
                       type="checkbox"
                       name={opt.name}
                       required={opt.required}
-                      className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded-sm border border-hairline bg-surface-3 accent-brand"
+                      className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded-sm border border-slate-300 bg-white accent-brand"
                     />
                     <span>{opt.label}</span>
                   </label>
