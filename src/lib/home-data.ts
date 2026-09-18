@@ -14,6 +14,7 @@ export const navLinks: NavLink[] = [
 
 export type HeroCard = {
   src: string;
+  video: string;
   alt: string;
   title: string;
   caption: string;
@@ -23,24 +24,32 @@ export type HeroCard = {
 export const heroCards: HeroCard[] = [
   {
     src: `${IMG}/Rectangle 4.png`, // DJ laughing behind the booth
+    video:
+      "/videos/hero/AQPFNSRT0OZfcBi62RtPx-Jt38T7j8V1embRpba7Wftjgkf1L_IbhJGf9r8TifovwGHCPMBWB6SUSpZQ6KGd-M3InzM4aEQqiWOG3x0.mp4",
     alt: "DJ laughing behind the booth",
     title: "Corporate Event DJ",
     caption: "Covering events across the UK",
   },
   {
     src: `${IMG}/Rectangle 1.png`, // DJ in black shirt mixing
+    video:
+      "/videos/hero/AQM3bIrQZaO1T7yFVoPs6z7y1Lez2qC6ky8kKWSVun0QeR8J1Uyla_iCl9x_Eshc7MsiPNBLtPMvo222cijQo_qb.mp4",
     alt: "DJ mixing with headphones on",
     title: "Every Occasion",
     caption: "Weddings to corporate, covered",
   },
   {
     src: `${IMG}/Rectangle 2.png`, // DJ in white shirt playing Pioneer decks
+    video:
+      "/videos/hero/AQPm3U6d_HGDndVLlQTqNO9K1wpDZKvbDwORIPJtLLX0IHZN_znUgKc4B-C1mVPEzwv0rKRP25E4Y2ECJ5oR8gg.mp4",
     alt: "DJ playing on Pioneer decks outdoors",
     title: "Pro Sound & Lighting",
     caption: "Industry grade kit, every time",
   },
   {
     src: `${IMG}/Rectangle 3.png`, // DJ with blue headphones at laptop/gear
+    video:
+      "/videos/hero/AQMS9Zr3SGYAuhBeI7bcrAganxtwoY19wlVocSI-YDuqRqUuEilJb5TPtNQMKOWgBHoCJKXNLPthQ2SxmqWelrsdt_ZMktEaVi35vwU.mp4",
     alt: "DJ performing at an event",
     title: "Last Minute Booking",
     caption: "A DJ on call when you need one",
