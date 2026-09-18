@@ -5,8 +5,10 @@ import Image from "next/image";
 import {
   mixes as defaultMixes,
   djSmileySoundCloudUrl,
+  djLukeLuizMixcloudUrl,
   type Mix,
 } from "@/lib/home-data";
+import type { DjProfile } from "@/lib/dj-data";
 import Waveform from "@/components/ui/Waveform";
 
 declare global {
@@ -38,7 +40,41 @@ declare global {
         };
       };
     };
+    Mixcloud?: {
+      PlayerWidget: (element: HTMLIFrameElement) => {
+        ready: Promise<any>;
+        play: () => Promise<void>;
+        pause: () => Promise<void>;
+        togglePlay: () => Promise<void>;
+        load: (key: string, startPlaying?: boolean) => Promise<void>;
+        seek: (seconds: number) => Promise<void>;
+        events: {
+          play: { on: (cb: () => void) => void };
+          pause: { on: (cb: () => void) => void };
+          ended: { on: (cb: () => void) => void };
+          progress: { on: (cb: (pos: number, dur: number) => void) => void };
+          buffering: { on: (cb: () => void) => void };
+          error: { on: (cb: (err: any) => void) => void };
+        };
+      };
+    };
   }
+}
+
+function SoundCloudIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+      <path d="M11.56 8.87V17h8.17c1.8 0 3.27-1.42 3.27-3.17 0-1.7-1.35-3.08-3.04-3.16-.27-2.68-2.58-4.76-5.4-4.76-1.12 0-2.16.33-3 0.96zm-1.8 1.48v6.65h.9V9.92a4.4 4.4 0 00-.9.43zm-1.8 1.05v5.6h.9v-5.78c-.32.05-.62.11-.9.18zm-1.8.44v5.16h.9v-5.32c-.32.04-.63.1-.9.16zm-1.8.27v4.89h.9v-5.03c-.32.04-.62.09-.9.14zm-1.8.5v4.39h.9v-4.52a6.3 6.3 0 00-.9.13zm-1.8 1.2v3.19h.9v-3.3c-.32.03-.62.06-.9.11zm-1.8 1.5v1.69h.9v-1.78c-.32.02-.62.05-.9.09z" />
+    </svg>
+  );
+}
+
+function MixcloudIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M2.462 8.596l1.372 6.49h.319l1.372-6.49h2.462v6.808H6.742v-5.68l.232-.81h-.402l-1.43 6.49H2.854l-1.44-6.49h-.391l.222.81v5.68H0V8.596zM24 8.63v1.429L21.257 12 24 13.941v1.43l-3.235-2.329h-.348l-3.226 2.329v-1.43l2.734-1.94-2.733-1.942V8.63l3.225 2.338h.348zm-7.869 2.75v1.24H9.304v-1.24z" />
+    </svg>
+  );
 }
 
 /** "2:28:15" or "55:08" -> seconds */
@@ -49,8 +85,10 @@ function toSeconds(hms: string) {
 
 export default function LatestMixes({
   mixes = defaultMixes,
+  dj,
 }: {
   mixes?: Mix[];
+  dj?: DjProfile;
 } = {}) {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState<number | null>(null);
@@ -60,9 +98,19 @@ export default function LatestMixes({
   const [progress, setProgress] = useState(0);
   const [showMiniPlayer, setShowMiniPlayer] = useState(true);
 
+  // Determine if this DJ/section uses Mixcloud or SoundCloud
+  const isMixcloud =
+    dj?.slug === "luke" ||
+    mixes.some((m) => Boolean(m.mixcloudKey || m.mixcloudUrl));
+
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const widgetRef = useRef<any>(null);
   const isWidgetReadyRef = useRef(false);
+
+  const mixcloudIframeRef = useRef<HTMLIFrameElement | null>(null);
+  const mixcloudWidgetRef = useRef<any>(null);
+  const isMixcloudWidgetReadyRef = useRef(false);
+
   const pendingPlayIndex = useRef<number | null>(null);
 
   // Active or playing track
@@ -71,6 +119,16 @@ export default function LatestMixes({
   const initialUrl =
     mixes[0]?.soundCloudUrl ||
     "https://soundcloud.com/d-jsmiley/tree-house-promo-mix-vocal-house-chilled-anthems-classics";
+
+  const initialMixcloudKey =
+    mixes[0]?.mixcloudKey ||
+    "/DJLUKELUIZ/the-jamhouse-sunday-funday-promo-mix-010821/";
+
+  const profileUrl = isMixcloud
+    ? djLukeLuizMixcloudUrl
+    : djSmileySoundCloudUrl;
+  const badgeLabel = isMixcloud ? "Luke Luiz Mixcloud" : "DJ Smiley SoundCloud";
+  const platformName = isMixcloud ? "Mixcloud" : "SoundCloud";
 
   // Clock format
   const clock = (s: number) => {
@@ -81,7 +139,7 @@ export default function LatestMixes({
     return h > 0 ? `${h}:${pad(m)}:${pad(sec)}` : `${m}:${pad(sec)}`;
   };
 
-  const attachWidgetEvents = useCallback((widget: any) => {
+  const attachSoundCloudEvents = useCallback((widget: any) => {
     if (!window.SC?.Widget?.Events) return;
     const Events = window.SC.Widget.Events;
 
@@ -134,16 +192,99 @@ export default function LatestMixes({
     });
   }, [mixes]);
 
-  // Load the SoundCloud Widget API script
+  // Load the appropriate player Widget API script
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const initWidget = () => {
+    if (isMixcloud) {
+      const initMixcloud = () => {
+        if (mixcloudIframeRef.current && window.Mixcloud?.PlayerWidget) {
+          try {
+            const mcWidget = window.Mixcloud.PlayerWidget(mixcloudIframeRef.current);
+            mcWidget.ready.then(() => {
+              isMixcloudWidgetReadyRef.current = true;
+              mixcloudWidgetRef.current = mcWidget;
+              if (pendingPlayIndex.current !== null) {
+                const idx = pendingPlayIndex.current;
+                pendingPlayIndex.current = null;
+                const target = mixes[idx];
+                const key = target?.mixcloudKey || target?.mixcloudUrl;
+                if (key) {
+                  mcWidget.load(key, true).then(() => {
+                    setIsBuffering(false);
+                    setIsPlaying(true);
+                  });
+                }
+              }
+            });
+
+            mcWidget.events.play.on(() => {
+              setIsPlaying(true);
+              setIsBuffering(false);
+            });
+
+            mcWidget.events.pause.on(() => {
+              setIsPlaying(false);
+            });
+
+            mcWidget.events.ended.on(() => {
+              setIsPlaying(false);
+              setPlaying(null);
+              setElapsed(0);
+              setProgress(0);
+            });
+
+            mcWidget.events.progress.on((pos: number, dur: number) => {
+              if (typeof pos === "number") {
+                setElapsed(Math.floor(pos));
+                if (dur > 0) setProgress(pos / dur);
+              }
+            });
+
+            mcWidget.events.buffering.on(() => {
+              setIsBuffering(true);
+            });
+
+            mcWidget.events.error.on(() => {
+              setIsBuffering(false);
+            });
+          } catch {
+            // ignore initialization error
+          }
+        }
+      };
+
+      if (window.Mixcloud?.PlayerWidget) {
+        initMixcloud();
+        return;
+      }
+
+      const scriptSrc = "https://widget.mixcloud.com/media/js/widgetApi.js";
+      let script = document.querySelector<HTMLScriptElement>(`script[src="${scriptSrc}"]`);
+      if (!script) {
+        script = document.createElement("script");
+        script.src = scriptSrc;
+        script.async = true;
+        script.onload = () => initMixcloud();
+        document.body.appendChild(script);
+      } else {
+        script.addEventListener("load", initMixcloud);
+      }
+
+      return () => {
+        if (script) {
+          script.removeEventListener("load", initMixcloud);
+        }
+      };
+    }
+
+    // Otherwise SoundCloud
+    const initSoundCloud = () => {
       if (iframeRef.current && window.SC?.Widget) {
         try {
           const widget = window.SC.Widget(iframeRef.current);
           widgetRef.current = widget;
-          attachWidgetEvents(widget);
+          attachSoundCloudEvents(widget);
         } catch {
           // ignore initialization error
         }
@@ -151,7 +292,7 @@ export default function LatestMixes({
     };
 
     if (window.SC?.Widget) {
-      initWidget();
+      initSoundCloud();
       return;
     }
 
@@ -163,18 +304,18 @@ export default function LatestMixes({
       script = document.createElement("script");
       script.src = scriptSrc;
       script.async = true;
-      script.onload = () => initWidget();
+      script.onload = () => initSoundCloud();
       document.body.appendChild(script);
     } else {
-      script.addEventListener("load", initWidget);
+      script.addEventListener("load", initSoundCloud);
     }
 
     return () => {
       if (script) {
-        script.removeEventListener("load", initWidget);
+        script.removeEventListener("load", initSoundCloud);
       }
     };
-  }, [attachWidgetEvents]);
+  }, [isMixcloud, attachSoundCloudEvents, mixes]);
 
   const select = (i: number) => {
     setActive(i);
@@ -185,21 +326,60 @@ export default function LatestMixes({
     const targetMix = mixes[i];
     if (!targetMix) return;
 
-    // Pausing the current track
+    if (isMixcloud) {
+      // Pausing current track
+      if (playing === i && isPlaying) {
+        mixcloudWidgetRef.current?.pause();
+        setIsPlaying(false);
+        return;
+      }
+
+      // Resuming current track
+      if (playing === i && !isPlaying) {
+        mixcloudWidgetRef.current?.play();
+        setIsPlaying(true);
+        return;
+      }
+
+      // Switching to a new track
+      setPlaying(i);
+      setElapsed(0);
+      setProgress(0);
+      setIsBuffering(true);
+      setShowMiniPlayer(true);
+
+      const targetKey = targetMix.mixcloudKey || targetMix.mixcloudUrl;
+      if (isMixcloudWidgetReadyRef.current && mixcloudWidgetRef.current && targetKey) {
+        mixcloudWidgetRef.current
+          .load(targetKey, true)
+          .then(() => {
+            setIsBuffering(false);
+            setIsPlaying(true);
+          })
+          .catch(() => {
+            setIsBuffering(false);
+          });
+      } else {
+        pendingPlayIndex.current = i;
+      }
+      return;
+    }
+
+    // Pausing the current track (SoundCloud)
     if (playing === i && isPlaying) {
       widgetRef.current?.pause();
       setIsPlaying(false);
       return;
     }
 
-    // Resuming the current track
+    // Resuming the current track (SoundCloud)
     if (playing === i && !isPlaying) {
       widgetRef.current?.play();
       setIsPlaying(true);
       return;
     }
 
-    // Switching to a new track
+    // Switching to a new track (SoundCloud)
     setPlaying(i);
     setElapsed(0);
     setProgress(0);
@@ -224,8 +404,33 @@ export default function LatestMixes({
     const targetMix = mixes[mixIndex];
     if (!targetMix) return;
     const total = toSeconds(targetMix.duration);
-    const targetMs = Math.round(ratio * total * 1000);
 
+    if (isMixcloud) {
+      const targetSec = Math.round(ratio * total);
+      setElapsed(targetSec);
+      setProgress(ratio);
+
+      if (playing === mixIndex && mixcloudWidgetRef.current) {
+        mixcloudWidgetRef.current.seek(targetSec);
+      } else {
+        setActive(mixIndex);
+        setPlaying(mixIndex);
+        setIsBuffering(true);
+        setShowMiniPlayer(true);
+
+        const targetKey = targetMix.mixcloudKey || targetMix.mixcloudUrl;
+        if (isMixcloudWidgetReadyRef.current && mixcloudWidgetRef.current && targetKey) {
+          mixcloudWidgetRef.current.load(targetKey, true).then(() => {
+            mixcloudWidgetRef.current?.seek(targetSec);
+            setIsBuffering(false);
+            setIsPlaying(true);
+          });
+        }
+      }
+      return;
+    }
+
+    const targetMs = Math.round(ratio * total * 1000);
     setElapsed(Math.round(ratio * total));
     setProgress(ratio);
 
@@ -256,45 +461,67 @@ export default function LatestMixes({
       id="resources"
       className="scroll-mt-20 py-12 lg:py-16 bg-background transition-colors duration-200 relative"
     >
-      {/* Managed SoundCloud Widget iframe (mounted off-screen for audio playback) */}
-      <div
-        className="absolute -top-[9999px] -left-[9999px] w-[300px] h-[166px] opacity-0 pointer-events-none overflow-hidden"
-        aria-hidden="true"
-      >
-        <iframe
-          ref={iframeRef}
-          id="sc-widget-player"
-          title="DJ Smiley SoundCloud Player"
-          allow="autoplay; encrypted-media"
-          src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
-            currentMix?.soundCloudUrl || initialUrl
-          )}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
-          className="w-full h-[166px]"
-        />
-      </div>
+      {/* Managed Player Widget iframes (mounted off-screen for audio playback) */}
+      {isMixcloud ? (
+        <div
+          className="absolute -top-[9999px] -left-[9999px] w-[300px] h-[60px] opacity-0 pointer-events-none overflow-hidden"
+          aria-hidden="true"
+        >
+          <iframe
+            ref={mixcloudIframeRef}
+            id="mc-widget-player"
+            title="Mixcloud Player"
+            allow="autoplay; encrypted-media"
+            src={`https://www.mixcloud.com/widget/iframe/?feed=${encodeURIComponent(
+              initialMixcloudKey
+            )}&hide_cover=1&mini=1&light=1&autoplay=false`}
+            className="w-full h-[60px]"
+          />
+        </div>
+      ) : (
+        <div
+          className="absolute -top-[9999px] -left-[9999px] w-[300px] h-[166px] opacity-0 pointer-events-none overflow-hidden"
+          aria-hidden="true"
+        >
+          <iframe
+            ref={iframeRef}
+            id="sc-widget-player"
+            title="DJ Smiley SoundCloud Player"
+            allow="autoplay; encrypted-media"
+            src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
+              currentMix?.soundCloudUrl || initialUrl
+            )}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
+            className="w-full h-[166px]"
+          />
+        </div>
+      )}
 
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
-        {/* Section Header with SoundCloud link & badge */}
+        {/* Section Header with Profile link & badge */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2.5">
               <a
-                href={djSmileySoundCloudUrl}
+                href={profileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="DJ Smiley on SoundCloud"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/25 hover:bg-[#ff5500]/20 transition-all group"
+                aria-label={`${badgeLabel} profile`}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all group ${
+                  isMixcloud
+                    ? "bg-[#5000ff]/10 text-[#5000ff] border border-[#5000ff]/25 hover:bg-[#5000ff]/20 dark:text-[#8a60ff] dark:border-[#8a60ff]/30"
+                    : "bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/25 hover:bg-[#ff5500]/20"
+                }`}
               >
-                {/* SoundCloud Cloud icon */}
+                {isMixcloud ? (
+                  <MixcloudIcon className="w-4 h-4 fill-current shrink-0" />
+                ) : (
+                  <SoundCloudIcon className="w-4 h-4 fill-current text-[#ff5500] shrink-0" />
+                )}
+                <span>{badgeLabel}</span>
                 <svg
-                  className="w-4 h-4 fill-current text-[#ff5500] shrink-0"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M11.56 8.87V17h8.17c1.8 0 3.27-1.42 3.27-3.17 0-1.7-1.35-3.08-3.04-3.16-.27-2.68-2.58-4.76-5.4-4.76-1.12 0-2.16.33-3 0.96zm-1.8 1.48v6.65h.9V9.92a4.4 4.4 0 00-.9.43zm-1.8 1.05v5.6h.9v-5.78c-.32.05-.62.11-.9.18zm-1.8.44v5.16h.9v-5.32c-.32.04-.63.1-.9.16zm-1.8.27v4.89h.9v-5.03c-.32.04-.62.09-.9.14zm-1.8.5v4.39h.9v-4.52a6.3 6.3 0 00-.9.13zm-1.8 1.2v3.19h.9v-3.3c-.32.03-.62.06-.9.11zm-1.8 1.5v1.69h.9v-1.78c-.32.02-.62.05-.9.09z" />
-                </svg>
-                <span>DJ Smiley SoundCloud</span>
-                <svg
-                  className="w-3 h-3 text-[#ff5500] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                  className={`w-3 h-3 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ${
+                    isMixcloud ? "text-[#5000ff] dark:text-[#8a60ff]" : "text-[#ff5500]"
+                  }`}
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -318,7 +545,7 @@ export default function LatestMixes({
               Latest Sets &amp; Mixes
             </h2>
             <p className="mt-2 font-sans text-[16px] sm:text-[18px] leading-[25px] text-muted">
-              Hear the sound before you book it. Real sets streamed directly from SoundCloud.
+              Hear the sound before you book it. Real sets streamed directly from {platformName}.
             </p>
           </div>
         </div>
@@ -352,7 +579,7 @@ export default function LatestMixes({
                 }`}
               >
                 <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-5">
-                  {/* Thumbnail: 80px-110px, rounded 15px with hover overlay */}
+                  {/* Thumbnail */}
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
@@ -412,6 +639,28 @@ export default function LatestMixes({
                       {mix.title}
                     </h3>
                     <div className="mt-1 flex items-center gap-3">
+                      {mix.mixcloudUrl && (
+                        <a
+                          href={mix.mixcloudUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-[12px] text-[#5000ff] dark:text-[#8a60ff] hover:underline font-medium"
+                        >
+                          <MixcloudIcon className="w-3.5 h-3.5 fill-current" />
+                          <span>Mixcloud</span>
+                          <svg
+                            className="w-3 h-3"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+                          </svg>
+                        </a>
+                      )}
+
                       {mix.soundCloudUrl && (
                         <a
                           href={mix.soundCloudUrl}
@@ -420,6 +669,7 @@ export default function LatestMixes({
                           onClick={(e) => e.stopPropagation()}
                           className="inline-flex items-center gap-1 text-[12px] text-[#ff5500] hover:underline"
                         >
+                          <SoundCloudIcon className="w-3.5 h-3.5 fill-current" />
                           <span>SoundCloud</span>
                           <svg
                             className="w-3 h-3"
@@ -494,22 +744,20 @@ export default function LatestMixes({
           })}
         </ul>
 
-        {/* Listen More CTA */}
-        <div className="mt-8 sm:mt-10 flex justify-center">
+        {/* Bottom Listen More Link Button */}
+        <div className="mt-10 flex justify-center">
           <a
-            href={djSmileySoundCloudUrl}
+            href={profileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2.5 px-7 py-3 rounded-[12px] bg-surface-2 hover:bg-surface border border-hairline text-sm sm:text-base font-semibold text-foreground hover:border-brand/40 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
           >
-            {/* SoundCloud cloud icon */}
-            <svg
-              className="w-5 h-5 fill-[#ff5500] shrink-0 transition-transform group-hover:scale-110"
-              viewBox="0 0 24 24"
-            >
-              <path d="M11.56 8.87V17h8.17c1.8 0 3.27-1.42 3.27-3.17 0-1.7-1.35-3.08-3.04-3.16-.27-2.68-2.58-4.76-5.4-4.76-1.12 0-2.16.33-3 0.96zm-1.8 1.48v6.65h.9V9.92a4.4 4.4 0 00-.9.43zm-1.8 1.05v5.6h.9v-5.78c-.32.05-.62.11-.9.18zm-1.8.44v5.16h.9v-5.32c-.32.04-.63.1-.9.16zm-1.8.27v4.89h.9v-5.03c-.32.04-.62.09-.9.14zm-1.8.5v4.39h.9v-4.52a6.3 6.3 0 00-.9.13zm-1.8 1.2v3.19h.9v-3.3c-.32.03-.62.06-.9.11zm-1.8 1.5v1.69h.9v-1.78c-.32.02-.62.05-.9.09z" />
-            </svg>
-            <span>Listen more</span>
+            {isMixcloud ? (
+              <MixcloudIcon className="w-5 h-5 fill-[#5000ff] dark:fill-[#8a60ff] shrink-0 transition-transform group-hover:scale-110" />
+            ) : (
+              <SoundCloudIcon className="w-5 h-5 fill-[#ff5500] shrink-0 transition-transform group-hover:scale-110" />
+            )}
+            <span>{isMixcloud ? "Listen more on Mixcloud" : "Listen more"}</span>
             <svg
               className="w-4 h-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-foreground"
               viewBox="0 0 24 24"
@@ -553,8 +801,11 @@ export default function LatestMixes({
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <span className="text-[11px] uppercase tracking-wider text-[#ff5500] font-semibold">
-                  SoundCloud Stream
+                <span
+                  className="text-[11px] uppercase tracking-wider font-semibold"
+                  style={{ color: isMixcloud ? "#8a60ff" : "#ff5500" }}
+                >
+                  {isMixcloud ? "Mixcloud Stream" : "SoundCloud Stream"}
                 </span>
                 <span className="text-[11px] text-muted">· {currentMix.artist}</span>
               </div>

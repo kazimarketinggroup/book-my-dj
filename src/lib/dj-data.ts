@@ -12,6 +12,8 @@ export type DjMix = {
   alt: string;
   soundCloudUrl?: string;
   soundCloudTrackId?: string;
+  mixcloudUrl?: string;
+  mixcloudKey?: string;
   genre?: string;
 };
 export type Credential = { title: string; items: string };
@@ -135,7 +137,10 @@ export const djProfiles: DjProfile[] = [
     intro:
       "From headline clubs to intimate private parties — Luke brings precision programming and crowd-first energy.",
     hero: { image: `${LUKE}/11033 1.png`, alt: "Luke Luiz behind the decks" },
-    socials: SHARED_SOCIALS,
+    socials: [
+      { label: "Mixcloud", href: "https://www.mixcloud.com/DJLUKELUIZ/" },
+      { label: "Instagram", href: "https://www.instagram.com/Luke_Luiz/" },
+    ],
     about: {
       paragraphs: [
         "Luke is a co-founder of Book My DJ and a seasoned multi-genre DJ with a reputation for reading the room and delivering the right set at the right time. He covers everything from warm-up sets to peak-time festival stages, always keeping the dancefloor as the priority.",
@@ -169,23 +174,32 @@ export const djProfiles: DjProfile[] = [
       {
         artist: "@DJLUKELUIZ",
         title: "THE JAMHOUSE SUNDAY FUNDAY PROMO MIX | 01.08.21",
-        duration: "2:28:15",
+        duration: "45:06",
         cover: `${LUKE}/Rectangle 25.png`,
         alt: "Jamhouse Sunday Funday promo mix artwork",
+        mixcloudUrl: "https://www.mixcloud.com/DJLUKELUIZ/the-jamhouse-sunday-funday-promo-mix-010821/",
+        mixcloudKey: "/DJLUKELUIZ/the-jamhouse-sunday-funday-promo-mix-010821/",
+        genre: "R&B / Garage / Funky House",
       },
       {
         artist: "@DJLUKELUIZ",
         title: "#009 | THE SUMMER MIX 2020",
-        duration: "2:28:15",
+        duration: "57:01",
         cover: `${LUKE}/Rectangle 26.png`,
         alt: "The Summer Mix 2020 artwork",
+        mixcloudUrl: "https://www.mixcloud.com/DJLUKELUIZ/009-summer-mix-2020/",
+        mixcloudKey: "/DJLUKELUIZ/009-summer-mix-2020/",
+        genre: "Summer / House / R&B",
       },
       {
         artist: "@DJLUKELUIZ",
         title: "#010 2021 MIX",
-        duration: "2:28:15",
+        duration: "42:43",
         cover: `${LUKE}/Rectangle 27.png`,
         alt: "2021 mix artwork",
+        mixcloudUrl: "https://www.mixcloud.com/DJLUKELUIZ/010-2021-mix/",
+        mixcloudKey: "/DJLUKELUIZ/010-2021-mix/",
+        genre: "Hip-Hop / R&B / UK",
       },
     ],
     metaTitle: "Luke Luiz — Book My DJ",

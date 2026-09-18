@@ -191,6 +191,7 @@ export const eventCategories: EventCategory[] = [
 ];
 
 export const djSmileySoundCloudUrl = "https://soundcloud.com/d-jsmiley";
+export const djLukeLuizMixcloudUrl = "https://www.mixcloud.com/DJLUKELUIZ/";
 
 export type Mix = {
   artist: string;
@@ -200,6 +201,8 @@ export type Mix = {
   alt: string;
   soundCloudUrl?: string;
   soundCloudTrackId?: string;
+  mixcloudUrl?: string;
+  mixcloudKey?: string;
   genre?: string;
 };
 

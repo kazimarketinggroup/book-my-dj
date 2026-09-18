@@ -16,7 +16,7 @@ export default function DjProfilePage({ dj }: { dj: DjProfile }) {
       <DjAbout dj={dj} />
       <DjGenres dj={dj} />
       <DjGallery dj={dj} />
-      <LatestMixes mixes={dj.mixes} />
+      <LatestMixes mixes={dj.mixes} dj={dj} />
       <DjOccasions dj={dj} />
       <EventsWeCover />
       <CtaBanner />
