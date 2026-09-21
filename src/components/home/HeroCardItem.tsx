@@ -71,7 +71,7 @@ export default function HeroCardItem({
     >
       {/* Video & Image Shape Container */}
       <div
-        className={`relative w-full ${aspectClass} overflow-hidden ${shapeRoundedClass} ${borderClass} shadow-2xl bg-card transition-all duration-300 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] group-hover:scale-[1.015]`}
+        className={`relative w-full ${aspectClass} overflow-hidden ${shapeRoundedClass} ${borderClass} shadow-2xl bg-zinc-950 transition-all duration-300 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] group-hover:scale-[1.015]`}
       >
         {/* Still Image: Always rendered and sticks underneath */}
         <Image
@@ -80,7 +80,7 @@ export default function HeroCardItem({
           fill
           sizes={sizes}
           priority={priority}
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+          className="object-cover scale-[1.06] transition-transform duration-500 ease-out group-hover:scale-[1.10]"
         />
 
         {/* Video: Plays inside the shape on hover or click */}

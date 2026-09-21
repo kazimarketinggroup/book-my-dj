@@ -103,7 +103,7 @@ export default function Hero() {
                 </div>
 
                 {/* Card 1 (Top-Right): Rectangle 1 (Portrait, 151px x 220px) */}
-                <div className="absolute right-0 top-0 w-[29.5%] z-10">
+                <div className="absolute right-0 top-1 w-[29.5%] z-10">
                   <HeroCardItem
                     card={heroCards[1]}
                     aspectClass="aspect-[151/220]"
