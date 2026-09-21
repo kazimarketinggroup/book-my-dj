@@ -20,7 +20,7 @@ export default function HeroCardItem({
   aspectClass,
   sizes,
   priority = false,
-  borderClass = "border-[3px] border-hairline",
+  borderClass = "border border-hairline",
   shapeRoundedClass = "rounded-[16.6px]",
   className = "",
   children,
@@ -80,7 +80,7 @@ export default function HeroCardItem({
           fill
           sizes={sizes}
           priority={priority}
-          className="object-cover scale-[1.06] transition-transform duration-500 ease-out group-hover:scale-[1.10]"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
 
         {/* Video: Plays inside the shape on hover or click */}

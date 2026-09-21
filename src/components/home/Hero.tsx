@@ -70,7 +70,7 @@ export default function Hero() {
                     sizes="50vw"
                     borderClass="border-0"
                     shapeRoundedClass="rounded-t-[14px]"
-                    className="overflow-hidden rounded-[16.6px] border-[2px] border-hairline shadow-lg bg-card"
+                    className="overflow-hidden rounded-[16.6px] border border-hairline shadow-lg bg-card"
                   >
                     <div className="p-2.5 bg-surface-2/95">
                       <p className="font-display text-[10.5px] font-semibold text-foreground">{card.title}</p>
