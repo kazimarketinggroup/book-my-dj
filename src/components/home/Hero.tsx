@@ -62,13 +62,13 @@ export default function Hero() {
                     card={card}
                     aspectClass="aspect-[4/3]"
                     sizes="50vw"
-                    borderClass="border-0"
-                    shapeRoundedClass="rounded-t-[14px]"
-                    className="overflow-hidden rounded-[16.6px] border border-hairline shadow-lg bg-card"
+                    borderClass="border border-white/10"
+                    shapeRoundedClass="rounded-[16px]"
+                    className="overflow-hidden rounded-[16px] border border-hairline shadow-lg bg-card"
                   >
-                    <div className="p-2.5 bg-surface-2/95">
-                      <p className="font-display text-[10.5px] font-semibold text-foreground">{card.title}</p>
-                      <p className="font-sans text-[9.5px] text-muted">{card.caption}</p>
+                    <div className="p-2.5 bg-black/95 text-white">
+                      <p className="font-display text-[10.5px] font-semibold text-white">{card.title}</p>
+                      <p className="font-sans text-[9.5px] text-zinc-300">{card.caption}</p>
                     </div>
                   </HeroCardItem>
                 ))}
@@ -77,19 +77,20 @@ export default function Hero() {
               {/* Desktop / Tablet Collage matching exact Figma bounds */}
               <div className="hidden sm:block relative h-[530px] lg:h-[570px] xl:h-[610px] w-full">
                 {/* Card 4 (Top-Left): Rectangle 4 (Landscape, 265px x 155px) */}
-                <div className="absolute left-0 top-[20%] w-[50%] z-20">
+                <div className="absolute left-0 top-[24%] w-[51%] z-20">
                   <HeroCardItem
                     card={heroCards[0]}
                     aspectClass="aspect-[265/155]"
+                    shapeRoundedClass="rounded-[20px]"
                     sizes="35vw"
                     priority
                   >
-                    {/* Badge: left +46px, -28px above top in Figma */}
-                    <div className="absolute -top-4 left-6 z-30 flex flex-col justify-center rounded-[8px] border border-hairline bg-surface-2/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-foreground whitespace-nowrap">
+                    {/* Badge: top-left edge */}
+                    <div className="absolute -top-4 left-6 z-30 flex flex-col justify-center rounded-[8px] border border-white/15 bg-black/90 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[0].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-muted whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
                         {heroCards[0].caption}
                       </p>
                     </div>
@@ -97,19 +98,20 @@ export default function Hero() {
                 </div>
 
                 {/* Card 1 (Top-Right): Rectangle 1 (Portrait, 151px x 220px) */}
-                <div className="absolute right-0 top-1 w-[29.5%] z-10">
+                <div className="absolute right-0 top-0 w-[31%] z-10">
                   <HeroCardItem
                     card={heroCards[1]}
                     aspectClass="aspect-[151/220]"
+                    shapeRoundedClass="rounded-[20px]"
                     sizes="25vw"
                     priority
                   >
                     {/* Badge: overlapping lower-right */}
-                    <div className="absolute bottom-6 -right-5 z-30 flex flex-col justify-center rounded-[8px] border border-hairline bg-surface-2/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-foreground whitespace-nowrap">
+                    <div className="absolute bottom-8 -right-6 z-30 flex flex-col justify-center rounded-[8px] border border-white/15 bg-black/90 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[1].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-muted whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
                         {heroCards[1].caption}
                       </p>
                     </div>
@@ -117,18 +119,19 @@ export default function Hero() {
                 </div>
 
                 {/* Card 2 (Bottom-Left): Rectangle 2 (Portrait, 151px x 220px) */}
-                <div className="absolute left-[20%] top-[54%] w-[29.5%] z-30">
+                <div className="absolute left-[19%] top-[50%] w-[31%] z-20">
                   <HeroCardItem
                     card={heroCards[2]}
                     aspectClass="aspect-[151/220]"
+                    shapeRoundedClass="rounded-[20px]"
                     sizes="25vw"
                   >
                     {/* Badge: overlapping lower-left */}
-                    <div className="absolute bottom-6 -left-8 z-40 flex flex-col justify-center rounded-[8px] border border-hairline bg-surface-2/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-foreground whitespace-nowrap">
+                    <div className="absolute bottom-8 -left-8 z-25 flex flex-col justify-center rounded-[8px] border border-white/15 bg-black/90 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[2].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-muted whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
                         {heroCards[2].caption}
                       </p>
                     </div>
@@ -136,18 +139,19 @@ export default function Hero() {
                 </div>
 
                 {/* Card 3 (Bottom-Right): Rectangle 3 (Landscape, 265px x 155px) */}
-                <div className="absolute right-0 top-[46%] w-[50%] z-20">
+                <div className="absolute right-0 top-[48%] w-[51%] z-30">
                   <HeroCardItem
                     card={heroCards[3]}
                     aspectClass="aspect-[265/155]"
+                    shapeRoundedClass="rounded-[20px]"
                     sizes="35vw"
                   >
-                    {/* Badge: bottom */}
-                    <div className="absolute bottom-2 left-6 z-30 flex flex-col justify-center rounded-[8px] border border-hairline bg-surface-2/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-foreground whitespace-nowrap">
+                    {/* Badge: bottom-right (in Figma!) */}
+                    <div className="absolute bottom-2 right-6 z-40 flex flex-col justify-center rounded-[8px] border border-white/15 bg-black/90 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[3].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-muted whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-300 whitespace-nowrap mt-0.5">
                         {heroCards[3].caption}
                       </p>
                     </div>
