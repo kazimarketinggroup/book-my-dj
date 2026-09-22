@@ -344,10 +344,23 @@ function BookingWizardInner() {
     setPostcodeError("");
     setPostcode(check.formatted);
 
-    // Perform quick background lookup if not done yet, then advance cleanly
+    // If postcode has not been checked/verified yet, verify it now and reveal venue box
     if (!isPostcodeVerified) {
-      await verifyAndLookupPostcode(check.formatted);
+      setIsLookingUpPostcode(true);
+      try {
+        const res = await lookupUKPostcode(check.formatted);
+        if (res.success && res.formattedLocation) {
+          setAreaLocation(res.formattedLocation);
+        }
+        setIsPostcodeVerified(true);
+      } catch {
+        setIsPostcodeVerified(true);
+      } finally {
+        setIsLookingUpPostcode(false);
+      }
+      return;
     }
+
     next();
   };
 
@@ -542,23 +555,6 @@ function BookingWizardInner() {
             {wizardIntro.placeholder}
           </label>
           <div className="relative mt-10 w-full max-w-md">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </span>
             <input
               id="w-postcode"
               type="text"
@@ -573,7 +569,7 @@ function BookingWizardInner() {
               }}
               placeholder={wizardIntro.placeholder}
               maxLength={10}
-              className={`${field} h-13 pl-11 pr-11 text-base uppercase tracking-wider font-medium placeholder:normal-case placeholder:tracking-normal ${
+              className={`${field} h-13 px-4 pr-11 text-base uppercase tracking-wider font-medium placeholder:normal-case placeholder:tracking-normal ${
                 postcodeError
                   ? "border-red-400 bg-red-50/20 focus:border-red-500 focus:ring-red-400"
                   : isPostcodeVerified
@@ -609,13 +605,83 @@ function BookingWizardInner() {
               <span>{postcodeError}</span>
             </p>
           ) : isPostcodeVerified && areaLocation ? (
-            <p className="mt-2 text-xs font-medium text-emerald-700 animate-in fade-in">
-              📍 {areaLocation}
+            <p className="mt-2.5 text-xs font-medium text-emerald-700 animate-in fade-in">
+              ✓ Covering {areaLocation}
             </p>
           ) : (
             <p className="mt-2 text-[11px] text-muted">
               Enter full UK postcode (e.g. SW1A 1AA, M1 1AE) or outward code (e.g. SW1, B1)
             </p>
+          )}
+
+          {/* When address/postcode is checked, show the venue box */}
+          {isPostcodeVerified && (
+            <div className="mt-5 w-full max-w-md text-left animate-in fade-in slide-in-from-top-2 duration-300">
+              <label
+                htmlFor="w-venue-step0"
+                className="block text-xs font-semibold text-slate-800"
+              >
+                Venue Name or Street Address{" "}
+                <span className="font-normal text-muted">(Optional)</span>
+              </label>
+              <div className="relative mt-1.5" ref={addressDropdownRef}>
+                <input
+                  id="w-venue-step0"
+                  type="text"
+                  value={venueAddress}
+                  onChange={(e) => handleVenueChange(e.target.value)}
+                  onFocus={() => {
+                    if (addressSuggestions.length > 0) setShowAddressDropdown(true);
+                  }}
+                  placeholder={
+                    areaLocation
+                      ? `e.g. Venue, hotel or street in ${areaLocation}`
+                      : "e.g. The Dorchester, 14 Baker Street, or Private Venue"
+                  }
+                  className={`${field} h-12 px-3.5 text-sm`}
+                />
+                {isSearchingAddress && (
+                  <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
+                    <svg
+                      className="h-4 w-4 animate-spin text-muted"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      />
+                    </svg>
+                  </div>
+                )}
+                {showAddressDropdown && addressSuggestions.length > 0 && (
+                  <ul className="absolute z-30 mt-1 max-h-52 w-full overflow-auto rounded-xl border border-slate-200 bg-white p-1 text-xs shadow-xl ring-1 ring-black/5 animate-in fade-in">
+                    {addressSuggestions.map((item, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => selectAddress(item)}
+                        className="flex cursor-pointer items-start gap-2 rounded-lg px-3 py-2 text-slate-800 transition-colors hover:bg-slate-100 hover:text-black"
+                      >
+                        <span className="mt-0.5 text-slate-400">•</span>
+                        <span className="leading-snug">{item.displayName}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <p className="mt-1.5 text-[11px] text-muted">
+                Search nearby venues or enter your venue name if confirmed.
+              </p>
+            </div>
           )}
 
           <div className="mt-6 flex w-full max-w-md items-center justify-between gap-4">
@@ -963,50 +1029,7 @@ function BookingWizardInner() {
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="w-venue" className={label}>
-                  Venue Name or Street Address <span className="text-xs font-normal text-muted">(Optional)</span>
-                </label>
-                <div className="relative mt-1.5" ref={addressDropdownRef}>
-                  <input
-                    id="w-venue"
-                    type="text"
-                    value={venueAddress}
-                    onChange={(e) => handleVenueChange(e.target.value)}
-                    onFocus={() => {
-                      if (addressSuggestions.length > 0) setShowAddressDropdown(true);
-                    }}
-                    placeholder={
-                      areaLocation
-                        ? `e.g. Venue name or street in ${areaLocation}`
-                        : "e.g. The Dorchester, 14 Baker Street, or Private Venue"
-                    }
-                    className={`${field} text-sm`}
-                  />
-                  {isSearchingAddress && (
-                    <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
-                      <svg className="h-4 w-4 animate-spin text-muted" viewBox="0 0 24 24" fill="none">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                    </div>
-                  )}
-                  {showAddressDropdown && addressSuggestions.length > 0 && (
-                    <ul className="absolute z-30 mt-1 max-h-52 w-full overflow-auto rounded-xl border border-slate-200 bg-white p-1 text-xs shadow-xl ring-1 ring-black/5 animate-in fade-in">
-                      {addressSuggestions.map((item, idx) => (
-                        <li
-                          key={idx}
-                          onClick={() => selectAddress(item)}
-                          className="flex cursor-pointer items-start gap-2 rounded-lg px-3 py-2 text-slate-800 transition-colors hover:bg-slate-100 hover:text-black"
-                        >
-                          <span className="mt-0.5 text-muted">📍</span>
-                          <span className="leading-snug">{item.displayName}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </div>
+
 
               <div>
                 <label htmlFor="w-message" className={label}>
