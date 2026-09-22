@@ -44,14 +44,8 @@ export default function Hero() {
               {/* Action Buttons */}
               <div className="mt-8 flex items-center gap-4">
                 <Link
-                  href="/contact"
-                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800 active:scale-[0.98]"
-                >
-                  Book My DJ
-                </Link>
-                <Link
                   href="/events"
-                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] border border-hairline bg-surface font-display text-[16px] font-medium text-foreground backdrop-blur transition-all hover:bg-surface-2 active:scale-[0.98]"
+                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800 active:scale-[0.98]"
                 >
                   Our Events
                 </Link>
