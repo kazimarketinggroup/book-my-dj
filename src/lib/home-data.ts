@@ -27,7 +27,7 @@ export const heroCards: HeroCard[] = [
     video:
       "/videos/hero/AQPFNSRT0OZfcBi62RtPx-Jt38T7j8V1embRpba7Wftjgkf1L_IbhJGf9r8TifovwGHCPMBWB6SUSpZQ6KGd-M3InzM4aEQqiWOG3x0.mp4",
     alt: "DJ laughing behind the booth",
-    title: "Corporate Event DJ",
+    title: "Corporate Event Dj",
     caption: "Covering events across the UK",
   },
   {
@@ -44,7 +44,7 @@ export const heroCards: HeroCard[] = [
       "/videos/hero/AQPm3U6d_HGDndVLlQTqNO9K1wpDZKvbDwORIPJtLLX0IHZN_znUgKc4B-C1mVPEzwv0rKRP25E4Y2ECJ5oR8gg.mp4",
     alt: "DJ playing on Pioneer decks outdoors",
     title: "Pro Sound & Lighting",
-    caption: "Industry grade kit, every time",
+    caption: "Industry-grade kit, every time",
   },
   {
     src: `${IMG}/Rectangle 3.png`, // DJ with blue headphones at laptop/gear

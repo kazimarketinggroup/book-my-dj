@@ -87,16 +87,17 @@ export default function Hero() {
                   <HeroCardItem
                     card={heroCards[0]}
                     aspectClass="aspect-[405/236]"
-                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    shapeRoundedClass="rounded-[22px] sm:rounded-[26px] lg:rounded-[28px]"
+                    borderClass="border-0"
                     sizes="30vw"
                     priority
                   >
                     {/* Badge: sits on top edge of card */}
-                    <div className="absolute -top-3.5 left-[12%] sm:left-[16%] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
+                    <div className="absolute -top-4 sm:-top-5 left-[10%] sm:left-[14%] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[0].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[10px] sm:text-[11px] leading-tight text-zinc-200 whitespace-nowrap mt-1">
                         {heroCards[0].caption}
                       </p>
                     </div>
@@ -108,16 +109,17 @@ export default function Hero() {
                   <HeroCardItem
                     card={heroCards[1]}
                     aspectClass="aspect-[231/337]"
-                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    shapeRoundedClass="rounded-[22px] sm:rounded-[26px] lg:rounded-[28px]"
+                    borderClass="border-0"
                     sizes="20vw"
                     priority
                   >
                     {/* Badge: overlapping right edge */}
-                    <div className="absolute top-[56%] -right-[64px] sm:-right-[74px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
+                    <div className="absolute top-[56%] -right-[68px] sm:-right-[80px] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[1].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[10px] sm:text-[11px] leading-tight text-zinc-200 whitespace-nowrap mt-1">
                         {heroCards[1].caption}
                       </p>
                     </div>
@@ -129,16 +131,17 @@ export default function Hero() {
                   <HeroCardItem
                     card={heroCards[2]}
                     aspectClass="aspect-[231/337]"
-                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    shapeRoundedClass="rounded-[22px] sm:rounded-[26px] lg:rounded-[28px]"
+                    borderClass="border-0"
                     sizes="20vw"
                     priority
                   >
                     {/* Badge: overlapping lower-left edge */}
-                    <div className="absolute bottom-5 -left-[70px] sm:-left-[82px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
+                    <div className="absolute bottom-5 -left-[74px] sm:-left-[86px] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[2].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[10px] sm:text-[11px] leading-tight text-zinc-200 whitespace-nowrap mt-1">
                         {heroCards[2].caption}
                       </p>
                     </div>
@@ -150,16 +153,17 @@ export default function Hero() {
                   <HeroCardItem
                     card={heroCards[3]}
                     aspectClass="aspect-[405/236]"
-                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    shapeRoundedClass="rounded-[22px] sm:rounded-[26px] lg:rounded-[28px]"
+                    borderClass="border-0"
                     sizes="30vw"
                     priority
                   >
                     {/* Badge: overlapping bottom edge */}
-                    <div className="absolute -bottom-3 right-6 sm:right-10 z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
+                    <div className="absolute -bottom-3.5 sm:-bottom-4 right-6 sm:right-10 z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[3].title}
                       </p>
-                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[10px] sm:text-[11px] leading-tight text-zinc-200 whitespace-nowrap mt-1">
                         {heroCards[3].caption}
                       </p>
                     </div>
