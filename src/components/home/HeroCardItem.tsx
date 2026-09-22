@@ -71,7 +71,7 @@ export default function HeroCardItem({
     >
       {/* Video & Image Shape Container */}
       <div
-        className={`relative w-full ${aspectClass} overflow-hidden ${shapeRoundedClass} ${borderClass} shadow-2xl bg-zinc-950 transition-all duration-300 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] group-hover:scale-[1.015]`}
+        className={`relative w-full ${aspectClass} overflow-hidden ${shapeRoundedClass} ${borderClass} shadow-md shadow-black/10 bg-zinc-950 transition-all duration-300 group-hover:shadow-xl group-hover:scale-[1.015]`}
       >
         {/* Still Image: Always rendered and sticks underneath */}
         <Image

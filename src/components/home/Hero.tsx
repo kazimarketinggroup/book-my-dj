@@ -41,19 +41,25 @@ export default function Hero() {
                 </li>
               </ul>
 
-              {/* Action Buttons */}
-              <div className="mt-8 flex items-center gap-4">
+              {/* Action Buttons (matching Figma 1:1 with both Book My DJ and Our Events) */}
+              <div className="mt-8 flex items-center gap-3.5 sm:gap-4">
+                <Link
+                  href="/contact"
+                  className="flex h-[42px] w-[150px] sm:w-[170px] items-center justify-center rounded-[5px] bg-black font-display text-[15px] sm:text-[16px] font-medium text-white shadow-sm transition-all hover:bg-zinc-800 active:scale-[0.98]"
+                >
+                  Book My DJ
+                </Link>
                 <Link
                   href="/events"
-                  className="flex h-[40px] w-[171px] items-center justify-center rounded-[5px] bg-black font-display text-[16px] font-medium text-white shadow-md transition-all hover:bg-zinc-800 active:scale-[0.98]"
+                  className="flex h-[42px] w-[150px] sm:w-[170px] items-center justify-center rounded-[5px] border border-black bg-white font-display text-[15px] sm:text-[16px] font-medium text-black transition-all hover:bg-zinc-50 active:scale-[0.98]"
                 >
                   Our Events
                 </Link>
               </div>
             </div>
 
-            {/* Right Floating DJ Cards Collage (Exact Figma Coordinates & 3px Borders) */}
-            <div className="relative mx-auto w-full max-w-[550px] sm:max-w-[620px] lg:max-w-[660px] lg:w-[660px] xl:max-w-[700px] xl:w-[700px] lg:justify-self-end">
+            {/* Right Floating DJ Cards Collage (Exact Figma Coordinates & Proportion) */}
+            <div className="relative mx-auto w-full max-w-[460px] sm:max-w-[490px] lg:max-w-[500px] xl:max-w-[520px] lg:w-[500px] xl:w-[520px] lg:justify-self-end">
               {/* Mobile fallback: grid */}
               <div className="grid grid-cols-2 gap-3.5 sm:hidden">
                 {heroCards.map((card) => (
@@ -64,7 +70,7 @@ export default function Hero() {
                     sizes="50vw"
                     borderClass="border border-white/10"
                     shapeRoundedClass="rounded-[16px]"
-                    className="overflow-hidden rounded-[16px] border border-hairline shadow-lg bg-card"
+                    className="overflow-hidden rounded-[16px] border border-hairline shadow-sm bg-card"
                   >
                     <div className="p-2.5 bg-black/95 text-white">
                       <p className="font-display text-[10.5px] font-semibold text-white">{card.title}</p>
@@ -75,22 +81,22 @@ export default function Hero() {
               </div>
 
               {/* Desktop / Tablet Collage matching exact Figma bounds */}
-              <div className="hidden sm:block relative w-full aspect-[835/763]">
+              <div className="hidden sm:block relative w-full aspect-[835/764]">
                 {/* Card 0 (Top-Left): Landscape (Laughing DJ) */}
-                <div className="absolute left-0 top-[16.5%] w-[48.5%] z-20">
+                <div className="absolute left-0 top-[22.2%] w-[48.5%] z-20">
                   <HeroCardItem
                     card={heroCards[0]}
-                    aspectClass="aspect-[405/322]"
-                    shapeRoundedClass="rounded-[22px]"
-                    sizes="35vw"
+                    aspectClass="aspect-[405/236]"
+                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    sizes="30vw"
                     priority
                   >
-                    {/* Badge: top-left edge */}
-                    <div className="absolute -top-4 left-[16%] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
+                    {/* Badge: sits on top edge of card */}
+                    <div className="absolute -top-3.5 left-[12%] sm:left-[16%] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[0].title}
                       </p>
-                      <p className="font-sans text-[9px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
                         {heroCards[0].caption}
                       </p>
                     </div>
@@ -98,20 +104,20 @@ export default function Hero() {
                 </div>
 
                 {/* Card 1 (Top-Right): Portrait (DJ in black shirt mixing) */}
-                <div className="absolute left-[51.8%] top-0 w-[27.6%] z-10">
+                <div className="absolute left-[51.9%] top-0 w-[27.7%] z-10">
                   <HeroCardItem
                     card={heroCards[1]}
-                    aspectClass="aspect-[230/449]"
-                    shapeRoundedClass="rounded-[22px]"
-                    sizes="25vw"
+                    aspectClass="aspect-[231/337]"
+                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    sizes="20vw"
                     priority
                   >
                     {/* Badge: overlapping right edge */}
-                    <div className="absolute top-[52%] -right-[68px] lg:-right-[76px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
+                    <div className="absolute top-[56%] -right-[64px] sm:-right-[74px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[1].title}
                       </p>
-                      <p className="font-sans text-[9px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
                         {heroCards[1].caption}
                       </p>
                     </div>
@@ -119,19 +125,19 @@ export default function Hero() {
                 </div>
 
                 {/* Card 2 (Bottom-Left): Portrait (DJ at Pioneer decks, cream shirt) */}
-                <div className="absolute left-[20.8%] top-[52.4%] w-[27.7%] z-20">
+                <div className="absolute left-[20.8%] top-[55.9%] w-[27.7%] z-20">
                   <HeroCardItem
                     card={heroCards[2]}
-                    aspectClass="aspect-[231/363]"
-                    shapeRoundedClass="rounded-[22px]"
-                    sizes="25vw"
+                    aspectClass="aspect-[231/337]"
+                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    sizes="20vw"
                   >
                     {/* Badge: overlapping lower-left edge */}
-                    <div className="absolute bottom-6 -left-[72px] lg:-left-[84px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
+                    <div className="absolute bottom-5 -left-[70px] sm:-left-[82px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[2].title}
                       </p>
-                      <p className="font-sans text-[9px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
                         {heroCards[2].caption}
                       </p>
                     </div>
@@ -142,16 +148,16 @@ export default function Hero() {
                 <div className="absolute left-[51.5%] top-[47.4%] w-[48.5%] z-20">
                   <HeroCardItem
                     card={heroCards[3]}
-                    aspectClass="aspect-[405/266]"
-                    shapeRoundedClass="rounded-[22px]"
-                    sizes="35vw"
+                    aspectClass="aspect-[405/236]"
+                    shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
+                    sizes="30vw"
                   >
-                    {/* Badge: overlapping bottom-right edge */}
-                    <div className="absolute -bottom-3 right-8 lg:right-12 z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-xl backdrop-blur-md pointer-events-none">
-                      <p className="font-display text-[10.5px] font-semibold leading-tight text-white whitespace-nowrap">
+                    {/* Badge: overlapping bottom edge */}
+                    <div className="absolute -bottom-3 right-6 sm:right-10 z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
+                      <p className="font-display text-[11px] font-semibold leading-tight text-white whitespace-nowrap">
                         {heroCards[3].title}
                       </p>
-                      <p className="font-sans text-[9px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
+                      <p className="font-sans text-[9.5px] leading-tight text-zinc-400 whitespace-nowrap mt-0.5">
                         {heroCards[3].caption}
                       </p>
                     </div>
