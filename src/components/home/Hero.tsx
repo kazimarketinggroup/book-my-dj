@@ -93,7 +93,7 @@ export default function Hero() {
                     priority
                   >
                     {/* Badge: sits on top edge of card */}
-                    <div className="absolute -top-4 sm:-top-5 left-[10%] sm:left-[14%] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                    <div className="absolute -top-4 sm:-top-5 left-[10%] sm:left-[14%] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none transition-all duration-500 ease-out group-hover:duration-200 group-hover:opacity-0 group-hover:scale-95 group-[.video-playing]:opacity-0 group-[.video-playing]:scale-95">
                       <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[0].title}
                       </p>
@@ -115,7 +115,7 @@ export default function Hero() {
                     priority
                   >
                     {/* Badge: overlapping right edge */}
-                    <div className="absolute top-[56%] -right-[68px] sm:-right-[80px] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                    <div className="absolute top-[56%] -right-[68px] sm:-right-[80px] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none transition-all duration-500 ease-out group-hover:duration-200 group-hover:opacity-0 group-hover:scale-95 group-[.video-playing]:opacity-0 group-[.video-playing]:scale-95">
                       <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[1].title}
                       </p>
@@ -137,7 +137,7 @@ export default function Hero() {
                     priority
                   >
                     {/* Badge: overlapping lower-left edge */}
-                    <div className="absolute bottom-5 -left-[74px] sm:-left-[86px] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                    <div className="absolute bottom-5 -left-[74px] sm:-left-[86px] z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none transition-all duration-500 ease-out group-hover:duration-200 group-hover:opacity-0 group-hover:scale-95 group-[.video-playing]:opacity-0 group-[.video-playing]:scale-95">
                       <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[2].title}
                       </p>
@@ -159,7 +159,7 @@ export default function Hero() {
                     priority
                   >
                     {/* Badge: overlapping bottom edge */}
-                    <div className="absolute -bottom-3.5 sm:-bottom-4 right-6 sm:right-10 z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none">
+                    <div className="absolute -bottom-3.5 sm:-bottom-4 right-6 sm:right-10 z-30 flex flex-col justify-center rounded-[12px] sm:rounded-[14px] border border-white/10 bg-black/95 px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_10px_25px_rgba(0,0,0,0.5)] backdrop-blur-md pointer-events-none transition-all duration-500 ease-out group-hover:duration-200 group-hover:opacity-0 group-hover:scale-95 group-[.video-playing]:opacity-0 group-[.video-playing]:scale-95">
                       <p className="font-display text-[12px] sm:text-[13px] font-semibold leading-tight text-white whitespace-nowrap tracking-tight">
                         {heroCards[3].title}
                       </p>

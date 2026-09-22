@@ -67,7 +67,7 @@ export default function HeroCardItem({
           handleToggle();
         }
       }}
-      className={`group cursor-pointer select-none outline-none ${className}`}
+      className={`group cursor-pointer select-none outline-none ${className} ${isPlaying ? "video-playing" : ""}`}
     >
       {/* Video & Image Shape Container */}
       <div
