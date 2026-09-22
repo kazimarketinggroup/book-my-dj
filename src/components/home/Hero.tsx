@@ -131,6 +131,7 @@ export default function Hero() {
                     aspectClass="aspect-[231/337]"
                     shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
                     sizes="20vw"
+                    priority
                   >
                     {/* Badge: overlapping lower-left edge */}
                     <div className="absolute bottom-5 -left-[70px] sm:-left-[82px] z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
@@ -151,6 +152,7 @@ export default function Hero() {
                     aspectClass="aspect-[405/236]"
                     shapeRoundedClass="rounded-[18px] sm:rounded-[22px]"
                     sizes="30vw"
+                    priority
                   >
                     {/* Badge: overlapping bottom edge */}
                     <div className="absolute -bottom-3 right-6 sm:right-10 z-30 flex flex-col justify-center rounded-[8px] border border-white/10 bg-black/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md pointer-events-none">
