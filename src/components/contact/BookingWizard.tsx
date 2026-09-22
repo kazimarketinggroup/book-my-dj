@@ -73,24 +73,7 @@ function validateAndFormatUKPostcode(raw: string): {
   return { isValid: true, formatted: compact };
 }
 
-/** Calculate upcoming Saturday date in YYYY-MM-DD */
-function getUpcomingSaturday(offsetWeeks = 0): string {
-  const d = new Date();
-  const day = d.getDay(); // 0 is Sunday, 6 is Saturday
-  let daysUntilSat = 6 - day;
-  if (daysUntilSat <= 0) {
-    daysUntilSat += 7; // Next Saturday if today is Saturday or Sunday
-  }
-  d.setDate(d.getDate() + daysUntilSat + offsetWeeks * 7);
-  return d.toISOString().split("T")[0];
-}
 
-/** Calculate future date in YYYY-MM-DD */
-function getFutureDateMonths(months: number): string {
-  const d = new Date();
-  d.setMonth(d.getMonth() + months);
-  return d.toISOString().split("T")[0];
-}
 
 /** Format date string (YYYY-MM-DD) into readable British format */
 function formatDisplayDate(dateStr: string): string {
@@ -110,15 +93,7 @@ function formatDisplayDate(dateStr: string): string {
   }
 }
 
-/** Pre-set popular start time chips */
-const POPULAR_START_TIMES = [
-  { value: "18:00", label: "6:00 PM" },
-  { value: "19:00", label: "7:00 PM (Popular)" },
-  { value: "20:00", label: "8:00 PM" },
-  { value: "21:00", label: "9:00 PM" },
-  { value: "14:00", label: "2:00 PM (Daytime)" },
-  { value: "Flexible", label: "Flexible" },
-];
+
 
 /** Standard 30-min start time options for the dropdown */
 const TIME_DROPDOWN_OPTIONS = [
@@ -148,50 +123,7 @@ const TIME_DROPDOWN_OPTIONS = [
   { value: "23:00", label: "11:00 PM" },
 ];
 
-/** Quick duration chips */
-const DURATION_CHIPS = [
-  { value: "3", label: "3 Hours" },
-  { value: "4", label: "4 Hours (Standard)" },
-  { value: "5", label: "5 Hours" },
-  { value: "6", label: "6 Hours" },
-  { value: "8", label: "8 Hours (All Night)" },
-];
 
-/** Compute estimated schedule window */
-function calculatePartyWindow(startTime: string, durationHours: string): string {
-  const durNum = parseFloat(durationHours) || 4;
-  if (
-    !startTime ||
-    startTime === "Flexible" ||
-    startTime.toLowerCase().includes("flexible")
-  ) {
-    return `Flexible start · ${durNum} hours DJ set`;
-  }
-
-  const match = startTime.match(/^(\d{1,2}):(\d{2})/);
-  if (!match) return `${durNum} hours duration`;
-
-  const startH = parseInt(match[1], 10);
-  const startM = parseInt(match[2], 10);
-
-  const totalMinutes = Math.round(startH * 60 + startM + durNum * 60);
-  const endH = Math.floor(totalMinutes / 60) % 24;
-  const endM = totalMinutes % 60;
-
-  const formatH = (h: number) => {
-    const period = h >= 12 ? "PM" : "AM";
-    const h12 = h % 12 === 0 ? 12 : h % 12;
-    return `${h12}${period}`;
-  };
-
-  const format24 = (h: number, m: number) =>
-    `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
-
-  const startStr = `${format24(startH, startM)} (${formatH(startH)})`;
-  const endStr = `${format24(endH, endM)} (${formatH(endH)})`;
-
-  return `${startStr} → ${endStr} (${durNum} hrs)`;
-}
 
 export default function BookingWizard() {
   return (
@@ -266,16 +198,7 @@ function BookingWizardInner() {
   // Get minimum selectable date (today in UK local)
   const todayString = useMemo(() => new Date().toISOString().split("T")[0], []);
 
-  // Quick date presets
-  const datePresets = useMemo(
-    () => [
-      { label: "This Sat", date: getUpcomingSaturday(0) },
-      { label: "Next Sat", date: getUpcomingSaturday(1) },
-      { label: "In 1 Mo", date: getFutureDateMonths(1) },
-      { label: "In 2 Mo", date: getFutureDateMonths(2) },
-    ],
-    []
-  );
+
 
   // Check if current postcode input has valid UK format
   const isPostcodeValidFormat = useMemo(() => {
@@ -439,12 +362,7 @@ function BookingWizardInner() {
     next();
   };
 
-  // Duration modifier helper
-  const adjustDuration = (delta: number) => {
-    const currentVal = parseInt(answers.duration || "4", 10);
-    const newVal = Math.min(16, Math.max(2, currentVal + delta));
-    choose("duration", newVal.toString());
-  };
+
 
   // Handle final submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -764,7 +682,7 @@ function BookingWizardInner() {
         </StepShell>
       )}
 
-      {/* Modern Date, Time & Duration UI */}
+      {/* Date, start time and duration */}
       {current?.kind === "date" && (
         <StepShell
           heading={dateStep.heading}
@@ -773,8 +691,8 @@ function BookingWizardInner() {
           onBack={back}
           onNext={handleDateNext}
         >
-          <div className="space-y-5">
-            {/* 1. Date of Event with quick chips */}
+          <div className="space-y-4">
+            {/* 1. Date of Event */}
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="w-date" className={label}>
@@ -786,7 +704,6 @@ function BookingWizardInner() {
                   </span>
                 )}
               </div>
-
               <div className="relative mt-1.5">
                 <input
                   id="w-date"
@@ -794,174 +711,68 @@ function BookingWizardInner() {
                   min={todayString}
                   value={answers.date ?? ""}
                   onChange={(e) => choose("date", e.target.value)}
-                  className={`${field} font-medium ${
+                  className={`${field} h-12 text-sm font-medium ${
                     stepError && !answers.date
                       ? "border-red-400 bg-red-50/20 focus:border-red-500 focus:ring-red-400"
                       : ""
                   }`}
                 />
               </div>
-
-              {/* Quick Date Presets */}
-              <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                <span className="text-[11px] text-muted mr-1">Quick pick:</span>
-                {datePresets.map((preset) => {
-                  const isChosen = answers.date === preset.date;
-                  return (
-                    <button
-                      key={preset.label}
-                      type="button"
-                      onClick={() => choose("date", preset.date)}
-                      className={`rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
-                        isChosen
-                          ? "bg-black text-white shadow-xs"
-                          : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                      }`}
-                    >
-                      {preset.label}
-                    </button>
-                  );
-                })}
-              </div>
             </div>
 
-            {/* 2. Estimated Start Time (Clean selector - NO annoying native colon/dots) */}
-            <div>
-              <label htmlFor="w-start-select" className={label}>
-                {dateStep.labels.start}
-              </label>
-
-              {/* Quick Time Pills */}
-              <div className="mt-1.5 grid grid-cols-3 gap-1.5 sm:grid-cols-6">
-                {POPULAR_START_TIMES.map((t) => {
-                  const isSelected =
-                    answers.start === t.value ||
-                    (t.value === "19:00" && !answers.start);
-                  return (
-                    <button
-                      key={t.value}
-                      type="button"
-                      onClick={() => choose("start", t.value)}
-                      className={`flex flex-col items-center justify-center rounded-lg border py-2 px-1 text-center transition-all ${
-                        isSelected
-                          ? "border-black bg-slate-900 text-white shadow-xs"
-                          : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
-                      }`}
-                    >
-                      <span className="text-xs font-semibold leading-none">
-                        {t.value === "Flexible" ? "Flexible" : t.value}
-                      </span>
-                      <span
-                        className={`mt-1 text-[10px] leading-none ${
-                          isSelected ? "text-slate-300" : "text-muted"
-                        }`}
-                      >
-                        {t.label.replace(t.value, "").trim() || "Evening"}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Dropdown for other specific 30-min start times */}
-              <div className="mt-2 flex items-center gap-2">
-                <span className="text-[11px] text-muted whitespace-nowrap">
-                  Custom time:
-                </span>
-                <select
-                  id="w-start-select"
-                  value={answers.start ?? "19:00"}
-                  onChange={(e) => choose("start", e.target.value)}
-                  className="h-8 w-full rounded-md border border-slate-200 bg-slate-50 px-2.5 text-xs text-foreground outline-none transition-colors focus:border-black focus:bg-white"
-                >
-                  {TIME_DROPDOWN_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* 3. Duration with Stepper & Quick Pills */}
-            <div>
-              <div className="flex items-center justify-between">
-                <label className={label}>{dateStep.labels.duration}</label>
-                <span className="text-xs font-semibold text-foreground">
-                  {answers.duration || "4"} Hours
-                </span>
-              </div>
-
-              <div className="mt-2 flex items-center gap-2">
-                {/* Stepper controls */}
-                <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5">
-                  <button
-                    type="button"
-                    onClick={() => adjustDuration(-1)}
-                    disabled={(parseInt(answers.duration || "4", 10)) <= 2}
-                    aria-label="Decrease duration"
-                    className="flex h-8 w-8 items-center justify-center rounded-md text-base font-bold text-slate-700 transition-colors hover:bg-white active:bg-slate-200 disabled:opacity-30 disabled:pointer-events-none"
+            {/* 2. Start Time & Duration (Clean 2-Column Grid) */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="w-start-select" className={label}>
+                  {dateStep.labels.start}
+                </label>
+                <div className="relative mt-1.5">
+                  <select
+                    id="w-start-select"
+                    value={answers.start ?? "19:00"}
+                    onChange={(e) => choose("start", e.target.value)}
+                    className={`${field} h-12 appearance-none pr-10 text-sm font-medium`}
                   >
-                    &minus;
-                  </button>
-                  <span className="min-w-14 text-center text-xs font-semibold text-foreground">
-                    {answers.duration || "4"} hrs
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => adjustDuration(1)}
-                    disabled={(parseInt(answers.duration || "4", 10)) >= 16}
-                    aria-label="Increase duration"
-                    className="flex h-8 w-8 items-center justify-center rounded-md text-base font-bold text-slate-700 transition-colors hover:bg-white active:bg-slate-200 disabled:opacity-30 disabled:pointer-events-none"
-                  >
-                    &#43;
-                  </button>
-                </div>
-
-                {/* Duration Pills */}
-                <div className="flex flex-1 flex-wrap gap-1.5">
-                  {DURATION_CHIPS.map((chip) => {
-                    const active = answers.duration === chip.value;
-                    return (
-                      <button
-                        key={chip.value}
-                        type="button"
-                        onClick={() => choose("duration", chip.value)}
-                        className={`rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-all ${
-                          active
-                            ? "border-black bg-slate-900 text-white shadow-xs"
-                            : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
-                        }`}
-                      >
-                        {chip.label}
-                      </button>
-                    );
-                  })}
+                    {TIME_DROPDOWN_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-muted">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+                      <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Logical Event Schedule Preview Summary */}
-            <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 text-xs text-muted">
-              <div className="flex items-center gap-2 font-medium text-foreground">
-                <svg
-                  className="h-4 w-4 text-black"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <span>Estimated Schedule Window</span>
+              <div>
+                <label htmlFor="w-duration-select" className={label}>
+                  {dateStep.labels.duration}
+                </label>
+                <div className="relative mt-1.5">
+                  <select
+                    id="w-duration-select"
+                    value={answers.duration ?? "4"}
+                    onChange={(e) => choose("duration", e.target.value)}
+                    className={`${field} h-12 appearance-none pr-10 text-sm font-medium`}
+                  >
+                    <option value="4">4 Hours (Standard)</option>
+                    <option value="3">3 Hours (Short Set)</option>
+                    <option value="5">5 Hours (Full Evening)</option>
+                    <option value="6">6 Hours (Extended Night)</option>
+                    <option value="7">7 Hours</option>
+                    <option value="8">8 Hours (All Night / Full Day)</option>
+                    <option value="2">2 Hours</option>
+                  </select>
+                  <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-muted">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+                      <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <p className="mt-1 text-slate-700">
-                {calculatePartyWindow(answers.start || "19:00", answers.duration || "4")}
-                {answers.date ? ` · ${formatDisplayDate(answers.date)}` : ""}
-              </p>
             </div>
           </div>
         </StepShell>
