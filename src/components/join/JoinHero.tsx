@@ -6,8 +6,23 @@ export default function JoinHero() {
   const [back, front] = joinHero.images;
 
   return (
-    <section className="scroll-mt-20 py-10 sm:py-14 lg:py-16 bg-background text-foreground">
-      <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-16 lg:px-16">
+    <section className="relative scroll-mt-20 overflow-hidden py-10 sm:py-14 lg:py-16 bg-background text-foreground">
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster="/videos/BMDJ/Join Us.png"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      >
+        <source src="/videos/BMDJ/Join Us.mp4" type="video/mp4" />
+      </video>
+      {/* Overlay for text readability */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-white/80 backdrop-blur-[2px]" />
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-16 lg:px-16">
         {/* Left Copy */}
         <div>
           <h1 className="max-w-[620px] font-display text-[36px] sm:text-[44px] lg:text-[50px] font-normal leading-[1.18] lg:leading-[58px] text-foreground">

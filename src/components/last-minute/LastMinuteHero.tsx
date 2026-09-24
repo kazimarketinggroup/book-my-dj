@@ -4,7 +4,22 @@ import { lastMinuteHero } from "@/lib/last-minute-data";
 export default function LastMinuteHero() {
   return (
     <section className="relative isolate flex min-h-[calc(100vh-5rem)] min-h-[calc(100svh-5rem)] flex-col justify-center overflow-hidden bg-background text-foreground transition-colors duration-200">
-      <div className="mx-auto w-full max-w-[1440px] px-6 py-20 text-center sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster="/videos/BMDJ/Last Min DJ.jpg"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      >
+        <source src="/videos/BMDJ/Last Min DJ.mp4" type="video/mp4" />
+      </video>
+      {/* Overlay for text readability */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-white/80 backdrop-blur-[2px]" />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-20 text-center sm:px-10 sm:py-24 lg:px-16 lg:py-28">
         <h1 className="mx-auto max-w-[726px] font-display text-[36px] font-normal leading-[44px] text-foreground sm:text-[44px] sm:leading-[52px] lg:text-[50px] lg:leading-[60px]">
           {lastMinuteHero.title[0]}
           <br />

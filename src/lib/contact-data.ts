@@ -10,6 +10,7 @@ export const channels: ContactChannel[] = [
   { title: "Call Us", blurb: "Speak to the team directly - [phone number]" },
   { title: "WhatsApp Us", blurb: "Quick questions, quick answers - [WhatsApp link]" },
   { title: "Email Us", blurb: "For detailed briefs and enquiries - [email address]" },
+  { title: "Address", blurb: "Registered Address" },
 ];
 
 export const hurry = {

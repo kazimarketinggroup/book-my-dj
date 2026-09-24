@@ -13,8 +13,23 @@ import HeroCardItem from "@/components/home/HeroCardItem";
 export default function Hero() {
   return (
     <section className="relative isolate flex min-h-[calc(100vh-5rem)] min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden bg-background text-foreground transition-colors duration-200">
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster="/videos/BMDJ/Home.jpg"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      >
+        <source src="/videos/BMDJ/Home.mp4" type="video/mp4" />
+      </video>
+      {/* Overlay for text readability */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-white/80 backdrop-blur-[2px]" />
+
       {/* Main Hero Content Area */}
-      <div className="flex flex-1 items-center py-6 lg:py-10">
+      <div className="relative z-10 flex flex-1 items-center py-6 lg:py-10">
         <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-8 xl:gap-12">
             
@@ -178,7 +193,9 @@ export default function Hero() {
       </div>
 
       {/* Bottom Ticker Marquee Strip (Figma: 54px high, top 753px) */}
-      <EventMarquee />
+      <div className="relative z-10">
+        <EventMarquee />
+      </div>
     </section>
   );
 }

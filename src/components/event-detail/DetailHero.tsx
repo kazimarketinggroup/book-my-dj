@@ -8,8 +8,23 @@ export default function DetailHero({ detail }: { detail: EventDetail }) {
   const { hero, title } = detail;
 
   return (
-    <section className="hero-screen relative bg-background text-foreground border-b border-hairline transition-colors duration-200">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-14 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-20 2xl:px-16">
+    <section className="hero-screen relative overflow-hidden bg-background text-foreground border-b border-hairline transition-colors duration-200">
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster="/videos/BMDJ/Sectors.jpg"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      >
+        <source src="/videos/BMDJ/Sector.mp4" type="video/mp4" />
+      </video>
+      {/* Overlay for text readability */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-white/80 backdrop-blur-[2px]" />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 py-14 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-20 2xl:px-16">
         <h1 className="font-display fluid-hero font-semibold text-foreground">
           {title}
         </h1>
