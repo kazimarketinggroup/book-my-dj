@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { heroCards } from "@/lib/home-data";
 import EventMarquee from "@/components/home/EventMarquee";
@@ -11,10 +14,26 @@ import HeroCardItem from "@/components/home/HeroCardItem";
  * - Card 3 (Bottom-Right): Horizontal/Landscape -> Badge on bottom-left
  */
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.defaultMuted = true;
+    v.muted = true;
+    const playPromise = v.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy handled gracefully
+      });
+    }
+  }, []);
+
   return (
     <section className="relative isolate flex min-h-[calc(100vh-5rem)] min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden bg-background text-foreground transition-colors duration-200">
       {/* Video Background */}
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
@@ -25,8 +44,8 @@ export default function Hero() {
       >
         <source src="/videos/BMDJ/Home.mp4" type="video/mp4" />
       </video>
-      {/* Overlay for text readability */}
-      <div className="pointer-events-none absolute inset-0 z-0 bg-white/80 backdrop-blur-[2px]" />
+      {/* Subtle overlay for text readability without washing out or blurring wave lines */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-white/70 via-white/20 to-transparent" />
 
       {/* Main Hero Content Area */}
       <div className="relative z-10 flex flex-1 items-center py-6 lg:py-10">
